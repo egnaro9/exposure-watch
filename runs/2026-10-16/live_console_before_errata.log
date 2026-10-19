@@ -1,0 +1,46 @@
+{
+ "code": {
+  "pairs": 22,
+  "correct": 20,
+  "escalated": 0,
+  "overcalled": 2,
+  "undercalled": 0,
+  "false_alarm": 0,
+  "missed": 0,
+  "cost_usd": 0.0,
+  "mean_latency_s": 0.0
+ },
+ "agent": {
+  "pairs": 22,
+  "correct": 20,
+  "escalated": 0,
+  "overcalled": 1,
+  "undercalled": 1,
+  "false_alarm": 0,
+  "missed": 0,
+  "cost_usd": 1.8685,
+  "mean_latency_s": 11.85
+ },
+ "agent+verify": {
+  "pairs": 22,
+  "correct": 20,
+  "escalated": 0,
+  "overcalled": 1,
+  "undercalled": 1,
+  "false_alarm": 0,
+  "missed": 0,
+  "cost_usd": 1.8685,
+  "mean_latency_s": 11.85
+ },
+ "agent+verify+skeptic": {
+  "pairs": 22,
+  "correct": 19,
+  "escalated": 1,
+  "overcalled": 1,
+  "undercalled": 1,
+  "false_alarm": 0,
+  "missed": 0,
+  "cost_usd": 4.7331,
+  "mean_latency_s": 29.69
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "note": "Corrections to eval/ground_truth.json, which stays exactly as it was frozen before the first live run. Both errata were prompted by agent output in run 2026-10-16, so each was then re-derived by three labelers who saw only the documents and the verdict definitions, never the key or any agent answer, with a neutral adjudicator for any disputed pair. Every report scores against the frozen key and the corrected key side by side.",
+ "errata": [
+  {
+   "item": "inv-05",
+   "cve": "CVE-2023-4966",
+   "was": "affected",
+   "now": "conditional",
+   "why": "NVD and KEV both limit exposure to an appliance 'configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server', and the inventory does not record that. By the key's own definition of conditional, the original label was wrong.",
+   "found_by": "triage agent and skeptic both answered conditional; three blind labelers 3 of 3 conditional; adjudicator conditional",
+   "found_on": "2026-10-16"
+  },
+  {
+   "item": "inv-03",
+   "cve": "CVE-2023-34362",
+   "was": "affected",
+   "now": "unknown",
+   "why": "The two NVD documents disagree at exactly this version. The description says the flaw is in versions 'before ... 2023.0.1 (15.0.1)', which makes 2023.0.1 the fix; the configuration row says versionEndExcluding=2023.0.2, which includes it. Every Transfer row is one patch above the description. The verdict definitions give no precedence between the two, and 'unknown' is defined as 'the documents do not settle it'. CONTESTED: the blind labelers split 2 to 1 for affected; the adjudicator ruled unknown. All three labelers noted independently that the vendor advisory names 2023.0.1 as fixed for this CVE, so in the real world this host is likely not affected by it, while still exposed to the follow-on MOVEit CVEs.",
+   "found_by": "skeptic escalated the triage agent's 'affected'; three blind labelers split 2 affected, 1 unknown; adjudicator unknown",
+   "found_on": "2026-10-16"
+  }
+ ]
+}

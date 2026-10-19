@@ -1,0 +1,115 @@
+{
+ "note": "pair_id as shown to the labelers, and the key label each pair had before the run (eval/ground_truth.json). Not shown to the labelers.",
+ "pairs": {
+  "P01": {
+   "item": "inv-01",
+   "cve": "CVE-2021-44228",
+   "key": "affected"
+  },
+  "P02": {
+   "item": "inv-02",
+   "cve": "CVE-2021-44228",
+   "key": "not_affected"
+  },
+  "P03": {
+   "item": "inv-03",
+   "cve": "CVE-2023-34362",
+   "key": "affected"
+  },
+  "P04": {
+   "item": "inv-04",
+   "cve": "CVE-2023-34362",
+   "key": "not_affected"
+  },
+  "P05": {
+   "item": "inv-05",
+   "cve": "CVE-2023-4966",
+   "key": "affected"
+  },
+  "P06": {
+   "item": "inv-06",
+   "cve": "CVE-2023-4966",
+   "key": "not_affected"
+  },
+  "P07": {
+   "item": "inv-07",
+   "cve": "CVE-2022-26134",
+   "key": "affected"
+  },
+  "P08": {
+   "item": "inv-07",
+   "cve": "CVE-2023-22515",
+   "key": "not_affected"
+  },
+  "P09": {
+   "item": "inv-08",
+   "cve": "CVE-2023-22515",
+   "key": "affected"
+  },
+  "P10": {
+   "item": "inv-08",
+   "cve": "CVE-2022-26134",
+   "key": "not_affected"
+  },
+  "P11": {
+   "item": "inv-09",
+   "cve": "CVE-2021-26855",
+   "key": "affected"
+  },
+  "P12": {
+   "item": "inv-10",
+   "cve": "CVE-2021-26855",
+   "key": "not_affected"
+  },
+  "P13": {
+   "item": "inv-11",
+   "cve": "CVE-2024-3400",
+   "key": "conditional"
+  },
+  "P14": {
+   "item": "inv-12",
+   "cve": "CVE-2024-3400",
+   "key": "not_affected"
+  },
+  "P15": {
+   "item": "inv-13",
+   "cve": "CVE-2023-20198",
+   "key": "conditional"
+  },
+  "P16": {
+   "item": "inv-14",
+   "cve": "CVE-2023-20198",
+   "key": "not_affected"
+  },
+  "P17": {
+   "item": "inv-15",
+   "cve": "CVE-2022-1388",
+   "key": "affected"
+  },
+  "P18": {
+   "item": "inv-16",
+   "cve": "CVE-2022-1388",
+   "key": "not_affected"
+  },
+  "P19": {
+   "item": "inv-17",
+   "cve": "CVE-2021-22205",
+   "key": "affected"
+  },
+  "P20": {
+   "item": "inv-18",
+   "cve": "CVE-2024-21887",
+   "key": "affected"
+  },
+  "P21": {
+   "item": "inv-19",
+   "cve": "CVE-2023-27350",
+   "key": "affected"
+  },
+  "P22": {
+   "item": "inv-20",
+   "cve": "CVE-2023-27350",
+   "key": "not_affected"
+  }
+ }
+}

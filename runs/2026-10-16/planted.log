@@ -1,0 +1,36 @@
+{
+ "verifier": {
+  "quote_altered": {
+   "planted": 19,
+   "caught_by_verifier": 19
+  },
+  "wrong_source": {
+   "planted": 22,
+   "caught_by_verifier": 22
+  },
+  "invented_cve": {
+   "planted": 22,
+   "caught_by_verifier": 22
+  },
+  "wrong_cve": {
+   "planted": 22,
+   "caught_by_verifier": 22
+  },
+  "verdict_flipped": {
+   "planted": 22,
+   "caught_by_verifier": 0
+  }
+ },
+ "skeptic": {
+  "control": {
+   "shown": 22,
+   "not_accepted": 2,
+   "cost_usd": 2.8583
+  },
+  "verdict_flipped": {
+   "shown": 22,
+   "not_accepted": 22,
+   "cost_usd": 2.7227
+  }
+ }
+}

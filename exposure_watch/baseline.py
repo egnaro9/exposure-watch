@@ -1,0 +1,111 @@
+"""The no-agent baseline: match the item against NVD's CPE rows in code.
+
+This is what a careful engineer writes without a model: an alias table from
+the inventory's product names to NVD's CPE names, then a range or exact-list
+check. It never says "conditional", because nothing in a CPE row records that
+exposure depends on a feature being switched on. Every agent shape is scored
+against this, so an agent has to beat plain code to justify its cost.
+"""
+from __future__ import annotations
+
+import re
+from typing import Dict, List, Tuple
+
+from .data import Item, config_line, nvd_description, vulnerable_rows
+from .versions import in_range, split_update, compare
+
+# inventory (vendor, product) -> NVD "vendor:product" names that describe it
+ALIASES: Dict[Tuple[str, str], List[str]] = {
+    ("Apache", "Log4j"): ["apache:log4j"],
+    ("Progress", "MOVEit Transfer"): ["progress:moveit_transfer"],
+    ("Citrix", "NetScaler ADC"): ["citrix:netscaler_application_delivery_controller"],
+    ("Atlassian", "Confluence Server"): ["atlassian:confluence_server"],
+    ("Atlassian", "Confluence Data Center"): ["atlassian:confluence_data_center"],
+    ("Microsoft", "Exchange Server"): ["microsoft:exchange_server"],
+    ("Palo Alto Networks", "PAN-OS"): ["paloaltonetworks:pan-os"],
+    ("Cisco", "IOS XE"): ["cisco:ios_xe"],
+    ("F5", "BIG-IP LTM"): ["f5:big-ip_local_traffic_manager"],
+    ("GitLab", "GitLab Community Edition"): ["gitlab:gitlab"],
+    ("Ivanti", "Connect Secure"): ["ivanti:connect_secure"],
+    ("PaperCut", "PaperCut NG"): ["papercut:papercut_ng"],
+}
+
+_RANGE_KEYS = ("versionStartIncluding", "versionStartExcluding",
+               "versionEndIncluding", "versionEndExcluding")
+
+
+def judge(item: Item, cve: str) -> Tuple[str, str]:
+    """('affected' | 'not_affected' | 'unknown', the row or reason that decided it).
+
+    An affected verdict returns the deciding row exactly as the agent sees it."""
+    names = ALIASES.get((item.vendor, item.product))
+    if not names:
+        return "unknown", "no alias for this product"
+    version, update = split_update(item.vendor, item.product, item.version)
+    for m in vulnerable_rows(cve):
+        f = m["criteria"].split(":")
+        if f"{f[3]}:{f[4]}" not in names:
+            continue
+        if any(m.get(k) for k in _RANGE_KEYS):
+            if in_range(version,
+                        start=m.get("versionStartIncluding") or m.get("versionStartExcluding") or "",
+                        start_incl=bool(m.get("versionStartIncluding")),
+                        end=m.get("versionEndIncluding") or m.get("versionEndExcluding") or "",
+                        end_incl=bool(m.get("versionEndIncluding"))):
+                return "affected", config_line(m)
+            continue
+        row_version, row_update = f[5], f[6]
+        if row_version in ("*", "-") or compare(version, row_version) != 0:
+            continue
+        if row_update == "*" or row_update == update or (row_update == "-" and update in ("-", "*")):
+            return "affected", config_line(m)
+    return "not_affected", "no vulnerable row matched"
+
+
+# A description phrase that makes exposure depend on something the inventory
+# does not record. WRITTEN AFTER READING THESE 12 DESCRIPTIONS: it is tuned on
+# the test set, so the code+keywords score is an upper bound for this approach,
+# not a measurement of it. A held-out set of CVEs is what would measure it.
+CONDITION = re.compile(r"\bfeature\b|\bwhen configured\b|\bconfigured as\b|\bwhen exposed\b", re.I)
+
+
+def judge_with_keywords(item: Item, cve: str) -> Tuple[str, str]:
+    """The baseline, plus one rule: an affected verdict whose NVD description
+    names a feature or configuration condition becomes conditional."""
+    verdict, why = judge(item, cve)
+    if verdict == "affected":
+        m = CONDITION.search(nvd_description(cve))
+        if m:
+            return "conditional", f"{why}; description condition: {m.group(0)!r}"
+    return verdict, why
+
+
+def nearest_row(item: Item, cve: str) -> str:
+    """For an item no row matches, the row of its own product that comes closest
+    below it: the range that ends just before its version, or the highest listed
+    (version, update) not above it. If every row is above the item, the range
+    that starts lowest. The best single passage for "not affected"; empty when
+    the product has no row at all."""
+    names = ALIASES.get((item.vendor, item.product)) or []
+    version, update = split_update(item.vendor, item.product, item.version)
+    best, best_key, above, above_start = "", None, "", None
+    for m in vulnerable_rows(cve):
+        f = m["criteria"].split(":")
+        if f"{f[3]}:{f[4]}" not in names:
+            continue
+        if any(m.get(k) for k in _RANGE_KEYS):
+            start = m.get("versionStartIncluding") or m.get("versionStartExcluding") or ""
+            if start and compare(start, version) > 0 and (above_start is None or compare(start, above_start) < 0):
+                above, above_start = config_line(m), start
+            end = m.get("versionEndIncluding") or m.get("versionEndExcluding") or ""
+            if not end or compare(end, version) > 0:
+                continue
+            k = (end, "")
+        else:
+            if f[5] in ("*", "-") or compare(f[5], version) > 0:
+                continue
+            k = (f[5], f[6] if compare(f[5], version) == 0 else "")
+        if best_key is None or compare(k[0], best_key[0]) > 0 or (
+                compare(k[0], best_key[0]) == 0 and compare(k[1], best_key[1]) > 0):
+            best, best_key = config_line(m), k
+    return best or above

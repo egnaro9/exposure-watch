@@ -1,0 +1,137 @@
+{
+ "note": "Hand-derived from the NVD configurations in fixtures/nvd and the KEV entries in fixtures/kev_catalog.json, then checked against the deterministic matcher. 'conditional' means the version is listed but exposure depends on a feature the inventory does not record.",
+ "pairs": [
+  {
+   "item": "inv-01",
+   "cve": "CVE-2021-44228",
+   "truth": "affected",
+   "basis": "2.13.0 <= v < 2.15.0"
+  },
+  {
+   "item": "inv-02",
+   "cve": "CVE-2021-44228",
+   "truth": "not_affected",
+   "basis": "at or above 2.15.0"
+  },
+  {
+   "item": "inv-03",
+   "cve": "CVE-2023-34362",
+   "truth": "affected",
+   "basis": "2023.0.0 <= v < 2023.0.2"
+  },
+  {
+   "item": "inv-04",
+   "cve": "CVE-2023-34362",
+   "truth": "not_affected",
+   "basis": "at or above 2023.0.2"
+  },
+  {
+   "item": "inv-05",
+   "cve": "CVE-2023-4966",
+   "truth": "affected",
+   "basis": "13.1 <= v < 13.1-49.15"
+  },
+  {
+   "item": "inv-06",
+   "cve": "CVE-2023-4966",
+   "truth": "not_affected",
+   "basis": "14.1 range ends before 14.1-8.50"
+  },
+  {
+   "item": "inv-07",
+   "cve": "CVE-2022-26134",
+   "truth": "affected",
+   "basis": "7.13.0 <= v < 7.13.7"
+  },
+  {
+   "item": "inv-07",
+   "cve": "CVE-2023-22515",
+   "truth": "not_affected",
+   "basis": "CVE-2023-22515 affects 8.x only"
+  },
+  {
+   "item": "inv-08",
+   "cve": "CVE-2023-22515",
+   "truth": "affected",
+   "basis": "8.5.0 <= v < 8.5.2"
+  },
+  {
+   "item": "inv-08",
+   "cve": "CVE-2022-26134",
+   "truth": "not_affected",
+   "basis": "CVE-2022-26134 ranges end in 7.18"
+  },
+  {
+   "item": "inv-09",
+   "cve": "CVE-2021-26855",
+   "truth": "affected",
+   "basis": "2019 cumulative_update_8 is listed"
+  },
+  {
+   "item": "inv-10",
+   "cve": "CVE-2021-26855",
+   "truth": "not_affected",
+   "basis": "2019 cumulative_update_9 is not listed"
+  },
+  {
+   "item": "inv-11",
+   "cve": "CVE-2024-3400",
+   "truth": "conditional",
+   "basis": "10.2.9 is listed; exposure requires the GlobalProtect feature configured"
+  },
+  {
+   "item": "inv-12",
+   "cve": "CVE-2024-3400",
+   "truth": "not_affected",
+   "basis": "10.2.9 hotfix h1 is not listed"
+  },
+  {
+   "item": "inv-13",
+   "cve": "CVE-2023-20198",
+   "truth": "conditional",
+   "basis": "17.9 <= v < 17.9.4a; exposure requires the web UI feature"
+  },
+  {
+   "item": "inv-14",
+   "cve": "CVE-2023-20198",
+   "truth": "not_affected",
+   "basis": "17.9.4a is the end of the excluded range"
+  },
+  {
+   "item": "inv-15",
+   "cve": "CVE-2022-1388",
+   "truth": "affected",
+   "basis": "15.1.0 <= v < 15.1.5.1"
+  },
+  {
+   "item": "inv-16",
+   "cve": "CVE-2022-1388",
+   "truth": "not_affected",
+   "basis": "16.1 range ends before 16.1.2.2"
+  },
+  {
+   "item": "inv-17",
+   "cve": "CVE-2021-22205",
+   "truth": "affected",
+   "basis": "13.10.0 <= v < 13.10.3"
+  },
+  {
+   "item": "inv-18",
+   "cve": "CVE-2024-21887",
+   "truth": "affected",
+   "basis": "22.6 r2 is listed"
+  },
+  {
+   "item": "inv-19",
+   "cve": "CVE-2023-27350",
+   "truth": "affected",
+   "basis": "22.0.0 <= v < 22.0.9"
+  },
+  {
+   "item": "inv-20",
+   "cve": "CVE-2023-27350",
+   "truth": "not_affected",
+   "basis": "22.0.9 is the end of the excluded range"
+  }
+ ]
+}

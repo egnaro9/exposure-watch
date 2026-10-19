@@ -1,0 +1,21 @@
+id,vendor,product,version,where
+inv-01,Apache,Log4j,2.14.1,billing-service (bundled library)
+inv-02,Apache,Log4j,2.17.1,reporting-service (bundled library)
+inv-03,Progress,MOVEit Transfer,2023.0.1,file-exchange-01
+inv-04,Progress,MOVEit Transfer,2023.0.3,file-exchange-02
+inv-05,Citrix,NetScaler ADC,13.1-49.13,edge-adc-01
+inv-06,Citrix,NetScaler ADC,14.1-8.50,edge-adc-02
+inv-07,Atlassian,Confluence Server,7.13.5,wiki-legacy
+inv-08,Atlassian,Confluence Data Center,8.5.1,wiki-dc
+inv-09,Microsoft,Exchange Server,2019 CU8,mail-01
+inv-10,Microsoft,Exchange Server,2019 CU9,mail-02
+inv-11,Palo Alto Networks,PAN-OS,10.2.9,fw-hq
+inv-12,Palo Alto Networks,PAN-OS,10.2.9-h1,fw-branch
+inv-13,Cisco,IOS XE,17.9.4,core-sw-01
+inv-14,Cisco,IOS XE,17.9.4a,core-sw-02
+inv-15,F5,BIG-IP LTM,15.1.4,lb-01
+inv-16,F5,BIG-IP LTM,16.1.2.2,lb-02
+inv-17,GitLab,GitLab Community Edition,13.10.2,git-01
+inv-18,Ivanti,Connect Secure,22.6R2,vpn-01
+inv-19,PaperCut,PaperCut NG,22.0.8,print-01
+inv-20,PaperCut,PaperCut NG,22.0.9,print-02

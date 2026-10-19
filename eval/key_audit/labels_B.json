@@ -1,0 +1,208 @@
+{
+ "role": "labeler B",
+ "model": [
+  "claude-opus-5-5"
+ ],
+ "output": {
+  "labels": [
+   {
+    "pair_id": "P22",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:papercut:papercut_ng:*:*:*:*:*:*:*:* | versionStartIncluding=22.0.0 | versionEndExcluding=22.0.9",
+    "reasoning": "The 22.x PaperCut NG row's upper bound is exclusive at 22.0.9, so the installed 22.0.9 is outside that range. No other NG row covers 22.x. The NVD description only names 22.0.5 as the tested build, so it does not extend the range.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P21",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:papercut:papercut_ng:*:*:*:*:*:*:*:* | versionStartIncluding=22.0.0 | versionEndExcluding=22.0.9",
+    "reasoning": "22.0.8 is at least 22.0.0 and below the exclusive bound 22.0.9, so it falls in the PaperCut NG range. None of the documents names a feature or configuration condition.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P20",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:22.6:r2:*:*:*:*:*:*",
+    "reasoning": "The config lists Connect Secure version 22.6 with update r2 as an exact entry, and the recorded 22.6R2 matches both the version and the update. The documents give no feature or configuration condition for exposure. The admin-authentication requirement is part of how the flaw works, not an inventory gap.",
+    "outside_knowledge_note": "In the real world, Ivanti's interim XML mitigation could have been imported on this appliance, and the inventory does not record that. Ivanti also later shipped patched 22.6R2.x builds, so a more precise build string could change the answer. Exploitation in the wild chained this CVE with the CVE-2023-46805 authentication bypass, which removed the need for admin credentials.",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P19",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=13.10.0 | versionEndExcluding=13.10.3",
+    "reasoning": "13.10.2 is at least 13.10.0 and below the exclusive bound 13.10.3 on the community-edition row, and the matching enterprise row has the same bounds, so the edition does not matter. The NVD description says the flaw affects all versions from 11.9 with no feature condition. The KEV wording about instances that \"utilize the ability to upload images through GitLab Workhorse\" describes the attack path, not a feature that can be turned off.",
+    "outside_knowledge_note": "Workhorse image-upload handling is part of every standard GitLab install. Real-world exploitation (ExifTool via DjVu) needed no authentication on many instances, so no hidden condition limits exposure. The KEV text misspells the vendor as \"GitHub\".",
+    "confidence": "medium"
+   },
+   {
+    "pair_id": "P18",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:f5:big-ip_local_traffic_manager:*:*:*:*:*:*:*:* | versionStartIncluding=16.1.0 | versionEndExcluding=16.1.2.2",
+    "reasoning": "The LTM 16.1.x range is exclusive at 16.1.2.2, so the installed 16.1.2.2 is outside it. The NVD description agrees, saying \"16.1.x versions prior to 16.1.2.2\".",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P17",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:f5:big-ip_local_traffic_manager:*:*:*:*:*:*:*:* | versionStartIncluding=15.1.0 | versionEndExcluding=15.1.5.1",
+    "reasoning": "Compared token by token, 15.1.4 is at least 15.1.0 and below 15.1.5.1, so it is in the LTM range. The description agrees (\"15.1.x versions prior to 15.1.5.1\") and states no feature condition.",
+    "outside_knowledge_note": "In practice, exposure needs iControl REST to be reachable through the management interface or self IPs. That is the default reachability, but some sites restrict it, and the inventory does not record it.",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P16",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:o:cisco:ios_xe:*:*:*:*:*:*:*:* | versionStartIncluding=17.9 | versionEndExcluding=17.9.4a",
+    "reasoning": "The 17.9 range's upper bound is exclusive at 17.9.4a, and the installed version is exactly 17.9.4a, so it is outside the range. Because it is not in the range, the web UI feature condition does not come into play.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P15",
+    "label": "conditional",
+    "source": "kev",
+    "deciding_quote": "For affected products (Cisco IOS XE Web UI exposed to the internet or to untrusted networks)",
+    "reasoning": "17.9.4 is in the range from 17.9 up to but not including 17.9.4a, because 4 sorts before 4a, so the version is affected. The KEV and NVD texts tie the flaw to the web UI feature, and the inventory does not record whether that feature is enabled or exposed.",
+    "outside_knowledge_note": "Cisco's advisory says the device is exposed only when the HTTP or HTTPS server is enabled (ip http server or ip http secure-server). A device with the web UI disabled is not exposed.",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P14",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:10.2.9:-:*:*:*:*:*:*",
+    "reasoning": "The only 10.2.9 row is an exact entry with update '-', meaning the base release. Matching both version and update, 10.2.9-h1 does not match, and no row lists 10.2.9 h1.",
+    "outside_knowledge_note": "none (10.2.9-h1 is the vendor's fixed hotfix release for this CVE, which agrees with this label)",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P13",
+    "label": "conditional",
+    "source": "nvd_description",
+    "deciding_quote": "in the GlobalProtect feature of Palo Alto Networks PAN-OS software for specific PAN-OS versions and distinct feature configurations",
+    "reasoning": "The config lists 10.2.9 with update '-' exactly, so the version is affected. The description limits exposure to the GlobalProtect feature and particular feature configurations, and the inventory does not record either.",
+    "outside_knowledge_note": "Palo Alto's final advisory requires a GlobalProtect gateway or portal to be configured. An earlier version of the advisory also required device telemetry, and that condition was later dropped.",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P12",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:microsoft:exchange_server:2019:cumulative_update_8:*:*:*:*:*:*",
+    "reasoning": "The exact Exchange 2019 entries stop at cumulative_update_8, and CU9 is not listed. Matching version and update, 2019 CU9 is not in the affected list.",
+    "outside_knowledge_note": "none (Exchange 2019 CU9 shipped with the ProxyLogon fixes included, which agrees with this label)",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P11",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:microsoft:exchange_server:2019:cumulative_update_8:*:*:*:*:*:*",
+    "reasoning": "The config lists Exchange 2019 cumulative_update_8 exactly, and the recorded \"2019 CU8\" matches both the version and the update. The documents state no feature or configuration condition.",
+    "outside_knowledge_note": "Microsoft shipped the March 2021 security update (KB5000871) for Exchange 2019 CU8. A CU8 server with that update is not vulnerable, but the inventory records only the CU level, not installed security updates.",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P10",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:atlassian:confluence_data_center:7.18.0:*:*:*:*:*:*:*",
+    "reasoning": "The highest Data Center entry is the exact version 7.18.0, and every range ends below 7.17.4 or earlier. 8.5.1 is above all of them, so it is not in any affected range or list.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P09",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:atlassian:confluence_data_center:*:*:*:*:*:*:*:* | versionStartIncluding=8.5.0 | versionEndExcluding=8.5.2",
+    "reasoning": "8.5.1 is at least 8.5.0 and below the exclusive bound 8.5.2, so it is in the Data Center range. The phrase \"publicly accessible\" in the description describes where exploitation was seen. It does not name a product feature or configuration.",
+    "outside_knowledge_note": "none (Atlassian lists 8.5.1 as affected and 8.5.2 as fixed)",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P08",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:atlassian:confluence_server:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndExcluding=8.3.3",
+    "reasoning": "The lowest affected Confluence Server range starts at 8.0.0, inclusive. 7.13.5 is below every range's start, so it is not affected.",
+    "outside_knowledge_note": "none (Atlassian states versions before 8.0.0 are not affected)",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P07",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:atlassian:confluence_server:*:*:*:*:*:*:*:* | versionStartIncluding=7.13.0 | versionEndExcluding=7.13.7",
+    "reasoning": "7.13.5 is at least 7.13.0 and below 7.13.7, so it is in the Confluence Server range. The description agrees (\"from 7.13.0 before 7.13.7\") and states no feature condition.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P06",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-8.50",
+    "reasoning": "The only ADC row for 14.1 is exclusive at 14.1-8.50, and the installed version is exactly 14.1-8.50, so it is outside the range. No FIPS or NDcPP row covers 14.1, so the unrecorded edition does not change the result.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P05",
+    "label": "conditional",
+    "source": "kev",
+    "deciding_quote": "allows for sensitive information disclosure when configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server.",
+    "reasoning": "13.1-49.13 is below the exclusive bound 13.1-49.15 on the standard-edition ('-') row, so the version is affected. It is above the FIPS row's bound of 13.1-37.164, so the unrecorded edition matters too. On top of that, exposure requires a Gateway or AAA virtual server configuration that the inventory does not record.",
+    "outside_knowledge_note": "Citrix's bulletin likewise limits impact to appliances configured as a Gateway or AAA virtual server. It also says sessions must be killed after patching, because stolen session tokens stay valid.",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P04",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:progress:moveit_transfer:*:*:*:*:*:*:*:* | versionStartIncluding=2023.0.0 | versionEndExcluding=2023.0.2",
+    "reasoning": "2023.0.3 is above the exclusive bound 2023.0.2 of the 2023.0 row. The NVD description also places the fix at 2023.0.1, so the documents agree it is not affected.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P03",
+    "label": "unknown",
+    "source": "nvd_description",
+    "deciding_quote": "2022.1.5 (14.1.5), and 2023.0.1 (15.0.1), a SQL injection vulnerability",
+    "reasoning": "Read literally, the nvd_config 2023.0 row (2023.0.0 up to but not including 2023.0.2) puts 2023.0.1 in the affected range. The NVD description says only versions before 2023.0.1 are affected, which would make 2023.0.1 the fixed release. The two documents conflict on this exact version and KEV does not resolve it, so the documents do not settle the answer.",
+    "outside_knowledge_note": "Progress's advisory lists 2023.0.1 (15.0.1) as the fixed release for CVE-2023-34362, so in reality this host is not affected by this CVE. The config bounds here (2021.0.7, 2021.1.5, 2022.0.5, 2022.1.6, 2023.0.2) match the fixed releases for the follow-on CVE-2023-35036. Under that CVE, 2023.0.1 would still be vulnerable.",
+    "confidence": "medium"
+   },
+   {
+    "pair_id": "P02",
+    "label": "not_affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:* | versionStartIncluding=2.13.0 | versionEndExcluding=2.15.0",
+    "reasoning": "The highest affected range ends below 2.15.0, exclusive, and the exact entries are all 2.0 pre-releases. 2.17.1 is in no range or list, and the description says the functionality was removed from 2.16.0 onward.",
+    "outside_knowledge_note": "none",
+    "confidence": "high"
+   },
+   {
+    "pair_id": "P01",
+    "label": "affected",
+    "source": "nvd_config",
+    "deciding_quote": "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:* | versionStartIncluding=2.13.0 | versionEndExcluding=2.15.0",
+    "reasoning": "2.14.1 is at least 2.13.0 and below 2.15.0, so it is in range. The description's lookup-substitution condition is on by default before 2.15.0 (\"From log4j 2.15.0, this behavior has been disabled by default\"), so a default 2.14.1 install is exposed. Turning lookups off would be a mitigation, not a feature the host needs to have enabled. I chose affected over conditional on that basis.",
+    "outside_knowledge_note": "Several real-world facts the inventory does not record could change this. Mitigations such as log4j2.formatMsgNoLookups=true or removing the JndiLookup class could already be in place. The application must log attacker-controlled data. The bundled library must include log4j-core and not only log4j-api.",
+    "confidence": "medium"
+   }
+  ]
+ }
+}
