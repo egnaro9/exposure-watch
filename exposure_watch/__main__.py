@@ -18,7 +18,7 @@ from . import agents
 from .data import SETS, current, load_inventory, use
 from .key import errata, load_pairs
 from .pipeline import run, summarize, write_report
-from .planted import run_skeptic_side, run_verifier_side
+from .planted import key_evidence, run_skeptic_side, run_verifier_side
 from .retrieval import recall
 
 
@@ -48,7 +48,7 @@ def main(argv=None) -> int:
         print(json.dumps(recall(pairs, inv), indent=1))
         return 0
     if a.cmd == "planted":
-        out = {"verifier": run_verifier_side(pairs, inv)}
+        out = {"verifier": run_verifier_side(pairs, inv, key_evidence())}
         if a.skeptic:
             if not a.run:
                 ap.error("planted --skeptic needs --run DIR")

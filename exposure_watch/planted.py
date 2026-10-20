@@ -24,7 +24,7 @@ from pathlib import Path
 
 from . import agents
 from .baseline import CONDITION, judge, nearest_row
-from .data import Item, sources_for, nvd_description
+from .data import Item, current, load_inventory, sources_for, nvd_description
 from .pipeline import _each
 from .verify import check
 
@@ -32,7 +32,38 @@ FLIP = {"affected": "not_affected", "not_affected": "affected", "conditional": "
         "unknown": "affected"}
 
 
-def reference_answer(item: Item, cve: str, truth: str) -> Optional[dict]:
+def key_evidence() -> Optional[Dict[tuple, dict]]:
+    """For a set whose key was made by blind labelers (eval/heldout/key_audit/), the
+    passage the key itself rests on: the adjudicator's quote where there was a
+    ruling, else the first labeler's verbatim quote for the key's label. Reference
+    answers built from it do not depend on the keyword rule or the matcher, which
+    were tuned on the original set. None for a set without such files."""
+    import json
+    d = current().key.parent / "key_audit"
+    if not (d / "labels.json").exists():
+        return None
+    labels = json.loads((d / "labels.json").read_text(encoding="utf-8"))
+    rulings = {r["pair_id"]: r for r in json.loads((d / "rulings.json").read_text(encoding="utf-8"))}
+    pair_map = json.loads((d / "pair_map.json").read_text(encoding="utf-8"))
+    truth = {(p["item"], p["cve"]): p["truth"] for p in json.loads(current().key.read_text(encoding="utf-8"))["pairs"]}
+    inv = {i.id: i for i in load_inventory(current().inventory)}
+    out = {}
+    for pid, m in pair_map.items():
+        k = (m["item"], m["cve"])
+        src = sources_for(inv[m["item"]], m["cve"])
+        cands = [rulings[pid]] if pid in rulings else [l for l in labels[pid] if l["label"] == truth[k]]
+        for c in cands:
+            if " ".join(c["deciding_quote"].split()) in " ".join(src[c["source"]].split()):
+                out[k] = {"source": c["source"], "quote": c["deciding_quote"]}
+                break
+    return out
+
+
+def reference_answer(item: Item, cve: str, truth: str, evidence: Optional[dict] = None) -> Optional[dict]:
+    if evidence is not None:
+        return {"cve": cve, "verdict": truth, "claims": [
+            {"text": "the passage the answer key rests on", "source": evidence["source"],
+             "quote": evidence["quote"]}]}
     src = sources_for(item, cve)
     verdict, row = judge(item, cve)
     if truth == "conditional":
@@ -90,11 +121,16 @@ def verifier_catches(mutant: dict, cve: str, src: Dict[str, str]) -> bool:
     return (not c.supported) or bool(c.problems) or bool(c.dropped)
 
 
-def run_verifier_side(pairs: List[dict], inventory: Dict[str, Item]) -> Dict[str, dict]:
+def run_verifier_side(pairs: List[dict], inventory: Dict[str, Item],
+                      evidence: Optional[Dict[tuple, dict]] = None) -> Dict[str, dict]:
     tally: Dict[str, dict] = {}
     for p in pairs:
         item, cve = inventory[p["item"]], p["cve"]
-        base = reference_answer(item, cve, p["truth"])
+        ev = evidence.get((p["item"], cve)) if evidence is not None else None
+        if evidence is not None and ev is None:
+            tally.setdefault("skipped_no_verbatim_key_quote", {"pairs": 0})["pairs"] += 1
+            continue
+        base = reference_answer(item, cve, p["truth"], ev)
         if base is None:
             continue
         src = sources_for(item, cve)

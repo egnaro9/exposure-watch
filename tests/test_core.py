@@ -338,3 +338,21 @@ def test_every_heldout_pair_has_its_item_and_documents():
             assert data.nvd_config_text(p["cve"], item), p
     finally:
         data.use("original")
+
+
+def test_heldout_reference_answers_rest_on_verbatim_key_quotes():
+    """Held-out references come from the labelers' quotes, not the tuned keyword
+    rule, and each one must pass the verifier before it is mutated."""
+    from exposure_watch import data, key
+    from exposure_watch.planted import key_evidence, run_verifier_side
+    try:
+        data.use("heldout")
+        inv = {i.id: i for i in load_inventory(data.current().inventory)}
+        ev = key_evidence()
+        assert len(ev) == 57
+        tally = run_verifier_side(key.load_pairs(), inv, ev)
+        assert "skipped_no_verbatim_key_quote" not in tally
+        assert tally["wrong_source"] == {"planted": 57, "caught_by_verifier": 57}
+        assert tally["verdict_flipped"]["caught_by_verifier"] == 0
+    finally:
+        data.use("original")

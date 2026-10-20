@@ -55,6 +55,9 @@ MUTANTS = [
      '            out[(a["vendor"], a["product"])] = a["nvd"]\n', "            pass\n", "aliases_extend"),
     ("key: the key path ignores the data set", "key.py",
      "(KEY or current().key)", '(KEY or current().fixtures.parent / "eval" / "ground_truth.json")', "key_follows"),
+    ("planted: a held-out reference may quote text its document lacks", "planted.py",
+     'if " ".join(c["deciding_quote"].split()) in " ".join(src[c["source"]].split()):', "if True:",
+     "verbatim_key_quotes"),
     ("baseline: the keyword rule edited", "baseline.py",
      r'\bconfigured as\b|', "", "keyword_rule_is_frozen or keywords"),
 ]
