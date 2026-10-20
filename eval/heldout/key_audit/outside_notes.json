@@ -1,0 +1,292 @@
+[
+ {
+  "id": "P01",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P02",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P03",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID. In practice Check Point ships these fixes as hotfixes on specific takes, so the real take would be needed to confirm."
+ },
+ {
+  "id": "P04",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P05",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P06",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P07",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P08",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P09",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P10",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID. A real AsyncOS install always carries a build number, so this truncated entry should be confirmed on the host."
+ },
+ {
+  "id": "P11",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P12",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P13",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P14",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P15",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P16",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID. The inclusive FIPS bound may be an NVD entry error, since the description treats 14.1-73.37 FIPS as fixed."
+ },
+ {
+  "id": "P17",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P18",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P19",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P20",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P21",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID. The inclusive FIPS bound may be an NVD entry error."
+ },
+ {
+  "id": "P22",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P23",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P24",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P25",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P26",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P27",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P28",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P29",
+  "labeler": "A",
+  "note": "none; I do not recognise this CVE ID"
+ },
+ {
+  "id": "P32",
+  "labeler": "A",
+  "note": "WSO2 versions products by update level (for example 4.6.0.21). A recorded '4.6.0' may leave out an applied update level, which would change the real answer."
+ },
+ {
+  "id": "P32",
+  "labeler": "B",
+  "note": "The KEV short description (path traversal and file upload) does not match the NVD description (JWT algorithm confusion), which suggests the documents may describe different underlying issues. This does not change the version match."
+ },
+ {
+  "id": "P32",
+  "labeler": "C",
+  "note": "WSO2 ships numbered update levels on top of a base release (4.6.0.x). A recorded '4.6.0' may leave out the update level, so the real host could already be at 4.6.0.21 or later."
+ },
+ {
+  "id": "P34",
+  "labeler": "A",
+  "note": "A NetScaler version without a build number is ambiguous in practice: the real build decides exposure. Real Citrix bulletins also often limit exposure to particular configurations, such as a Gateway or AAA virtual server, which these documents do not mention."
+ },
+ {
+  "id": "P34",
+  "labeler": "B",
+  "note": "Only the release line '14.1' was recorded, without a build. In reality, builds at or after 14.1-73.41 are fixed, so the true status depends on the unrecorded build."
+ },
+ {
+  "id": "P34",
+  "labeler": "C",
+  "note": "14.1 is a NetScaler release line, not a build. The recorded value leaves out the build number (for example 14.1-73.41), and in practice the build decides exposure, so an operator would need the actual build."
+ },
+ {
+  "id": "P35",
+  "labeler": "C",
+  "note": "Cisco releases carry maintenance numbers (26.1.x). A recorded '26.1' may be missing them, so the real host could be at or above 26.1.2.1."
+ },
+ {
+  "id": "P41",
+  "labeler": "A",
+  "note": "Without a build number, the real-world answer depends on the actual 14.1 build. Citrix advisories of this kind often also require a Gateway or AAA virtual-server configuration, which these documents do not state."
+ },
+ {
+  "id": "P41",
+  "labeler": "B",
+  "note": "Only the release line '14.1' was recorded, not the build. In reality, builds at or after 14.1-73.37 are fixed, so the true status depends on the unrecorded build."
+ },
+ {
+  "id": "P41",
+  "labeler": "C",
+  "note": "14.1 is a release line without a build number. In practice the build decides exposure, so the actual build is needed."
+ },
+ {
+  "id": "P42",
+  "labeler": "A",
+  "note": "Check Point fixes ship as Jumbo Hotfix takes. The recorded version does not include the installed take, so a host on a later, fixed take could be unaffected in reality."
+ },
+ {
+  "id": "P42",
+  "labeler": "C",
+  "note": "The recorded version leaves out the Jumbo Hotfix take. A later take that is not listed may be fixed."
+ },
+ {
+  "id": "P43",
+  "labeler": "B",
+  "note": "In reality the 1.9.x build numbering belongs to the cPanel & WHM plugin, so this install is very likely the cPanel variant and therefore affected."
+ },
+ {
+  "id": "P43",
+  "labeler": "C",
+  "note": "The 1.9.x numbering suggests the cPanel plugin, which would make it affected in practice."
+ },
+ {
+  "id": "P45",
+  "labeler": "A",
+  "note": "The disagreement between the description and the config over 10.3.3 would need the vendor's release notes to settle in the real world."
+ },
+ {
+  "id": "P45",
+  "labeler": "C",
+  "note": "AhsayCBS is Ahsay Cloud Backup Suite, so the CPE product matches. Whether 10.3.3 was actually vulnerable is not settled by the conflicting text."
+ },
+ {
+  "id": "P49",
+  "labeler": "A",
+  "note": "The inclusive FIPS bound looks like an NVD encoding error. If it is, the real answer is not_affected."
+ },
+ {
+  "id": "P49",
+  "labeler": "B",
+  "note": "The description text says 'before 14.1-73.41 FIPS', which suggests the inclusive FIPS bound in the config may be an NVD encoding error. If so, the real-world answer would be not_affected."
+ },
+ {
+  "id": "P49",
+  "labeler": "C",
+  "note": "The vendor wording 'before 14.1-73.41 FIPS' suggests the FIPS row's Including bound is a data-entry error, in which case 14.1-73.41 would be not affected in every edition."
+ },
+ {
+  "id": "P51",
+  "labeler": "A",
+  "note": "In practice exposure also needs the SSH service to be enabled and reachable, which the documents do not state as a condition."
+ },
+ {
+  "id": "P51",
+  "labeler": "B",
+  "note": "In practice exploitation requires the RouterOS SSH service to be reachable. That service is typically enabled by default, but the documents do not frame it as a condition."
+ },
+ {
+  "id": "P51",
+  "labeler": "C",
+  "note": "Exploitation needs the SSH service to be reachable. That is a deployment fact the documents do not state as a condition."
+ },
+ {
+  "id": "P52",
+  "labeler": "A",
+  "note": "Without a build number, the real-world answer depends on the actual 14.1 build and possibly on Gateway or AAA configuration, as Citrix advisories commonly require."
+ },
+ {
+  "id": "P52",
+  "labeler": "B",
+  "note": "The administrator recorded only the release line '14.1' without a build number. In reality, 14.1 builds at or after 73.37 are fixed, so the true exposure depends on the unrecorded build."
+ },
+ {
+  "id": "P52",
+  "labeler": "C",
+  "note": "14.1 is a release line without a build number. In practice the build decides exposure."
+ },
+ {
+  "id": "P53",
+  "labeler": "C",
+  "note": "Build 19044 is Windows 10 21H2 (including Enterprise LTSC 2021), which matches the row used here."
+ },
+ {
+  "id": "P57",
+  "labeler": "A",
+  "note": "16.0.19xxx build numbers belong to SharePoint Subscription Edition, which supports reading this as the patched SE build."
+ },
+ {
+  "id": "P57",
+  "labeler": "B",
+  "note": "In the real world the 16.0.19xxx build line is SharePoint Subscription Edition. SharePoint 2016 builds are 16.0.5xxx and 2019 builds are 16.0.10xxx, which is consistent with not_affected. I do not recognise this specific CVE ID."
+ },
+ {
+  "id": "P57",
+  "labeler": "C",
+  "note": "SharePoint 2016 and 2019 also report 16.0.x builds, but in much lower build ranges, so 16.0.19725.x is consistent with Subscription Edition."
+ }
+]

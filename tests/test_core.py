@@ -313,3 +313,28 @@ def test_the_original_set_comes_back_after_a_switch(toy_set):
     data.use("original")
     assert "CVE-2021-44228" in data.kev_index()
     assert len(key.load_pairs()) == 22
+
+
+def test_the_heldout_key_is_the_one_frozen_before_the_run():
+    """PREREG.md records the key's hash. Editing the key after the run is what errata.json is for."""
+    import hashlib
+    import re
+    prereg = (ROOT / "eval" / "heldout" / "PREREG.md").read_text(encoding="utf-8")
+    want = re.search(r"ground_truth\.json`: sha256 `([0-9a-f]{64})`", prereg).group(1)
+    got = hashlib.sha256((ROOT / "eval" / "heldout" / "ground_truth.json").read_bytes()).hexdigest()
+    assert got == want
+
+
+def test_every_heldout_pair_has_its_item_and_documents():
+    from exposure_watch import data, key
+    try:
+        data.use("heldout")
+        inv = {i.id: i for i in load_inventory(data.current().inventory)}
+        pairs = key.load_pairs()
+        assert len(pairs) == 57
+        for p in pairs:
+            item = inv[p["item"]]
+            assert p["cve"] in data.kev_index()
+            assert data.nvd_config_text(p["cve"], item), p
+    finally:
+        data.use("original")

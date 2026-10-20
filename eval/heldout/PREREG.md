@@ -64,8 +64,8 @@ Each made before labeling started, before the code or any agent ran on this set,
 
 ## Frozen hashes
 
-Filled in when the key is frozen, before any run.
+Filled in when the key was frozen, 2026-10-19, before the code or any agent ran on this set. `tests/test_core.py` fails if the key file stops matching its hash.
 
-- KEV catalog: (pending)
-- Answer key `eval/heldout/ground_truth.json`: (pending)
-- Code at freeze: (pending)
+- KEV catalog `fixtures/heldout/kev_catalog.json`: catalogVersion 2026.10.16, sha256 `b6e27975f6635ecfc546fbd4fd6e444ba63a07ab2abc8876229d77fe083d357d` (the same release round 1 used; CISA had not published a newer one on 2026-10-19).
+- Answer key `eval/heldout/ground_truth.json`: sha256 `0e3024fd2c6099b7c44e12ead10a166dfc19999ca67d61ce61c45e56527a0df8`. 57 pairs: 24 affected, 21 not_affected, 12 conditional. 54 unanimous, 3 adjudicated.
+- Code at freeze: commit `bfbab91` (exposure_watch/ unchanged since `fd3841f`).

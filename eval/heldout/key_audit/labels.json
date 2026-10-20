@@ -1,0 +1,1826 @@
+{
+ "P01": [
+  {
+   "labeler": "A",
+   "pair_id": "P01",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "reasoning": "The only row for the 7.1 branch runs from 7.1 inclusive to 7.1.2 exclusive. The installed 7.1.2 equals the exclusive upper bound, so it is outside the range, and no other row covers it.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P01",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "reasoning": "7.1.2 equals the exclusive upper bound of the 7.1 branch row. None of the other 24 WordPress rows covers 7.1.2.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P01",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "reasoning": "The only 7.1-branch row ends exclusive at 7.1.2, so 7.1.2 falls outside it. No other wordpress row covers 7.1.2. The server and theme preconditions in the description only matter if the version is affected, and it is not.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P02": [
+  {
+   "labeler": "A",
+   "pair_id": "P02",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2",
+   "reasoning": "The only config row covers versions strictly below 7.2.2, and the installed 7.2.2 equals the exclusive bound. The description's line that all released packaged (DEB/RPM) versions were affected does not override that bound, which marks 7.2.2 as the fixed release.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P02",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2",
+   "reasoning": "7.2.2 equals the exclusive upper bound of the only config row. The description's DEB/RPM packaging condition therefore never comes into play.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P02",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2",
+   "reasoning": "The single row is exclusive at 7.2.2, so 7.2.2 is not in range. The description's line that 'All released packaged versions were affected' reads as the versions released before the fix. The DEB/RPM packaging condition is moot because the version falls outside the range.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P03": [
+  {
+   "labeler": "A",
+   "pair_id": "P03",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*",
+   "reasoning": "The inventory records r81.10 with no take. The config lists r81.10 with update '-' (no update) for this exact product, so version and update both match literally. Caveat: if the administrator left out a take, only the listed takes are affected, and an unlisted later take would not be.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID. In practice Check Point ships these fixes as hotfixes on specific takes, so the real take would be needed to confirm.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P03",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*",
+   "reasoning": "The range row runs from r80 to before r81.10 (exclusive), so the range alone does not include r81.10. However, r81.10 recorded with no take matches the exact row r81.10 with update '-', and many r81.10 take rows are listed as well.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P03",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*",
+   "reasoning": "The config lists multi-domain_security_management r81.10 as an exact version, both with no update ('-') and with many takes. The inventory records r81.10 with no take, which matches the '-' row. The range row ending exclusive at r81.10 does not change this, because the exact r81.10 rows cover it.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P04": [
+  {
+   "labeler": "A",
+   "pair_id": "P04",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "reasoning": "7.1 is at least the inclusive lower bound 7.1 and below the exclusive bound 7.1.2, so it is in range. The description makes the RCE impact depend on server and active-theme preconditions, but the unauthenticated file-inclusion flaw itself needs no feature to be enabled. I therefore label it affected rather than conditional.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P04",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "reasoning": "7.1 meets the inclusive lower bound and is below 7.1.2. The description says escalation to RCE needs server and theme preconditions, but the file-inclusion flaw itself is reachable without authentication, so this is labeled affected rather than conditional.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P04",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "reasoning": "7.1 meets the inclusive lower bound 7.1 and is below 7.1.2, so it is in range. The description puts preconditions only on escalating to RCE. The file-inclusion flaw itself is reachable unauthenticated with no stated feature dependency, so I labelled it affected rather than conditional.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P05": [
+  {
+   "labeler": "A",
+   "pair_id": "P05",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "The only row (cloud_backup_suite, which is AhsayCBS) covers versions strictly below 10.3.4, and the installed 10.3.4 equals the exclusive bound. The description agrees that upgrading to 10.3.4 mitigates the issue.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P05",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.4 equals the exclusive upper bound. The description says upgrading to 10.3.4 mitigates the issue. The config product is named cloud_backup_suite, and the KEV identifies it as AhsayCBS.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P05",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "The row is exclusive at 10.3.4, so 10.3.4 is not in range. The description agrees: affected 'up to 10.3.2', with 10.3.4 as the fix version.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P06": [
+  {
+   "labeler": "A",
+   "pair_id": "P06",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.3 is below the exclusive bound 10.3.4, so the config row includes it. The description says 'up to 10.3.2' with the fix in 10.3.4, which leaves 10.3.3 in a gap. The literal config bound puts it in range.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P06",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.3 is below the exclusive bound 10.3.4. The description says 'up to 10.3.2' but names 10.3.4 as the fix, so the literal config bound settles that 10.3.3 is included.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P06",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.3 is below the exclusive bound 10.3.4, so the config row covers it. The description says 'up to 10.3.2' but also names 10.3.4 as the fix, so read literally the config puts 10.3.3 inside the affected range.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P07": [
+  {
+   "labeler": "A",
+   "pair_id": "P07",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*",
+   "reasoning": "1.9.3 with no update matches only the cPanel rows. The Plesk row (below 1.8.11) and the DirectAdmin row (below 1.2.3) exclude it. Exposure therefore depends on which edition (cPanel plugin, Plesk extension or DirectAdmin plugin) is installed, and the inventory does not record the edition.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P07",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*",
+   "reasoning": "Version 1.9.3 with no update matches the exact 1.9.3 '-' row, but that row is for the cPanel platform only. The Plesk row (<1.8.11) and the DirectAdmin row (<1.2.3) would not include 1.9.3. The inventory does not record which plugin or extension edition is installed, so the verdict depends on it.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P07",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*",
+   "reasoning": "Version 1.9.3 matches only the cPanel-edition rows; the Plesk row ends below 1.8.11 and the DirectAdmin row below 1.2.3. The inventory records 'Backup' 1.9.3 but not which plugin or extension edition is installed. So the version is affected only if this is the cPanel/WHM plugin, which the inventory cannot tell.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P08": [
+  {
+   "labeler": "A",
+   "pair_id": "P08",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "reasoning": "The 8.0 branch row ends at 8.0.1 inclusive, and 8.0.2 is above it. No other row covers 8.0.x, and the description also lists only 8.0.0 through 8.0.1.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P08",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "reasoning": "8.0.2 is above the inclusive upper bound 8.0.1 of the 8.0 row, and it falls outside the 7.x rows. The description also lists '8.0.0 through 8.0.1'.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P08",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "reasoning": "The 8.0 branch is affected only through 8.0.1 inclusive, so 8.0.2 is outside it. No other row reaches 8.0.x, and the description also says 8.0.0 through 8.0.1.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P09": [
+  {
+   "labeler": "A",
+   "pair_id": "P09",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "reasoning": "16.0.19725.20521 is below the exclusive bound 16.0.19725.20522 by one in the last token, so it is in range. The edition is not recorded, but the other rows mark SharePoint 2016 Enterprise and 2019 as affected at all versions, so this build is affected under every listed edition.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P09",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "reasoning": "Build 16.0.19725.20521 is one below the exclusive bound 16.0.19725.20522 on the only build-numbered row, which is for Subscription Edition. The other rows cover all 2016 Enterprise and 2019 builds. The edition is not recorded, but the version string only fits the Subscription Edition row, and every listed edition is affected.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P09",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "reasoning": "16.0.19725.20521 is below the exclusive bound 16.0.19725.20522 on the Subscription Edition row. The other two rows cover all of SharePoint 2016 Enterprise and 2019 with no build bound. So the result is affected whichever of the listed editions this host runs.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P10": [
+  {
+   "labeler": "A",
+   "pair_id": "P10",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "reasoning": "Compared token by token, 16.5 equals the inclusive lower bound and is below 16.5.0-780, so it is in range. The recorded version leaves out the build number. A later 16.5 build (780 or above) would be fixed, but read literally the recorded value is affected.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID. A real AsyncOS install always carries a build number, so this truncated entry should be confirmed on the host.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P10",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "reasoning": "16.5 meets the inclusive lower bound 16.5. Compared token by token it is below 16.5.0-780, because missing tokens count as 0 and 780 is greater than 0. The vulnerability is in email parsing and has no stated configuration precondition.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P10",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "reasoning": "Compared token by token, '16.5' meets the inclusive start 16.5 and is lower than 16.5.0-780, so it is in range. The flaw is in email parsing, with no feature precondition stated. The recorded version is only a release train, so the real build might be patched, but the literal comparison puts it inside the range.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P11": [
+  {
+   "labeler": "A",
+   "pair_id": "P11",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:identity_services_engine:3.5.0:patch3:*:*:*:*:*:*",
+   "reasoning": "The inventory version 3.5.0 patch3 matches an exact row on both version (3.5.0) and update (patch3) for identity_services_engine. KEV and the description name no configuration precondition.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P11",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:identity_services_engine:3.5.0:patch3:*:*:*:*:*:*",
+   "reasoning": "The recorded '3.5.0 patch3' matches an exact config row on both version 3.5.0 and update patch3.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P11",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:identity_services_engine:3.5.0:patch3:*:*:*:*:*:*",
+   "reasoning": "The inventory version '3.5.0 patch3' matches this exact version-plus-update row for identity_services_engine. The API authentication bypass has no stated configuration dependency.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P12": [
+  {
+   "labeler": "A",
+   "pair_id": "P12",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "reasoning": "The 19.3 range runs from 19.3.0 inclusive to 19.3.2 exclusive for both the CE and EE rows. The installed 19.3.2 is the exclusive bound, so it is not affected under either edition.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P12",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "reasoning": "19.3.2 equals the exclusive upper bound on both the community and enterprise rows, so the edition does not matter. The description agrees ('19.3 before 19.3.2').",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P12",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "reasoning": "Both the community and enterprise 19.3 rows end exclusive at 19.3.2, so 19.3.2 is not affected whichever edition is installed. The description agrees: '19.3 before 19.3.2'.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P13": [
+  {
+   "labeler": "A",
+   "pair_id": "P13",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "This vulnerability is only present when BIG-IP APM is configured as an OAuth Authorization Server.",
+   "reasoning": "17.5.0 is inside the config row 17.5.0 to 17.5.1 (both inclusive), so the version is affected. The description says the flaw exists only when APM is configured as an OAuth Authorization Server, and the inventory does not record that configuration.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P13",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "This vulnerability is only present when BIG-IP APM is configured as an OAuth Authorization Server.",
+   "reasoning": "17.5.0 is inside the config row 17.5.0 to 17.5.1 (both inclusive), so the version is affected. The description limits exposure to APM configured as an OAuth Authorization Server with an access policy and OAuth profile on a virtual server, and the inventory does not record that configuration.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P13",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "This vulnerability is only present when BIG-IP APM is configured as an OAuth Authorization Server.",
+   "reasoning": "17.5.0 is within the inclusive 17.5.0 to 17.5.1 config row, so the version is affected. The description limits exposure to deployments with an access policy and an OAuth Authorization Server profile on a virtual server. The inventory does not record that configuration.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P14": [
+  {
+   "labeler": "A",
+   "pair_id": "P14",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "reasoning": "25.1.3.0 equals the exclusive upper bound of the highest range. The remaining rows are 22.8 exact versions, and the description says the flaw is 'before version 25.1.3.0'.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P14",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "reasoning": "25.1.3.0 equals the exclusive upper bound. The description also says the issue affects ICS 'before version 25.1.3.0'. No 22.8 exact row applies.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P14",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "reasoning": "The highest range ends exclusive at 25.1.3.0, and the other rows are 25.1.0.0 to below 25.1.1.2 and 22.8 exact builds. So 25.1.3.0 is not covered, and the description says 'before version 25.1.3.0'.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P15": [
+  {
+   "labeler": "A",
+   "pair_id": "P15",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "reasoning": "26.1.2.1 equals the exclusive upper bound of the 26.1 range. The only other 26.x row is the exact version 26.2, which does not match.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P15",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "reasoning": "26.1.2.1 equals the exclusive upper bound of the 26.1 range. The only other 26.x row is the exact version 26.2, which does not match.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P15",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "reasoning": "The 26.1 row ends exclusive at 26.1.2.1, so 26.1.2.1 is outside it. No other row (the earlier trains, or the 26.2 exact row) matches 26.1.2.1.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P16": [
+  {
+   "labeler": "A",
+   "pair_id": "P16",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "14.1-73.37 is excluded by the standard ADC row and the Gateway row (both exclusive at 14.1-73.37), but the FIPS ADC row's inclusive upper bound includes it. Whether this host is exposed therefore depends on whether it runs the FIPS edition, which the inventory does not record. Note that the description's 'before 14.1-73.37 FIPS' conflicts with that inclusive bound.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID. The inclusive FIPS bound may be an NVD entry error, since the description treats 14.1-73.37 FIPS as fixed.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P16",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "Standard ADC and Gateway rows exclude 14.1-73.37 (versionEndExcluding). The FIPS-edition row includes it when its bound is read literally. The inventory does not record the edition (FIPS or standard), so the verdict depends on it. The description says 'before 14.1-73.37 FIPS', which conflicts with the inclusive bound.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P16",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "For 14.1-73.37, the standard ADC and Gateway rows are exclusive at 14.1-73.37, so those editions are not affected. The FIPS ADC row is inclusive at 14.1-73.37, so read literally it covers this version. The inventory does not record whether this is a FIPS build, so exposure turns on an edition it cannot show. Note that the description says 'before 14.1-73.37 FIPS', which conflicts with the inclusive bound.",
+   "outside_knowledge_note": "none",
+   "confidence": "low"
+  }
+ ],
+ "P17": [
+  {
+   "labeler": "A",
+   "pair_id": "P17",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "reasoning": "The installed 16.5.0-780 equals the exclusive upper bound of the 16.5 range, so it is outside the range. No other row covers 16.5.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P17",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "reasoning": "16.5.0-780 equals the exclusive upper bound of the 16.5 row. It is above the 15.5 and 16.0 ranges.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P17",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "reasoning": "16.5.0-780 equals the exclusive upper bound, so it is not in the 16.5 range. The other rows (below 15.5.5-014, and 16.0 to below 16.0.4-302) do not reach it.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P18": [
+  {
+   "labeler": "A",
+   "pair_id": "P18",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "reasoning": "12.2.4 equals the exclusive upper bound of the 12.2 range. The 249 exact-version rows cover only 10.2.x, 11.1.x, 11.2.x and 12.1.x, so none matches 12.2.4.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P18",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "reasoning": "12.2.4 equals the exclusive upper bound, and no other row among the 251 lists a 12.2.4 version or hotfix. So PAN-OS 12.2.4 is outside the affected set.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P18",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "reasoning": "The 12.2 range ends exclusive at 12.2.4, so 12.2.4 is outside it. No exact-version row lists 12.2.4.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P19": [
+  {
+   "labeler": "A",
+   "pair_id": "P19",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "reasoning": "Crowd 7.2.4 equals the exclusive upper bound of the 7.2 range, and the description lists 7.2.4 as a fix version for Crowd Data Center.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P19",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "reasoning": "Crowd 7.2.4 equals the exclusive upper bound, and the description names 7.2.4 as a fix version for Crowd Data Center. The other config rows that include 7.2.4 are for different Atlassian products, so they do not apply.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P19",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "reasoning": "The Crowd 7.2 row ends exclusive at 7.2.4, and the description lists 7.2.4 as a Crowd fix version. The other rows that numerically contain 7.2.4 belong to other Atlassian products, not Crowd.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P20": [
+  {
+   "labeler": "A",
+   "pair_id": "P20",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "reasoning": "API Manager 4.6.0.21 equals the exclusive upper bound of the 4.6.0 range. Note that the NVD description (JWT algorithm confusion) does not match the KEV description (path traversal), but both point to the same config ranges.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P20",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "reasoning": "API Manager 4.6.0.21 equals the exclusive upper bound of the api_manager row, so it is outside. The api_control_plane row runs to <4.6.0.22 and would include it, but that is a different product. The KEV and NVD descriptions also describe different flaws (path traversal versus JWT algorithm confusion).",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P20",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "reasoning": "The api_manager 4.6.0 row ends exclusive at 4.6.0.21, so 4.6.0.21 is not covered. The api_control_plane row that runs to 4.6.0.22 describes a different product. Note that the KEV text (path traversal) and the NVD description (JWT algorithm) describe different flaws, but the config settles the version question.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P21": [
+  {
+   "labeler": "A",
+   "pair_id": "P21",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "As in P16, the standard ADC and Gateway rows exclude 14.1-73.37, but the FIPS ADC row's inclusive bound includes it. Exposure depends on the FIPS edition, which the inventory does not record. The description's 'before 14.1-73.37 FIPS' conflicts with that literal bound.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID. The inclusive FIPS bound may be an NVD entry error.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P21",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "For standard ADC and Gateway, 14.1-73.37 is not affected because the bound is versionEndExcluding=14.1-73.37. The FIPS-edition row includes 14.1-73.37 when its bound is read literally. The inventory does not record the edition (FIPS or standard), so the verdict depends on it. The description says 'before 14.1-73.37 FIPS', which conflicts with the inclusive config bound.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P21",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "This is the same configuration as P16. Standard ADC and Gateway at 14.1-73.37 fall outside their exclusive bounds, but the FIPS ADC row is inclusive at 14.1-73.37. Whether this host is affected therefore depends on the FIPS edition, which the inventory does not record. The description's 'before 14.1-73.37 FIPS' conflicts with that inclusive bound.",
+   "outside_knowledge_note": "none",
+   "confidence": "low"
+  }
+ ],
+ "P22": [
+  {
+   "labeler": "A",
+   "pair_id": "P22",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "reasoning": "7.0.0 equals the inclusive lower bound of the 7.0.0 to 7.0.0.2 range. The description notes that hosted VCO was already patched, but an inventoried install on a host is the on-prem case the description says is affected.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P22",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "reasoning": "7.0.0 sits at the inclusive lower bound of the 7.0.0 to 7.0.0.2 range. The description says hosted VCO was already patched by the vendor. A host-inventoried instance reads as on-prem, and on-prem versus hosted is a deployment model, not a feature or configuration, so the label is affected rather than conditional.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P22",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "reasoning": "7.0.0 meets the inclusive start of the 7.0.0 to 7.0.0.2 row. The flaw affects on-prem VCO, and an inventoried host is a self-managed deployment. The hosted instances that were already patched are not in question here.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P23": [
+  {
+   "labeler": "A",
+   "pair_id": "P23",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "reasoning": "macOS 26.0 equals the inclusive lower bound and is below 26.7.1, so it is in range. The description says the fix is in macOS Tahoe 26.7.1, and no configuration precondition is named.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P23",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "reasoning": "macOS 26.0 meets the inclusive lower bound 26.0 and is below 26.7.1. The description agrees that the fix is in macOS Tahoe 26.7.1.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P23",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "reasoning": "macOS 26.0 meets the inclusive start 26.0 and is below 26.7.1, so it is in range. The description agrees: the fix is in macOS Tahoe 26.7.1.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P24": [
+  {
+   "labeler": "A",
+   "pair_id": "P24",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "reasoning": "The only range ends at 6.5.4 inclusive, and 6.5.5 is above it. The description gives the same span, 6.3.0 to 6.5.4, for the exploitable versions.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P24",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "reasoning": "6.5.5 is above the inclusive upper bound 6.5.4, and this is the only config row. The description also limits the vulnerable versions to 6.3.0 through 6.5.4, and 7.0.0 to 7.1.2 contain the bug but are not exploitable.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P24",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "reasoning": "The only row covers 6.3.0 through 6.5.4 inclusive, so 6.5.5 is outside it. The description also says 6.3.0 to 6.5.4, with 7.0.0 to 7.1.2 not exploitable.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P25": [
+  {
+   "labeler": "A",
+   "pair_id": "P25",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*",
+   "reasoning": "2.4.4 with no patch level matches the Commerce exact row on version and update '-'. If the install is Magento Open Source instead, the row versionEndIncluding=2.4.6 also covers 2.4.4. Either reading of the product gives affected.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P25",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*",
+   "reasoning": "The inventory records 2.4.4 with no patch suffix. That matches the exact commerce row 2.4.4 with update '-'. Magento open_source up to and including 2.4.6 also covers 2.4.4, so both product readings of 'Commerce and Magento' give affected.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P25",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*",
+   "reasoning": "Commerce 2.4.4 is listed as an exact version (base and p1 to p18), and the inventory's '2.4.4' matches the base row. The Magento Open Source row (up to 2.4.6 inclusive) also covers 2.4.4, so the result is affected whichever product is meant.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P26": [
+  {
+   "labeler": "A",
+   "pair_id": "P26",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1",
+   "reasoning": "The 17.5 range ends at 17.5.1 inclusive, and 17.5.2 is above it. The other rows are the 17.0.0 to 17.1.3 range and the exact version 21.1.0, neither of which matches.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P26",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1",
+   "reasoning": "17.5.2 is above the inclusive upper bound 17.5.1. It also falls outside the 17.0.0 to 17.1.3 row and does not match the exact 21.1.0 row.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P26",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1",
+   "reasoning": "The 17.5 row ends at 17.5.1 inclusive, so 17.5.2 is outside it. The other rows (17.0.0 to 17.1.3, and 21.1.0 exact) do not match, so the OAuth configuration question does not arise.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P27": [
+  {
+   "labeler": "A",
+   "pair_id": "P27",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "reasoning": "12.2.0 equals the inclusive lower bound of the 12.2 range and is below 12.2.4. The description says restricting management-interface access reduces the risk, but that is a mitigation, not a feature the flaw depends on.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P27",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "reasoning": "12.2.0 meets the inclusive lower bound and is below 12.2.4. Restricting access to the management interface is described only as reducing risk, not as a precondition, so this is not conditional.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P27",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "reasoning": "12.2.0 meets the inclusive start and is below 12.2.4, so it is in range. The flaw is in the management interface, which every PAN-OS install has. Restricting access to it is described as reducing risk, not as a feature that must be enabled, so I labelled it affected rather than conditional.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P28": [
+  {
+   "labeler": "A",
+   "pair_id": "P28",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "reasoning": "macOS 26.7.1 equals the exclusive upper bound, and the description says the issue is fixed in macOS Tahoe 26.7.1.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P28",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "reasoning": "macOS 26.7.1 equals the exclusive upper bound, so it falls outside the 26.x range. The other macOS row ends before 15.8.1. The description also says the issue is fixed in macOS Tahoe 26.7.1.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P28",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "reasoning": "26.7.1 equals the exclusive upper bound, so it is not affected. The other macOS row ends below 15.8.1, and the description names macOS Tahoe 26.7.1 as the fix.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P29": [
+  {
+   "labeler": "A",
+   "pair_id": "P29",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:* | versionEndExcluding=10.0.19044.7807",
+   "reasoning": "Build 10.0.19044 is Windows 10 21H2, and 10.0.19044.7806 is below the exclusive bound 10.0.19044.7807. The 21H2 rows cover arm64, x64 and x86, so the unrecorded architecture does not change the result.",
+   "outside_knowledge_note": "none; I do not recognise this CVE ID",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P29",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:* | versionEndExcluding=10.0.19044.7807",
+   "reasoning": "The build 10.0.19044.7806 is below the exclusive upper bound 10.0.19044.7807 on the windows_10_21h2 rows, which exist for x86, x64 and arm64. The architecture is not recorded, but every architecture row has the same bound, so the result is the same.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P29",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:* | versionEndExcluding=10.0.19044.7807",
+   "reasoning": "Build 10.0.19044.7806 belongs to the Windows 10 21H2 line and is below the exclusive bound 10.0.19044.7807. All three architecture rows (x86, x64, arm64) carry the same bound, so the unrecorded architecture does not change the answer.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P30": [
+  {
+   "labeler": "A",
+   "pair_id": "P30",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4",
+   "reasoning": "2.4.3 is below the exclusive upper bound 2.4.4 on the commerce row. The magento open_source row (versionEndIncluding=2.4.6) also covers 2.4.3, so it is affected whichever of the two products the 'Commerce and Magento' item is.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P30",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4",
+   "reasoning": "2.4.3 is below the exclusive bound 2.4.4 for Adobe Commerce. It is also within the Magento open_source row (up to and including 2.4.6). Either reading of the product 'Commerce and Magento' therefore places 2.4.3 in an affected range.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P30",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4",
+   "reasoning": "2.4.3 is below the exclusive bound 2.4.4 on the Commerce row, and the Magento open_source row (versionEndIncluding=2.4.6) also covers 2.4.3, so the result is the same whichever of the two products the inventory name means. No feature or configuration condition is stated.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P31": [
+  {
+   "labeler": "A",
+   "pair_id": "P31",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "reasoning": "Crowd 7.2.0 equals the inclusive lower bound and is below the exclusive bound 7.2.4. The description agrees, listing 7.2.4 as the fix for the 7.2 line.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P31",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "reasoning": "7.2.0 equals the inclusive start of the Crowd 7.2.0 to 7.2.4 (exclusive) range. The description also lists 7.2.4 as the Crowd fix version. The need to know a file's exact path is an attacker prerequisite, not an inventory-recordable configuration.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P31",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "reasoning": "Crowd 7.2.0 is at the inclusive lower bound and below the exclusive upper bound 7.2.4. The description's line that 'some configurations' hold sensitive files is about severity, not about whether the host is exposed.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P32": [
+  {
+   "labeler": "A",
+   "pair_id": "P32",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "reasoning": "4.6.0 equals the inclusive start. Read token by token, with the missing fourth token taken as 0, it is below 4.6.0.21, so it is in range. The KEV entry (path traversal) and the NVD description (JWT algorithm confusion) disagree about the bug class, but that does not change the version match.",
+   "outside_knowledge_note": "WSO2 versions products by update level (for example 4.6.0.21). A recorded '4.6.0' may leave out an applied update level, which would change the real answer.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P32",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "reasoning": "4.6.0 equals the inclusive start of the API Manager range 4.6.0 to 4.6.0.21 (exclusive). The description's mention of single-tenant deployments adjusts only the CVSS score and is not an exposure precondition.",
+   "outside_knowledge_note": "The KEV short description (path traversal and file upload) does not match the NVD description (JWT algorithm confusion), which suggests the documents may describe different underlying issues. This does not change the version match.",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P32",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "reasoning": "Compared token by token, 4.6.0 is at the inclusive start and is less than 4.6.0.21, so it falls in the range. The KEV text (path traversal) and the NVD text (JWT algorithm) describe different flaws, but both name API Manager, and the single-tenant note only changes the CVSS score.",
+   "outside_knowledge_note": "WSO2 ships numbered update levels on top of a base release (4.6.0.x). A recorded '4.6.0' may leave out the update level, so the real host could already be at 4.6.0.21 or later.",
+   "confidence": "medium"
+  }
+ ],
+ "P33": [
+  {
+   "labeler": "A",
+   "pair_id": "P33",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "reasoning": "25.1.2.0 equals the inclusive lower bound and is below 25.1.3.0. The description also says ICS before 25.1.3.0 is affected.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P33",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "reasoning": "25.1.2.0 equals the inclusive start of the 25.1.2.0 to 25.1.3.0 (exclusive) range. The description also says that versions before 25.1.3.0 are affected, with no configuration condition.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P33",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "reasoning": "25.1.2.0 is the inclusive lower bound of a range that ends before 25.1.3.0. The description agrees: ICS before 25.1.3.0 is affected.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P34": [
+  {
+   "labeler": "A",
+   "pair_id": "P34",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_gateway:*:*:*:*:*:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41",
+   "reasoning": "Read literally, the bare '14.1' equals the inclusive start and is below 14.1-73.41, so the Gateway row and the default-edition ADC row both include it. Only the FIPS ADC row, which starts at 14.1-66.68, leaves out a bare 14.1. That is an artifact of the missing build number, not a reason to downgrade.",
+   "outside_knowledge_note": "A NetScaler version without a build number is ambiguous in practice: the real build decides exposure. Real Citrix bulletins also often limit exposure to particular configurations, such as a Gateway or AAA virtual server, which these documents do not mention.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P34",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41",
+   "reasoning": "Compared token by token, '14.1' equals the inclusive start and is less than 14.1-73.41, so it is in the standard ADC row. It is also in the Gateway row (14.1 to 14.1-73.41 exclusive). The documents state no feature precondition.",
+   "outside_knowledge_note": "Only the release line '14.1' was recorded, without a build. In reality, builds at or after 14.1-73.41 are fixed, so the true status depends on the unrecorded build.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P34",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41",
+   "reasoning": "Read literally, '14.1' falls inside the standard ADC and Gateway ranges (start 14.1 inclusive, before 14.1-73.41). It sorts below the FIPS row's start of 14.1-66.68, so a FIPS-edition unit at '14.1' would not match. Whether this host is exposed therefore depends on the edition (standard vs FIPS), which the inventory does not record.",
+   "outside_knowledge_note": "14.1 is a NetScaler release line, not a build. The recorded value leaves out the build number (for example 14.1-73.41), and in practice the build decides exposure, so an operator would need the actual build.",
+   "confidence": "medium"
+  }
+ ],
+ "P35": [
+  {
+   "labeler": "A",
+   "pair_id": "P35",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "reasoning": "26.1 equals the inclusive lower bound and is below 26.1.2.1. No feature precondition is stated, since the API authentication bypass is reachable unauthenticated.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P35",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "reasoning": "26.1 equals the inclusive start of the 26.1 to 26.1.2.1 (exclusive) range. The KEV and the description describe an unauthenticated API bypass with no configuration precondition.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P35",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "reasoning": "Compared token by token, 26.1 is at the inclusive start and is less than 26.1.2.1. No feature condition is stated, since the flaw is in API session authentication.",
+   "outside_knowledge_note": "Cisco releases carry maintenance numbers (26.1.x). A recorded '26.1' may be missing them, so the real host could be at or above 26.1.2.1.",
+   "confidence": "medium"
+  }
+ ],
+ "P36": [
+  {
+   "labeler": "A",
+   "pair_id": "P36",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780",
+   "reasoning": "The installed 16.5.0-780 is exactly the exclusive upper bound, so it falls outside the range. No other row covers it, and the AsyncOS rows are the gateway's operating system with the same version format.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P36",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780",
+   "reasoning": "The 16.x row excludes 16.5.0-780, which is exactly the installed version. The other row covers only 15.x. The version is outside every range.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P36",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780",
+   "reasoning": "The installed version 16.5.0-780 equals this row's exclusive upper bound, so it is outside the range. The config rows name AsyncOS, the operating system of Secure Email Gateway, whose versions use the same format as the inventory. The file-reputation feature condition does not matter because the version is not affected.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  }
+ ],
+ "P37": [
+  {
+   "labeler": "A",
+   "pair_id": "P37",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "This vulnerability is due to improper handling of email attachments when the file reputation service is enabled.",
+   "reasoning": "16.0 sits inside the AsyncOS range from 16.0 (inclusive) to 16.5.0-780 (exclusive), so the version is affected. Exposure, however, needs the AMP file reputation service to be enabled, and the inventory does not record that.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P37",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "This vulnerability is due to improper handling of email attachments when the file reputation service is enabled.",
+   "reasoning": "16.0 equals the inclusive start of the AsyncOS 16.0 to 16.5.0-780 (exclusive) range, so the version is affected. The description ties exploitability to the AMP file reputation service being enabled, and the inventory does not record that.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P37",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "This vulnerability is due to improper handling of email attachments when the file reputation service is enabled.",
+   "reasoning": "16.0 is the inclusive start of the AsyncOS range that ends before 16.5.0-780, so the version is affected. Exposure, however, requires the AMP file reputation service to be enabled, and the inventory does not record that.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P38": [
+  {
+   "labeler": "A",
+   "pair_id": "P38",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "reasoning": "19.3.0 equals the inclusive start and is below 19.3.2. Matching rows exist for both the community and enterprise editions, so the unrecorded edition does not matter. The description's 'under certain conditions' names no specific feature, so this stays affected.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P38",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "reasoning": "19.3.0 equals the inclusive start of the 19.3.0 to 19.3.2 (exclusive) range. Matching rows exist for both the community and the enterprise edition, so the unrecorded edition does not change the result. The description's 'under certain conditions' names no specific feature.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P38",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:enterprise:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "reasoning": "19.3.0 is at the inclusive start and below 19.3.2. Both the community and enterprise rows carry the same range, so the unrecorded edition does not matter. The description's 'under certain conditions' names no specific feature or configuration.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P39": [
+  {
+   "labeler": "A",
+   "pair_id": "P39",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "reasoning": "7.24.2 is the exclusive upper bound of the 7.24 row, and no other row covers it. The description names 7.24.2 (Stable) as a fixed version.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P39",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "reasoning": "The 7.24 row excludes 7.24.2, and the installed version is exactly 7.24.2. The description also names 7.24.2 (Stable) as a fixed version. No other row covers it.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P39",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "reasoning": "7.24.2 equals the exclusive upper bound of the 7.24 range, and the description names 7.24.2 (Stable) as a fixed version. It falls in no other row.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P40": [
+  {
+   "labeler": "A",
+   "pair_id": "P40",
+   "label": "conditional",
+   "source": "kev",
+   "deciding_quote": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability",
+   "reasoning": "Gaia OS r80 equals the inclusive start of the gaia_os row r80 to r81.10 (exclusive), so the version is affected. The KEV entry limits exposure to gateways using Site to Site or Remote Access VPN, a feature the inventory does not record.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P40",
+   "label": "conditional",
+   "source": "kev",
+   "deciding_quote": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability",
+   "reasoning": "The nvd_config row 'gaia_os ... versionStartIncluding=r80 | versionEndExcluding=r81.10' includes r80 at its inclusive start, so the version is affected. The KEV says exposure applies to gateways using Site to Site or Remote Access VPN, a feature the inventory does not record.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P40",
+   "label": "conditional",
+   "source": "kev",
+   "deciding_quote": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability",
+   "reasoning": "The config row 'gaia_os ... versionStartIncluding=r80 | versionEndExcluding=r81.10' includes r80, so the version is affected. Exposure, however, requires the box to act as a gateway with Site to Site or Remote Access VPN in use, and the inventory does not record that.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P41": [
+  {
+   "labeler": "A",
+   "pair_id": "P41",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_gateway:*:*:*:*:*:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "reasoning": "Read literally, the bare '14.1' equals the inclusive start and is below 14.1-73.37, so the Gateway row and the default-edition ADC row both include it. Only the FIPS row, which starts at 14.1-66.68, leaves out a bare 14.1, and that comes from the missing build number.",
+   "outside_knowledge_note": "Without a build number, the real-world answer depends on the actual 14.1 build. Citrix advisories of this kind often also require a Gateway or AAA virtual-server configuration, which these documents do not state.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P41",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "reasoning": "Compared token by token, '14.1' equals the inclusive start and is less than 14.1-73.37, so it is in the standard ADC row. It is also in the Gateway row (14.1 to 14.1-73.37 exclusive). The documents state no feature precondition.",
+   "outside_knowledge_note": "Only the release line '14.1' was recorded, not the build. In reality, builds at or after 14.1-73.37 are fixed, so the true status depends on the unrecorded build.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P41",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "Read literally, '14.1' falls in the standard ADC and Gateway ranges (14.1 inclusive, before 14.1-73.37). It sorts below the FIPS row's start of 14.1-66.68. Exposure therefore depends on the edition (standard vs FIPS), which the inventory does not record.",
+   "outside_knowledge_note": "14.1 is a release line without a build number. In practice the build decides exposure, so the actual build is needed.",
+   "confidence": "medium"
+  }
+ ],
+ "P42": [
+  {
+   "labeler": "A",
+   "pair_id": "P42",
+   "label": "conditional",
+   "source": "kev",
+   "deciding_quote": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability",
+   "reasoning": "r81.10 with no take recorded matches the exact row gaia_os:r81.10:- (version and update both match), and many r81.10 takes are also listed as affected. Exposure depends on Site to Site or Remote Access VPN being in use, which the inventory does not record.",
+   "outside_knowledge_note": "Check Point fixes ship as Jumbo Hotfix takes. The recorded version does not include the installed take, so a host on a later, fixed take could be unaffected in reality.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P42",
+   "label": "conditional",
+   "source": "kev",
+   "deciding_quote": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability",
+   "reasoning": "nvd_config lists 'cpe:2.3:o:checkpoint:gaia_os:r81.10:-', which matches the recorded r81.10 with no take, so the version is affected. The KEV limits exposure to gateways using Site to Site VPN or Remote Access VPN, a feature the inventory does not record.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P42",
+   "label": "conditional",
+   "source": "kev",
+   "deciding_quote": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability",
+   "reasoning": "The gaia_os range excludes r81.10 at its end, but the config also lists r81.10 exactly, including 'cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*' (no update), which matches the recorded r81.10 with no take. Every listed take is affected too. With the version affected, exposure still depends on gateway VPN use, which the inventory does not record.",
+   "outside_knowledge_note": "The recorded version leaves out the Jumbo Hotfix take. A later take that is not listed may be fixed.",
+   "confidence": "medium"
+  }
+ ],
+ "P43": [
+  {
+   "labeler": "A",
+   "pair_id": "P43",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3",
+   "reasoning": "1.9.2 falls inside the range only on the cPanel row (below 1.9.3). It is above the Plesk bound (1.8.11) and the DirectAdmin bound (1.2.3), so it is not affected on those platforms. Whether it is exposed depends on which hosting-panel variant is installed, and the inventory does not record that.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P43",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3",
+   "reasoning": "1.9.2 falls below the cPanel plugin bound of 1.9.3. It is above the Plesk bound (1.8.11) and the DirectAdmin bound (1.2.3), so it is outside those variants' ranges. Whether it is affected depends on which hosting-panel variant is installed, and the inventory does not record that.",
+   "outside_knowledge_note": "In reality the 1.9.x build numbering belongs to the cPanel & WHM plugin, so this install is very likely the cPanel variant and therefore affected.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P43",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3",
+   "reasoning": "1.9.2 is affected only on the cPanel row (before 1.9.3). It is not affected on the Plesk row (before 1.8.11) or the DirectAdmin row (before 1.2.3). The inventory records 'Backup' without the host platform or edition, so exposure depends on an unrecorded variant.",
+   "outside_knowledge_note": "The 1.9.x numbering suggests the cPanel plugin, which would make it affected in practice.",
+   "confidence": "medium"
+  }
+ ],
+ "P44": [
+  {
+   "labeler": "A",
+   "pair_id": "P44",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "reasoning": "26.2.3 equals the inclusive upper bound, so it is in range. The description's 'under the right conditions' names no feature or configuration the inventory would need.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P44",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "reasoning": "26.2.3 equals the inclusive upper bound, so it is in the affected range. The description's 'under the right conditions' names no specific feature or configuration, so this is not conditional.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P44",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "reasoning": "26.2.3 equals the inclusive upper bound, so it is in range. 'Under the right conditions' in the description names no specific feature or configuration.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P45": [
+  {
+   "labeler": "A",
+   "pair_id": "P45",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.3 is below the exclusive bound 10.3.4 on the cloud_backup_suite (AhsayCBS) row. The description says 'up to 10.3.2' but also names 10.3.4 as the fix, which leaves 10.3.3 in a gap. Read literally, the config row includes it.",
+   "outside_knowledge_note": "The disagreement between the description and the config over 10.3.3 would need the vendor's release notes to settle in the real world.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P45",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.3 is below the exclusive bound 10.3.4, so the config row includes it. The description says 'up to 10.3.2' but names 10.3.4 as the fix, which leaves 10.3.3 in a gap. The config row is the explicit range and covers it.",
+   "outside_knowledge_note": "none",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P45",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.3 is below the exclusive bound 10.3.4 on the cloud_backup_suite (AhsayCBS) row. The description says 'up to 10.3.2', which conflicts, but it also says the fix is upgrading to 10.3.4. Reading the config bound literally gives affected.",
+   "outside_knowledge_note": "AhsayCBS is Ahsay Cloud Backup Suite, so the CPE product matches. Whether 10.3.3 was actually vulnerable is not settled by the conflicting text.",
+   "confidence": "medium"
+  }
+ ],
+ "P46": [
+  {
+   "labeler": "A",
+   "pair_id": "P46",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "reasoning": "8.0.0 equals the inclusive start of the 8.0.0 to 8.0.1 row. The description also lists 'FortiMail 8.0.0 through 8.0.1'.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P46",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "reasoning": "8.0.0 equals the inclusive start of the 8.0.0 to 8.0.1 range. The description also lists FortiMail 8.0.0 through 8.0.1. No configuration condition is stated.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P46",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "reasoning": "8.0.0 is the inclusive start of the 8.0.0 to 8.0.1 range, and the description agrees. No feature condition is stated.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P47": [
+  {
+   "labeler": "A",
+   "pair_id": "P47",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "reasoning": "26.2.4 is above the inclusive upper bound 26.2.3, and no other row exists.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P47",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "reasoning": "The only row covers versions up to and including 26.2.3. The installed 26.2.4 is greater, so it is outside the affected range.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P47",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "reasoning": "26.2.4 is greater than the inclusive upper bound 26.2.3, and this is the only row. The version is therefore outside the affected range.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P48": [
+  {
+   "labeler": "A",
+   "pair_id": "P48",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "reasoning": "7.0.0.3 is above the inclusive upper bound 7.0.0.2 of the 7.0 row, and no other row covers the 7.0 line.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P48",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "reasoning": "The 7.0 row ends inclusively at 7.0.0.2, and 7.0.0.3 is greater. No other row covers the 7.x line. The installed version is outside every affected range.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P48",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "reasoning": "7.0.0.3 is greater than the inclusive upper bound 7.0.0.2, and no other row covers 7.0.x.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P49": [
+  {
+   "labeler": "A",
+   "pair_id": "P49",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41",
+   "reasoning": "14.1-73.41 is the exclusive bound on the default-edition ADC row and on the Gateway row, so it is not affected there. The FIPS ADC row is literally inclusive at 14.1-73.41, so it is affected only on the FIPS edition, and the inventory does not record edition. The description says 'before 14.1-73.41 FIPS', which contradicts the FIPS row's inclusive bound.",
+   "outside_knowledge_note": "The inclusive FIPS bound looks like an NVD encoding error. If it is, the real answer is not_affected.",
+   "confidence": "low"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P49",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41",
+   "reasoning": "For the standard ADC and Gateway rows, 14.1-73.41 is the exclusive end, so the installed version is not affected there. The FIPS ADC row ends inclusively at 14.1-73.41, so the same version is affected on the FIPS edition. The inventory does not record edition.",
+   "outside_knowledge_note": "The description text says 'before 14.1-73.41 FIPS', which suggests the inclusive FIPS bound in the config may be an NVD encoding error. If so, the real-world answer would be not_affected.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P49",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41",
+   "reasoning": "14.1-73.41 equals the exclusive end of the standard ADC and Gateway rows, so those editions are not affected. The FIPS row's inclusive end, read literally, does include it. Exposure therefore depends on whether the unit is a FIPS edition, which the inventory does not record. The description ('before 14.1-73.41 FIPS') conflicts with that FIPS row.",
+   "outside_knowledge_note": "The vendor wording 'before 14.1-73.41 FIPS' suggests the FIPS row's Including bound is a data-entry error, in which case 14.1-73.41 would be not affected in every edition.",
+   "confidence": "medium"
+  }
+ ],
+ "P50": [
+  {
+   "labeler": "A",
+   "pair_id": "P50",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "Only installations from the DEB and RPM packages were affected",
+   "reasoning": "7.2.1 is below the exclusive bound 7.2.2, so the version is affected. Exposure, however, depends on the installation method: DEB and RPM packages are affected, while source installs and container images are not. The inventory does not record the installation method.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P50",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "Only installations from the DEB and RPM packages were affected \u2014 installations from source or the official container images were not.",
+   "reasoning": "7.2.1 is below the exclusive bound 7.2.2, so the version is in range. The description limits exposure to DEB/RPM package installations. The inventory does not record installation method, so exposure depends on an unrecorded deployment property.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P50",
+   "label": "conditional",
+   "source": "nvd_description",
+   "deciding_quote": "Only installations from the DEB and RPM packages were affected",
+   "reasoning": "7.2.1 is below the exclusive bound 7.2.2, so the version is affected. Exposure, however, depends on the installation method (DEB/RPM package vs source or container), which the inventory does not record.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P51": [
+  {
+   "labeler": "A",
+   "pair_id": "P51",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "reasoning": "7.24 equals the inclusive start and is below 7.24.2. The exposure is through the SSH service, but the documents state no configuration precondition.",
+   "outside_knowledge_note": "In practice exposure also needs the SSH service to be enabled and reachable, which the documents do not state as a condition.",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P51",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "reasoning": "7.24 equals the inclusive start of the 7.24 to 7.24.2 (exclusive) range. The documents describe the SSH server flaw without saying that any configuration must be enabled, so no conditional precondition is stated.",
+   "outside_knowledge_note": "In practice exploitation requires the RouterOS SSH service to be reachable. That service is typically enabled by default, but the documents do not frame it as a condition.",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P51",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "reasoning": "7.24 is the inclusive start and is below the fixed 7.24.2. The flaw is in the RouterOS SSH server, but the documents do not make exposure conditional on any setting.",
+   "outside_knowledge_note": "Exploitation needs the SSH service to be reachable. That is a deployment fact the documents do not state as a condition.",
+   "confidence": "medium"
+  }
+ ],
+ "P52": [
+  {
+   "labeler": "A",
+   "pair_id": "P52",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_gateway:*:*:*:*:*:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "reasoning": "Read literally, the bare '14.1' equals the inclusive start and is below 14.1-73.37, so the Gateway row and the default-edition ADC row both include it. Only the FIPS row, which starts at 14.1-66.68, leaves out a bare 14.1, and that comes from the missing build number.",
+   "outside_knowledge_note": "Without a build number, the real-world answer depends on the actual 14.1 build and possibly on Gateway or AAA configuration, as Citrix advisories commonly require.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P52",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "reasoning": "Compared token by token, '14.1' equals the inclusive start and is shorter than, and therefore less than, 14.1-73.37, so it falls in the standard ADC row. It also falls in the Gateway row (14.1 to 14.1-73.37 exclusive). Read literally, the FIPS row starts at 14.1-66.68, but the standard and Gateway rows cover the recorded value.",
+   "outside_knowledge_note": "The administrator recorded only the release line '14.1' without a build number. In reality, 14.1 builds at or after 73.37 are fixed, so the true exposure depends on the unrecorded build.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P52",
+   "label": "conditional",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "reasoning": "Read literally, '14.1' falls inside the standard ADC and Gateway ranges (14.1 inclusive, before 14.1-73.37). It sorts below the FIPS row's start of 14.1-66.68. Exposure therefore depends on the unrecorded edition (standard vs FIPS).",
+   "outside_knowledge_note": "14.1 is a release line without a build number. In practice the build decides exposure.",
+   "confidence": "medium"
+  }
+ ],
+ "P53": [
+  {
+   "labeler": "A",
+   "pair_id": "P53",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:* | versionEndExcluding=10.0.19044.7807",
+   "reasoning": "10.0.19044.7807 is a Windows 10 21H2 build and equals the exclusive upper bound on all three 21H2 architecture rows, so it falls outside the range. No other row covers the 19044 build line.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P53",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:* | versionEndExcluding=10.0.19044.7807",
+   "reasoning": "Build 10.0.19044.x is the Windows 10 21H2 line. Its rows (arm64, x64 and x86 alike) exclude 10.0.19044.7807, which is exactly the installed build. No other row's build line (19045, 22631, server builds and so on) matches 19044.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P53",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:* | versionEndExcluding=10.0.19044.7807",
+   "reasoning": "The config's own bounds tie build 19044 to the windows_10_21h2 rows, and the installed 10.0.19044.7807 equals their exclusive upper bound on every architecture. Rows for other releases, which have no start bound, would match any lower build number only as an artifact, because they describe different products.",
+   "outside_knowledge_note": "Build 19044 is Windows 10 21H2 (including Enterprise LTSC 2021), which matches the row used here.",
+   "confidence": "medium"
+  }
+ ],
+ "P54": [
+  {
+   "labeler": "A",
+   "pair_id": "P54",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.4 is exactly the exclusive upper bound, so it is outside the range. The description also names 10.3.4 as the fixed version.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P54",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "The only row excludes 10.3.4, and the installed version is exactly 10.3.4. The description also says that upgrading to 10.3.4 resolves the issue. The installed version is outside the affected range.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P54",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "reasoning": "10.3.4 equals the exclusive upper bound, and the description names 10.3.4 as the fixed version.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P55": [
+  {
+   "labeler": "A",
+   "pair_id": "P55",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "reasoning": "r80 equals the inclusive start of the multi-domain_security_management row r80 to r81.10 (exclusive). Neither the KEV entry nor the description states a feature precondition for the unauthenticated path traversal.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P55",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "reasoning": "r80 equals the inclusive start of the range r80 to r81.10 (exclusive), so the installed Multi-Domain Security Management version is in range. The KEV and the description describe unauthenticated upload and execution with no configuration precondition.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P55",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "reasoning": "r80 is the inclusive start of the Multi-Domain Security Management range, which ends before r81.10. The KEV entry names Multi-Domain Security Management Server and states no feature condition.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P56": [
+  {
+   "labeler": "A",
+   "pair_id": "P56",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "reasoning": "6.3.0 equals the inclusive start of the 6.3.0 to 6.5.4 row. The description confirms that versions 6.3.0 to 6.5.4 are vulnerable.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P56",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "reasoning": "6.3.0 equals the inclusive lower bound of the 6.3.0 to 6.5.4 range. The description also names 6.3.0 to 6.5.4 as vulnerable. No feature or configuration condition is stated.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P56",
+   "label": "affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "reasoning": "6.3.0 is the inclusive lower bound of the 6.3.0 to 6.5.4 range. The description also names 6.3.0 as vulnerable, and the 'not exploitable' note applies only to 7.0.0 through 7.1.2.",
+   "outside_knowledge_note": "none",
+   "confidence": "high"
+  }
+ ],
+ "P57": [
+  {
+   "labeler": "A",
+   "pair_id": "P57",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "reasoning": "16.0.19725.20522 equals the exclusive upper bound on the Subscription Edition row, so it is outside the range. The only other rows are the exact versions '2016' (enterprise) and '2019', and the recorded build string does not literally match either.",
+   "outside_knowledge_note": "16.0.19xxx build numbers belong to SharePoint Subscription Edition, which supports reading this as the patched SE build.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "B",
+   "pair_id": "P57",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "reasoning": "The only build-numbered row has an exclusive upper bound equal to the installed build 16.0.19725.20522, so this version is outside it. The other two rows name the product versions '2016' and '2019', and the recorded build string does not match either of them token by token. No row includes the installed version.",
+   "outside_knowledge_note": "In the real world the 16.0.19xxx build line is SharePoint Subscription Edition. SharePoint 2016 builds are 16.0.5xxx and 2019 builds are 16.0.10xxx, which is consistent with not_affected. I do not recognise this specific CVE ID.",
+   "confidence": "medium"
+  },
+  {
+   "labeler": "C",
+   "pair_id": "P57",
+   "label": "not_affected",
+   "source": "nvd_config",
+   "deciding_quote": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "reasoning": "The installed 16.0.19725.20522 equals the exclusive upper bound of the only row that uses the 16.0.x build scheme. The 2016 and 2019 rows list exact versions '2016' and '2019', which the recorded version does not match.",
+   "outside_knowledge_note": "SharePoint 2016 and 2019 also report 16.0.x builds, but in much lower build ranges, so 16.0.19725.x is consistent with Subscription Edition.",
+   "confidence": "medium"
+  }
+ ]
+}

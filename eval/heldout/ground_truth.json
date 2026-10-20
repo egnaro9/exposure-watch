@@ -1,0 +1,404 @@
+{
+ "note": "Held-out key. Each label is three blind labelers' unanimous answer, or a neutral adjudicator's ruling where they disagreed (eval/heldout/key_audit/). Frozen before the code or any agent ran on this set; corrections go in errata.json.",
+ "pairs": [
+  {
+   "item": "ho-01",
+   "cve": "CVE-2026-102764",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P44"
+  },
+  {
+   "item": "ho-02",
+   "cve": "CVE-2026-102764",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P47"
+  },
+  {
+   "item": "ho-03",
+   "cve": "CVE-2026-21589",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P31"
+  },
+  {
+   "item": "ho-04",
+   "cve": "CVE-2026-21589",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P19"
+  },
+  {
+   "item": "ho-05",
+   "cve": "CVE-2026-76519",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P37"
+  },
+  {
+   "item": "ho-06",
+   "cve": "CVE-2026-76519",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P36"
+  },
+  {
+   "item": "ho-07",
+   "cve": "CVE-2026-105134",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P06"
+  },
+  {
+   "item": "ho-08",
+   "cve": "CVE-2026-105134",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P54"
+  },
+  {
+   "item": "ho-09",
+   "cve": "CVE-2026-105133",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P45"
+  },
+  {
+   "item": "ho-10",
+   "cve": "CVE-2026-105133",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P05"
+  },
+  {
+   "item": "ho-11",
+   "cve": "CVE-2026-0322",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P27"
+  },
+  {
+   "item": "ho-12",
+   "cve": "CVE-2026-0322",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P18"
+  },
+  {
+   "item": "ho-13",
+   "cve": "CVE-2026-96951",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P29"
+  },
+  {
+   "item": "ho-14",
+   "cve": "CVE-2026-96951",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P53"
+  },
+  {
+   "item": "ho-15",
+   "cve": "CVE-2026-104935",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P33"
+  },
+  {
+   "item": "ho-16",
+   "cve": "CVE-2026-104935",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P14"
+  },
+  {
+   "item": "ho-17",
+   "cve": "CVE-2026-88779",
+   "truth": "affected",
+   "basis": "adjudicated; labelers said A affected, B affected, C conditional",
+   "pair_id": "P34"
+  },
+  {
+   "item": "ho-18",
+   "cve": "CVE-2026-88779",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P49"
+  },
+  {
+   "item": "ho-19",
+   "cve": "CVE-2026-102490",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P50"
+  },
+  {
+   "item": "ho-20",
+   "cve": "CVE-2026-102490",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P02"
+  },
+  {
+   "item": "ho-21",
+   "cve": "CVE-2026-102489",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P56"
+  },
+  {
+   "item": "ho-22",
+   "cve": "CVE-2026-102489",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P24"
+  },
+  {
+   "item": "ho-23",
+   "cve": "CVE-2026-104286",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P46"
+  },
+  {
+   "item": "ho-24",
+   "cve": "CVE-2026-104286",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P08"
+  },
+  {
+   "item": "ho-25",
+   "cve": "CVE-2026-76504",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P35"
+  },
+  {
+   "item": "ho-26",
+   "cve": "CVE-2026-76504",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P15"
+  },
+  {
+   "item": "ho-27",
+   "cve": "CVE-2026-86950",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P23"
+  },
+  {
+   "item": "ho-28",
+   "cve": "CVE-2026-86950",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P28"
+  },
+  {
+   "item": "ho-29",
+   "cve": "CVE-2026-88772",
+   "truth": "conditional",
+   "basis": "adjudicated; labelers said A affected, B affected, C conditional",
+   "pair_id": "P41"
+  },
+  {
+   "item": "ho-30",
+   "cve": "CVE-2026-88772",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P21"
+  },
+  {
+   "item": "ho-31",
+   "cve": "CVE-2026-88771",
+   "truth": "conditional",
+   "basis": "adjudicated; labelers said A affected, B affected, C conditional",
+   "pair_id": "P52"
+  },
+  {
+   "item": "ho-32",
+   "cve": "CVE-2026-88771",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P16"
+  },
+  {
+   "item": "ho-33",
+   "cve": "CVE-2026-87902",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P04"
+  },
+  {
+   "item": "ho-34",
+   "cve": "CVE-2026-87902",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P01"
+  },
+  {
+   "item": "ho-35",
+   "cve": "CVE-2026-67279",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P51"
+  },
+  {
+   "item": "ho-36",
+   "cve": "CVE-2026-67279",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P39"
+  },
+  {
+   "item": "ho-37",
+   "cve": "CVE-2026-65660",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P09"
+  },
+  {
+   "item": "ho-38",
+   "cve": "CVE-2026-65660",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P57"
+  },
+  {
+   "item": "ho-39",
+   "cve": "CVE-2026-71362",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P30"
+  },
+  {
+   "item": "ho-40",
+   "cve": "CVE-2026-71362",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P25"
+  },
+  {
+   "item": "ho-41",
+   "cve": "CVE-2026-5430",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P32"
+  },
+  {
+   "item": "ho-42",
+   "cve": "CVE-2026-5430",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P20"
+  },
+  {
+   "item": "ho-43",
+   "cve": "CVE-2026-94127",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P13"
+  },
+  {
+   "item": "ho-44",
+   "cve": "CVE-2026-94127",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P26"
+  },
+  {
+   "item": "ho-45",
+   "cve": "CVE-2026-93952",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P22"
+  },
+  {
+   "item": "ho-46",
+   "cve": "CVE-2026-93952",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P48"
+  },
+  {
+   "item": "ho-47",
+   "cve": "CVE-2026-93616",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P55"
+  },
+  {
+   "item": "ho-48",
+   "cve": "CVE-2026-93616",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P03"
+  },
+  {
+   "item": "ho-49",
+   "cve": "CVE-2026-85102",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P40"
+  },
+  {
+   "item": "ho-50",
+   "cve": "CVE-2026-85102",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P42"
+  },
+  {
+   "item": "ho-51",
+   "cve": "CVE-2026-87886",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P43"
+  },
+  {
+   "item": "ho-52",
+   "cve": "CVE-2026-87886",
+   "truth": "conditional",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P07"
+  },
+  {
+   "item": "ho-53",
+   "cve": "CVE-2026-76460",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P11"
+  },
+  {
+   "item": "ho-54",
+   "cve": "CVE-2026-76461",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P10"
+  },
+  {
+   "item": "ho-55",
+   "cve": "CVE-2026-76461",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P17"
+  },
+  {
+   "item": "ho-56",
+   "cve": "CVE-2026-85706",
+   "truth": "affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P38"
+  },
+  {
+   "item": "ho-57",
+   "cve": "CVE-2026-85706",
+   "truth": "not_affected",
+   "basis": "unanimous (A, B, C)",
+   "pair_id": "P12"
+  }
+ ]
+}
