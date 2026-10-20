@@ -6,7 +6,7 @@ A self-directed system that lets AI agents **plan, build, review, and validate t
 
 Built solo, from first principles, since spring 2026. It's built to *ship*, not to gold-plate: every gate below exists so I can move fast without shipping something broken. This document describes the **architecture**; the harness and product source are private.
 
-> Built by **Erik Hill**, agentic systems engineer.
+> Built by **Erik Hill**, AI evaluation & testing engineer.
 > Portfolio → https://egnaro9.github.io · LinkedIn → https://linkedin.com/in/erik-hill-98895575
 
 ---
@@ -15,7 +15,7 @@ Built solo, from first principles, since spring 2026. It's built to *ship*, not 
 Coding agents are easy to demo and hard to *trust*. The moment they touch a real codebase, meaning deploys, commits and user-facing changes, you need what any production system needs: review, tests, gates, and a way to catch your own regressions. This harness is my answer.
 
 ## The loop
-Work moves through five stages, each handing off automatically:
+Work moves through four stages, with Evaluation as a fifth role that runs alongside:
 
 ```
 Strategy → Execution → Critic → Ops        (+ Evaluation, asynchronous)
@@ -30,7 +30,7 @@ Strategy → Execution → Critic → Ops        (+ Evaluation, asynchronous)
 The manager hands each stage to a fresh subagent pinned to the model that role needs, so the loop advances without a human babysitting each handoff. Every irreversible step still waits for me.
 
 ## The manager, and where I sit
-Above the five stages sits one **orchestration layer** that I direct: it plans each unit of work, routes it to the right role and model, and holds the system's state between steps. I designed the roles, the gates, and the routing; the harness runs them. I'm inside the loop as its judgment and authority, and the manager extends that across many parallel agents.
+Above the four stages sits one **orchestration layer** that I direct: it plans each unit of work, routes it to the right role and model, and holds the system's state between steps. I designed the roles, the gates, and the routing; the harness runs them. I'm inside the loop as its judgment and authority, and the manager extends that across many parallel agents.
 
 ## Per-role model routing
 Not every stage needs the same brain. Reasoning-heavy judgment (Strategy, Critic, Evaluation) runs on a stronger, colder model; routine execution runs on a faster one. A **model-gate** refuses to let a judgment role run on an under-powered model.
@@ -39,7 +39,7 @@ Not every stage needs the same brain. Reasoning-heavy judgment (Strategy, Critic
 The money question for any agentic system: how do you know it didn't break something?
 
 - **Differential oracle** *(designed, pre-launch)*: the core logic already exists **twice**: a reference build and a performance-critical native port that's authoritative on device. Two independent implementations of the same rules make each one the other's oracle, which is what catches a "fixed one side, not the other" divergence. Wiring them into an automated gate is pre-launch work; the technique itself is built and runnable in [evals-differential-oracle](https://github.com/egnaro9/evals-differential-oracle).
-- **Logic invariants**: core rules (e.g. *"checking one cell for a match always agrees with scanning the whole board"*) are enforced as **property-based tests over the native engine**, the implementation that's authoritative on device. 51 tests (16 of them property-based, over random inputs), device-free, one command, green as of the last run on 2026-08-06.
+- **Logic invariants**: core rules (e.g. *"checking one cell for a match always agrees with scanning the whole board"*) are enforced as **property-based tests over the native engine**, the implementation that's authoritative on device. That suite is private, like the engine: 51 tests (16 of them property-based, over random inputs), device-free, one command, green at its last recorded run on 2026-08-06.
 - **On-device validation**: adb-driven tests confirm behavior on real hardware, not just in a mock.
 
 ## The evidence trail: product changes leave proof
