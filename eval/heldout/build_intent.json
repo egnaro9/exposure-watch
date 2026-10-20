@@ -1,0 +1,404 @@
+{
+ "note": "Which side of the range each item was built on. NOT the answer key; the labelers never see this file.",
+ "pairs": [
+  {
+   "item": "ho-01",
+   "cve": "CVE-2026-102764",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndIncluding"
+  },
+  {
+   "item": "ho-02",
+   "cve": "CVE-2026-102764",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndIncluding plus one"
+  },
+  {
+   "item": "ho-03",
+   "cve": "CVE-2026-21589",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-04",
+   "cve": "CVE-2026-21589",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-05",
+   "cve": "CVE-2026-76519",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-06",
+   "cve": "CVE-2026-76519",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-07",
+   "cve": "CVE-2026-105134",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-08",
+   "cve": "CVE-2026-105134",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-09",
+   "cve": "CVE-2026-105133",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-10",
+   "cve": "CVE-2026-105133",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-11",
+   "cve": "CVE-2026-0322",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-12",
+   "cve": "CVE-2026-0322",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-13",
+   "cve": "CVE-2026-96951",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-14",
+   "cve": "CVE-2026-96951",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-15",
+   "cve": "CVE-2026-104935",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-16",
+   "cve": "CVE-2026-104935",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-17",
+   "cve": "CVE-2026-88779",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-18",
+   "cve": "CVE-2026-88779",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-19",
+   "cve": "CVE-2026-102490",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-20",
+   "cve": "CVE-2026-102490",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-21",
+   "cve": "CVE-2026-102489",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-22",
+   "cve": "CVE-2026-102489",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndIncluding plus one"
+  },
+  {
+   "item": "ho-23",
+   "cve": "CVE-2026-104286",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-24",
+   "cve": "CVE-2026-104286",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndIncluding plus one"
+  },
+  {
+   "item": "ho-25",
+   "cve": "CVE-2026-76504",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-26",
+   "cve": "CVE-2026-76504",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-27",
+   "cve": "CVE-2026-86950",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-28",
+   "cve": "CVE-2026-86950",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-29",
+   "cve": "CVE-2026-88772",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-30",
+   "cve": "CVE-2026-88772",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-31",
+   "cve": "CVE-2026-88771",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-32",
+   "cve": "CVE-2026-88771",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-33",
+   "cve": "CVE-2026-87902",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-34",
+   "cve": "CVE-2026-87902",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-35",
+   "cve": "CVE-2026-67279",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-36",
+   "cve": "CVE-2026-67279",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-37",
+   "cve": "CVE-2026-65660",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-38",
+   "cve": "CVE-2026-65660",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-39",
+   "cve": "CVE-2026-71362",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-40",
+   "cve": "CVE-2026-71362",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-41",
+   "cve": "CVE-2026-5430",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-42",
+   "cve": "CVE-2026-5430",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-43",
+   "cve": "CVE-2026-94127",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-44",
+   "cve": "CVE-2026-94127",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndIncluding plus one"
+  },
+  {
+   "item": "ho-45",
+   "cve": "CVE-2026-93952",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-46",
+   "cve": "CVE-2026-93952",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndIncluding plus one"
+  },
+  {
+   "item": "ho-47",
+   "cve": "CVE-2026-93616",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-48",
+   "cve": "CVE-2026-93616",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-49",
+   "cve": "CVE-2026-85102",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-50",
+   "cve": "CVE-2026-85102",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-51",
+   "cve": "CVE-2026-87886",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionEndExcluding minus one"
+  },
+  {
+   "item": "ho-52",
+   "cve": "CVE-2026-87886",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-53",
+   "cve": "CVE-2026-76460",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "highest exact version"
+  },
+  {
+   "item": "ho-54",
+   "cve": "CVE-2026-76461",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-55",
+   "cve": "CVE-2026-76461",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  },
+  {
+   "item": "ho-56",
+   "cve": "CVE-2026-85706",
+   "built": "inside",
+   "expect": "affected",
+   "rule": "versionStartIncluding"
+  },
+  {
+   "item": "ho-57",
+   "cve": "CVE-2026-85706",
+   "built": "outside",
+   "expect": "not_affected",
+   "rule": "versionEndExcluding"
+  }
+ ]
+}

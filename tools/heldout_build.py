@@ -165,6 +165,16 @@ class _Key:
     def __eq__(self, o): return compare(self.v, o.v) == 0
 
 
+def inventory_name(v: dict, prod: str):
+    """The vendor and product an administrator would write. PREREG amendment 1:
+    KEV's "Multiple Products" is not a product anyone records, so such an item
+    takes the chosen NVD product's name, underscores read as spaces."""
+    product = v["product"].strip()
+    if product.lower() == "multiple products":
+        product = prod.split(":", 1)[1].replace("_", " ")
+    return v["vendorProject"].strip(), product
+
+
 def cmd_build(a) -> None:
     kev = json.loads((FIX / "kev_catalog.json").read_text(encoding="utf-8"))
     excluded, kept = {}, []
@@ -207,11 +217,13 @@ def cmd_build(a) -> None:
     n = 0
     for v, rec, prod, info in kept:
         vers = build_versions(info["rows"])
+        vendor, product = inventory_name(v, prod)
         entry = {"cve": v["cveID"], "kev_vendor": v["vendorProject"], "kev_product": v["product"],
+                 "inventory_vendor": vendor, "inventory_product": product,
                  "nvd_product": prod, "product_scores": info["scores"], **vers, "manual": []}
-        aliases.setdefault((v["vendorProject"], v["product"]), [])
-        if prod not in aliases[(v["vendorProject"], v["product"])]:
-            aliases[(v["vendorProject"], v["product"])].append(prod)
+        aliases.setdefault((vendor, product), [])
+        if prod not in aliases[(vendor, product)]:
+            aliases[(vendor, product)].append(prod)
         for side, expect in (("inside", "affected"), ("outside", "not_affected")):
             ver = vers.get(side)
             if not ver:
@@ -219,7 +231,7 @@ def cmd_build(a) -> None:
                 continue
             n += 1
             iid = f"ho-{n:02d}"
-            inventory.append({"id": iid, "vendor": v["vendorProject"], "product": v["product"],
+            inventory.append({"id": iid, "vendor": vendor, "product": product,
                               "version": ver, "where": f"host-{n:02d}"})
             intent.append({"item": iid, "cve": v["cveID"], "built": side, "expect": expect,
                            "rule": vers.get(f"{side}_rule")})

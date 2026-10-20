@@ -1,0 +1,180 @@
+{
+ "note": "Inventory (KEV) names to the NVD product the build chose. Written before any verdict existed.",
+ "aliases": [
+  {
+   "vendor": "Acronis",
+   "product": "Backup",
+   "nvd": [
+    "acronis:acronis_backup"
+   ]
+  },
+  {
+   "vendor": "Adobe",
+   "product": "Commerce and Magento",
+   "nvd": [
+    "adobe:commerce"
+   ]
+  },
+  {
+   "vendor": "Ahsay",
+   "product": "AhsayCBS",
+   "nvd": [
+    "ahsay:cloud_backup_suite"
+   ]
+  },
+  {
+   "vendor": "Apple",
+   "product": "macos",
+   "nvd": [
+    "apple:macos"
+   ]
+  },
+  {
+   "vendor": "Arista",
+   "product": "VeloCloud Orchestrator",
+   "nvd": [
+    "arista:velocloud_orchestrator"
+   ]
+  },
+  {
+   "vendor": "Atlassian",
+   "product": "crowd",
+   "nvd": [
+    "atlassian:crowd"
+   ]
+  },
+  {
+   "vendor": "BeyondTrust",
+   "product": "Remote Support",
+   "nvd": [
+    "beyondtrust:remote_support"
+   ]
+  },
+  {
+   "vendor": "Check Point",
+   "product": "gaia os",
+   "nvd": [
+    "checkpoint:gaia_os"
+   ]
+  },
+  {
+   "vendor": "Check Point",
+   "product": "multi-domain security management",
+   "nvd": [
+    "checkpoint:multi-domain_security_management"
+   ]
+  },
+  {
+   "vendor": "Cisco",
+   "product": "Catalyst SD-WAN Manager",
+   "nvd": [
+    "cisco:catalyst_sd-wan_manager"
+   ]
+  },
+  {
+   "vendor": "Cisco",
+   "product": "Identity Services Engine",
+   "nvd": [
+    "cisco:identity_services_engine"
+   ]
+  },
+  {
+   "vendor": "Cisco",
+   "product": "Secure Email Gateway",
+   "nvd": [
+    "cisco:asyncos"
+   ]
+  },
+  {
+   "vendor": "Citrix",
+   "product": "NetScaler",
+   "nvd": [
+    "citrix:netscaler_application_delivery_controller"
+   ]
+  },
+  {
+   "vendor": "F5",
+   "product": "BIG-IP APM",
+   "nvd": [
+    "f5:big-ip_access_policy_manager"
+   ]
+  },
+  {
+   "vendor": "Fortinet",
+   "product": "FortiMail",
+   "nvd": [
+    "fortinet:fortimail"
+   ]
+  },
+  {
+   "vendor": "GitLab",
+   "product": "Community Edition and Enterprise Edition",
+   "nvd": [
+    "gitlab:gitlab"
+   ]
+  },
+  {
+   "vendor": "Google",
+   "product": "Pixel",
+   "nvd": [
+    "google:android"
+   ]
+  },
+  {
+   "vendor": "Ivanti",
+   "product": "Connect Secure",
+   "nvd": [
+    "ivanti:connect_secure"
+   ]
+  },
+  {
+   "vendor": "Microsoft",
+   "product": "SharePoint",
+   "nvd": [
+    "microsoft:sharepoint_server"
+   ]
+  },
+  {
+   "vendor": "Microsoft",
+   "product": "Windows",
+   "nvd": [
+    "microsoft:windows_10_21h2"
+   ]
+  },
+  {
+   "vendor": "MikroTik",
+   "product": "RouterOS",
+   "nvd": [
+    "mikrotik:routeros"
+   ]
+  },
+  {
+   "vendor": "Palo Alto Networks",
+   "product": "PAN-OS",
+   "nvd": [
+    "paloaltonetworks:pan-os"
+   ]
+  },
+  {
+   "vendor": "WSO2",
+   "product": "api manager",
+   "nvd": [
+    "wso2:api_manager"
+   ]
+  },
+  {
+   "vendor": "WordPress",
+   "product": "Core",
+   "nvd": [
+    "wordpress:wordpress"
+   ]
+  },
+  {
+   "vendor": "Zammad GmbH",
+   "product": "Zammad",
+   "nvd": [
+    "zammad:zammad"
+   ]
+  }
+ ]
+}

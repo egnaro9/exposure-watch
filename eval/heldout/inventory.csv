@@ -1,0 +1,58 @@
+id,vendor,product,version,where
+ho-01,BeyondTrust,Remote Support,26.2.3,host-01
+ho-02,BeyondTrust,Remote Support,26.2.4,host-02
+ho-03,Atlassian,crowd,7.2.0,host-03
+ho-04,Atlassian,crowd,7.2.4,host-04
+ho-05,Cisco,Secure Email Gateway,16.0,host-05
+ho-06,Cisco,Secure Email Gateway,16.5.0-780,host-06
+ho-07,Ahsay,AhsayCBS,10.3.3,host-07
+ho-08,Ahsay,AhsayCBS,10.3.4,host-08
+ho-09,Ahsay,AhsayCBS,10.3.3,host-09
+ho-10,Ahsay,AhsayCBS,10.3.4,host-10
+ho-11,Palo Alto Networks,PAN-OS,12.2.0,host-11
+ho-12,Palo Alto Networks,PAN-OS,12.2.4,host-12
+ho-13,Microsoft,Windows,10.0.19044.7806,host-13
+ho-14,Microsoft,Windows,10.0.19044.7807,host-14
+ho-15,Ivanti,Connect Secure,25.1.2.0,host-15
+ho-16,Ivanti,Connect Secure,25.1.3.0,host-16
+ho-17,Citrix,NetScaler,14.1,host-17
+ho-18,Citrix,NetScaler,14.1-73.41,host-18
+ho-19,Zammad GmbH,Zammad,7.2.1,host-19
+ho-20,Zammad GmbH,Zammad,7.2.2,host-20
+ho-21,Zammad GmbH,Zammad,6.3.0,host-21
+ho-22,Zammad GmbH,Zammad,6.5.5,host-22
+ho-23,Fortinet,FortiMail,8.0.0,host-23
+ho-24,Fortinet,FortiMail,8.0.2,host-24
+ho-25,Cisco,Catalyst SD-WAN Manager,26.1,host-25
+ho-26,Cisco,Catalyst SD-WAN Manager,26.1.2.1,host-26
+ho-27,Apple,macos,26.0,host-27
+ho-28,Apple,macos,26.7.1,host-28
+ho-29,Citrix,NetScaler,14.1,host-29
+ho-30,Citrix,NetScaler,14.1-73.37,host-30
+ho-31,Citrix,NetScaler,14.1,host-31
+ho-32,Citrix,NetScaler,14.1-73.37,host-32
+ho-33,WordPress,Core,7.1,host-33
+ho-34,WordPress,Core,7.1.2,host-34
+ho-35,MikroTik,RouterOS,7.24,host-35
+ho-36,MikroTik,RouterOS,7.24.2,host-36
+ho-37,Microsoft,SharePoint,16.0.19725.20521,host-37
+ho-38,Microsoft,SharePoint,16.0.19725.20522,host-38
+ho-39,Adobe,Commerce and Magento,2.4.3,host-39
+ho-40,Adobe,Commerce and Magento,2.4.4,host-40
+ho-41,WSO2,api manager,4.6.0,host-41
+ho-42,WSO2,api manager,4.6.0.21,host-42
+ho-43,F5,BIG-IP APM,17.5.0,host-43
+ho-44,F5,BIG-IP APM,17.5.2,host-44
+ho-45,Arista,VeloCloud Orchestrator,7.0.0,host-45
+ho-46,Arista,VeloCloud Orchestrator,7.0.0.3,host-46
+ho-47,Check Point,multi-domain security management,r80,host-47
+ho-48,Check Point,multi-domain security management,r81.10,host-48
+ho-49,Check Point,gaia os,r80,host-49
+ho-50,Check Point,gaia os,r81.10,host-50
+ho-51,Acronis,Backup,1.9.2,host-51
+ho-52,Acronis,Backup,1.9.3,host-52
+ho-53,Cisco,Identity Services Engine,3.5.0 patch3,host-53
+ho-54,Cisco,Secure Email Gateway,16.5,host-54
+ho-55,Cisco,Secure Email Gateway,16.5.0-780,host-55
+ho-56,GitLab,Community Edition and Enterprise Edition,19.3.0,host-56
+ho-57,GitLab,Community Edition and Enterprise Edition,19.3.2,host-57

@@ -55,6 +55,13 @@ All mechanical, by `tools/heldout_build.py`, so no item is chosen with an answer
 
 If the code ties or wins again, that is the result and the write-up says so.
 
+## Amendments
+
+Each made before labeling started, before the code or any agent ran on this set, and after the original text was pushed (commit fd3841f).
+
+1. **2026-10-19, after the first build: item names.** The rule above names each item with KEV's vendorProject and product "as an administrator would write them". For five vulnerabilities KEV's product is "Multiple Products", which no inventory records, and one product name carried a trailing space. Change: a "Multiple Products" item takes the chosen NVD product's name with underscores read as spaces (for example "crowd", "multi-domain security management"), and names are trimmed. The alias for that name points at the same NVD product the rule already chose, so no verdict-relevant choice changed. Applied in `tools/heldout_build.py`, `inventory_name`.
+2. **2026-10-19: one vulnerability builds no items.** CVE-2026-58704 (Google Pixel) has a single NVD row, `cpe:2.3:o:google:android:-`, with no version, so neither rule can build an item and it contributes no pairs. It stays among the 30 selected and is not replaced, because the cap counts vulnerabilities and backfilling would be a second selection step the rule does not have.
+
 ## Frozen hashes
 
 Filled in when the key is frozen, before any run.
