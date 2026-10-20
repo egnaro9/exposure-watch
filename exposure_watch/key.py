@@ -9,20 +9,23 @@ correction made after seeing agent output was earned.
 from __future__ import annotations
 
 import json
-from typing import List
+from pathlib import Path
+from typing import List, Optional
 
-from .data import ROOT
+from .data import current
 
-KEY = ROOT / "eval" / "ground_truth.json"
-ERRATA = ROOT / "eval" / "errata.json"
+# None means "the current data set's file"; tests point these at temporary files.
+KEY: Optional[Path] = None
+ERRATA: Optional[Path] = None
 
 
 def errata() -> List[dict]:
-    return json.loads(ERRATA.read_text(encoding="utf-8"))["errata"] if ERRATA.exists() else []
+    f = ERRATA or current().errata
+    return json.loads(f.read_text(encoding="utf-8"))["errata"] if f.exists() else []
 
 
 def load_pairs(with_errata: bool = True) -> List[dict]:
-    pairs = json.loads(KEY.read_text(encoding="utf-8"))["pairs"]
+    pairs = json.loads((KEY or current().key).read_text(encoding="utf-8"))["pairs"]
     if not with_errata:
         return pairs
     fixes = {(e["item"], e["cve"]): e for e in errata()}

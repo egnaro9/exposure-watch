@@ -12,10 +12,46 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parent.parent
 FIXTURES = ROOT / "fixtures"
+
+
+@dataclass(frozen=True)
+class DataSet:
+    """Where one evaluation set keeps its frozen data. The code is the same for
+    every set; only the documents, the inventory, the key and the aliases differ."""
+    name: str
+    fixtures: Path
+    inventory: Path
+    key: Path
+    errata: Path
+    aliases: Optional[Path] = None
+
+
+SETS = {
+    "original": DataSet("original", FIXTURES, ROOT / "examples" / "inventory.csv",
+                        ROOT / "eval" / "ground_truth.json", ROOT / "eval" / "errata.json"),
+    "heldout": DataSet("heldout", FIXTURES / "heldout", ROOT / "eval" / "heldout" / "inventory.csv",
+                       ROOT / "eval" / "heldout" / "ground_truth.json",
+                       ROOT / "eval" / "heldout" / "errata.json",
+                       ROOT / "eval" / "heldout" / "aliases.json"),
+}
+_current = SETS["original"]
+
+
+def current() -> DataSet:
+    return _current
+
+
+def use(name: str) -> DataSet:
+    """Switch every loader to one data set. The original set is the default."""
+    global _current
+    _current = SETS[name]
+    kev_index.cache_clear()
+    nvd_record.cache_clear()
+    return _current
 
 KEV_FIELDS = ("cveID", "vendorProject", "product", "vulnerabilityName", "dateAdded",
               "shortDescription", "requiredAction", "dueDate",
@@ -39,7 +75,7 @@ def load_inventory(path: Path) -> List[Item]:
 
 @lru_cache(maxsize=1)
 def kev_index() -> Dict[str, dict]:
-    d = json.loads((FIXTURES / "kev_catalog.json").read_text(encoding="utf-8"))
+    d = json.loads((_current.fixtures / "kev_catalog.json").read_text(encoding="utf-8"))
     return {v["cveID"]: v for v in d["vulnerabilities"]}
 
 
@@ -50,7 +86,7 @@ def kev_text(cve: str) -> str:
 
 @lru_cache(maxsize=None)
 def nvd_record(cve: str) -> dict:
-    d = json.loads((FIXTURES / "nvd" / f"{cve}.json").read_text(encoding="utf-8"))
+    d = json.loads((_current.fixtures / "nvd" / f"{cve}.json").read_text(encoding="utf-8"))
     return d["vulnerabilities"][0]["cve"]
 
 

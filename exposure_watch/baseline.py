@@ -8,10 +8,11 @@ against this, so an agent has to beat plain code to justify its cost.
 """
 from __future__ import annotations
 
+import json
 import re
 from typing import Dict, List, Tuple
 
-from .data import Item, config_line, nvd_description, vulnerable_rows
+from .data import Item, config_line, current, nvd_description, vulnerable_rows
 from .versions import in_range, split_update, compare
 
 # inventory (vendor, product) -> NVD "vendor:product" names that describe it
@@ -30,6 +31,20 @@ ALIASES: Dict[Tuple[str, str], List[str]] = {
     ("PaperCut", "PaperCut NG"): ["papercut:papercut_ng"],
 }
 
+
+
+def aliases() -> Dict[Tuple[str, str], List[str]]:
+    """The table above, plus the current data set's own aliases if it has any.
+    The held-out set's aliases are written by tools/heldout_build.py from KEV and
+    NVD names before any verdict exists, so they carry no answer."""
+    out = dict(ALIASES)
+    f = current().aliases
+    if f is not None and f.exists():
+        for a in json.loads(f.read_text(encoding="utf-8"))["aliases"]:
+            out[(a["vendor"], a["product"])] = a["nvd"]
+    return out
+
+
 _RANGE_KEYS = ("versionStartIncluding", "versionStartExcluding",
                "versionEndIncluding", "versionEndExcluding")
 
@@ -38,7 +53,7 @@ def judge(item: Item, cve: str) -> Tuple[str, str]:
     """('affected' | 'not_affected' | 'unknown', the row or reason that decided it).
 
     An affected verdict returns the deciding row exactly as the agent sees it."""
-    names = ALIASES.get((item.vendor, item.product))
+    names = aliases().get((item.vendor, item.product))
     if not names:
         return "unknown", "no alias for this product"
     version, update = split_update(item.vendor, item.product, item.version)
@@ -86,7 +101,7 @@ def nearest_row(item: Item, cve: str) -> str:
     (version, update) not above it. If every row is above the item, the range
     that starts lowest. The best single passage for "not affected"; empty when
     the product has no row at all."""
-    names = ALIASES.get((item.vendor, item.product)) or []
+    names = aliases().get((item.vendor, item.product)) or []
     version, update = split_update(item.vendor, item.product, item.version)
     best, best_key, above, above_start = "", None, "", None
     for m in vulnerable_rows(cve):

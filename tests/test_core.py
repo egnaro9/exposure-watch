@@ -247,3 +247,69 @@ def test_reference_answers_cite_the_row_that_decides_them():
         assert inside == (ans["verdict"] == "affected"), (p, row)
         checked += 1
     assert checked == sum(p["truth"] in ("affected", "not_affected") for p in PAIRS)
+
+
+# --- data sets ----------------------------------------------------------------
+
+def test_the_keyword_rule_is_frozen():
+    """eval/heldout/PREREG.md measures this exact rule. Changing it voids the held-out result."""
+    import re
+    from exposure_watch.baseline import CONDITION
+    assert CONDITION.pattern == r"\bfeature\b|\bwhen configured\b|\bconfigured as\b|\bwhen exposed\b"
+    assert CONDITION.flags & re.I
+
+
+@pytest.fixture
+def toy_set(tmp_path, monkeypatch):
+    """A one-vulnerability data set, switched to after the original set's caches are warm."""
+    from exposure_watch import data
+    fx = tmp_path / "fixtures"
+    (fx / "nvd").mkdir(parents=True)
+    (fx / "kev_catalog.json").write_text(json.dumps({"vulnerabilities": [
+        {"cveID": "CVE-2099-0001", "vendorProject": "Acme", "product": "Widget"}]}))
+    (fx / "nvd" / "CVE-2099-0001.json").write_text(json.dumps({"vulnerabilities": [{"cve": {
+        "descriptions": [{"lang": "en", "value": "toy description"}],
+        "configurations": [{"nodes": [{"cpeMatch": [{"vulnerable": True,
+            "criteria": "cpe:2.3:a:acme:widget:*:*:*:*:*:*:*:*",
+            "versionStartIncluding": "1.0", "versionEndExcluding": "2.0"}]}]}]}}]}))
+    (tmp_path / "inventory.csv").write_text("id,vendor,product,version,where\nt-1,Acme,Widget,1.5,h\n")
+    (tmp_path / "key.json").write_text(json.dumps({"pairs": [
+        {"item": "t-1", "cve": "CVE-2099-0001", "truth": "affected"}]}))
+    (tmp_path / "aliases.json").write_text(json.dumps({"aliases": [
+        {"vendor": "Acme", "product": "Widget", "nvd": ["acme:widget"]}]}))
+    monkeypatch.setitem(data.SETS, "toy", data.DataSet(
+        "toy", fx, tmp_path / "inventory.csv", tmp_path / "key.json",
+        tmp_path / "errata.json", tmp_path / "aliases.json"))
+    data.use("original")
+    data.kev_index()
+    yield data.use("toy")
+    data.use("original")
+
+
+def test_switching_sets_reloads_the_catalog(toy_set):
+    from exposure_watch import data
+    assert "CVE-2099-0001" in data.kev_index()
+    assert "CVE-2021-44228" not in data.kev_index()
+    assert data.nvd_description("CVE-2099-0001") == "toy description"
+
+
+def test_set_aliases_extend_the_table_and_reach_the_matcher(toy_set):
+    from exposure_watch.baseline import aliases
+    from exposure_watch.data import Item
+    table = aliases()
+    assert table[("Acme", "Widget")] == ["acme:widget"]
+    assert ("Apache", "Log4j") in table
+    assert judge(Item("t-1", "Acme", "Widget", "1.5", "h"), "CVE-2099-0001")[0] == "affected"
+    assert judge(Item("t-2", "Acme", "Widget", "2.0", "h"), "CVE-2099-0001")[0] == "not_affected"
+
+
+def test_the_key_follows_the_set(toy_set):
+    from exposure_watch import key
+    assert [(p["item"], p["truth"]) for p in key.load_pairs()] == [("t-1", "affected")]
+
+
+def test_the_original_set_comes_back_after_a_switch(toy_set):
+    from exposure_watch import data, key
+    data.use("original")
+    assert "CVE-2021-44228" in data.kev_index()
+    assert len(key.load_pairs()) == 22

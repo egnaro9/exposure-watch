@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+      - name: Every planted bug is caught
+        run: python tests/mutants.py
+      - name: Recorded runs replay to the committed reports, byte for byte
+        run: |
+          python -m exposure_watch run --run runs/2026-10-16 > /dev/null
+          if [ -d runs/heldout ]; then python -m exposure_watch --set heldout run --run runs/heldout > /dev/null; fi
+          git diff --exit-code runs/

@@ -1,4 +1,4 @@
-"""python -m exposure_watch {run,planted} ...
+"""python -m exposure_watch [--set original|heldout] {run,planted,retrieval} ...
 
   run      score every shape on the answer key. --live calls agents through the
            Claude Code CLI and records every answer under --run; without --live
@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 
 from . import agents
-from .data import ROOT, load_inventory
+from .data import SETS, current, load_inventory, use
 from .key import errata, load_pairs
 from .pipeline import run, summarize, write_report
 from .planted import run_skeptic_side, run_verifier_side
@@ -25,6 +25,8 @@ from .retrieval import recall
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="exposure_watch", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--set", choices=sorted(SETS), default="original",
+                    help="which evaluation set to use (default: the original 22 pairs)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run")
     r.add_argument("--run", type=Path, required=True, help="directory holding recorded answers")
@@ -39,7 +41,8 @@ def main(argv=None) -> int:
     sub.add_parser("retrieval")
     a = ap.parse_args(argv)
 
-    inv = {i.id: i for i in load_inventory(ROOT / "examples" / "inventory.csv")}
+    use(a.set)
+    inv = {i.id: i for i in load_inventory(current().inventory)}
     pairs = load_pairs(with_errata=True)
     if a.cmd == "retrieval":
         print(json.dumps(recall(pairs, inv), indent=1))

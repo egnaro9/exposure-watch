@@ -49,7 +49,14 @@ MUTANTS = [
      "    line = nearest_row(item, cve)\n",
      '    line = src["nvd_config"].splitlines()[0] if src["nvd_config"] else ""\n', "decides"),
     ("baseline: rebuild letters ignored, 17.9.4a equals 17.9.4", "versions.py",
-     '_TOKEN = re.compile(r"\\d+|[a-z]+")', '_TOKEN = re.compile(r"\\d+")', "baseline or compare"),
+     '_TOKEN = re.compile(r"\\d+|[a-z]+")', '_TOKEN = re.compile(r"\\d+")', "baseline or compare"),    ("data: switching sets keeps the old catalog cached", "data.py",
+     "    kev_index.cache_clear()\n", "", "switching"),
+    ("baseline: a data set's own aliases ignored", "baseline.py",
+     '            out[(a["vendor"], a["product"])] = a["nvd"]\n', "            pass\n", "aliases_extend"),
+    ("key: the key path ignores the data set", "key.py",
+     "(KEY or current().key)", '(KEY or current().fixtures.parent / "eval" / "ground_truth.json")', "key_follows"),
+    ("baseline: the keyword rule edited", "baseline.py",
+     r'\bconfigured as\b|', "", "keyword_rule_is_frozen or keywords"),
 ]
 
 
