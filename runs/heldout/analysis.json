@@ -1,0 +1,300 @@
+{
+ "pairs": 57,
+ "summary": {
+  "code": {
+   "pairs": 57,
+   "correct": 44,
+   "escalated": 0,
+   "overcalled": 12,
+   "undercalled": 0,
+   "false_alarm": 0,
+   "missed": 1,
+   "overconfident": 0,
+   "cost_usd": 0.0,
+   "mean_latency_s": 0.0
+  },
+  "code+keywords": {
+   "pairs": 57,
+   "correct": 45,
+   "escalated": 0,
+   "overcalled": 10,
+   "undercalled": 1,
+   "false_alarm": 0,
+   "missed": 1,
+   "overconfident": 0,
+   "cost_usd": 0.0,
+   "mean_latency_s": 0.0
+  },
+  "agent": {
+   "pairs": 57,
+   "correct": 48,
+   "escalated": 3,
+   "overcalled": 2,
+   "undercalled": 1,
+   "false_alarm": 0,
+   "missed": 3,
+   "overconfident": 0,
+   "cost_usd": 13.3615,
+   "mean_latency_s": 11.99
+  },
+  "agent+verify": {
+   "pairs": 57,
+   "correct": 48,
+   "escalated": 3,
+   "overcalled": 2,
+   "undercalled": 1,
+   "false_alarm": 0,
+   "missed": 3,
+   "overconfident": 0,
+   "cost_usd": 13.3615,
+   "mean_latency_s": 11.99
+  },
+  "agent+verify+skeptic": {
+   "pairs": 57,
+   "correct": 47,
+   "escalated": 10,
+   "overcalled": 0,
+   "undercalled": 0,
+   "false_alarm": 0,
+   "missed": 0,
+   "overconfident": 0,
+   "cost_usd": 33.3391,
+   "mean_latency_s": 29.75
+  }
+ },
+ "preregistered_comparison": {
+  "shapes": [
+   "code+keywords",
+   "agent+verify+skeptic"
+  ],
+  "correct": [
+   45,
+   47
+  ],
+  "missed": [
+   1,
+   0
+  ],
+  "only_code+keywords_correct": 2,
+  "only_agent+verify+skeptic_correct": 4,
+  "mcnemar_exact_two_sided_p": 0.6875
+ },
+ "frozen_code_errors": {
+  "code": {
+   "by_kind": {
+    "condition": 12,
+    "version": 1
+   },
+   "pairs": [
+    {
+     "item": "ho-05",
+     "cve": "CVE-2026-76519",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780"
+    },
+    {
+     "item": "ho-18",
+     "cve": "CVE-2026-88779",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41"
+    },
+    {
+     "item": "ho-19",
+     "cve": "CVE-2026-102490",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2"
+    },
+    {
+     "item": "ho-29",
+     "cve": "CVE-2026-88772",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+    },
+    {
+     "item": "ho-30",
+     "cve": "CVE-2026-88772",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+    },
+    {
+     "item": "ho-31",
+     "cve": "CVE-2026-88771",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+    },
+    {
+     "item": "ho-32",
+     "cve": "CVE-2026-88771",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+    },
+    {
+     "item": "ho-43",
+     "cve": "CVE-2026-94127",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1"
+    },
+    {
+     "item": "ho-49",
+     "cve": "CVE-2026-85102",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+    },
+    {
+     "item": "ho-50",
+     "cve": "CVE-2026-85102",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*"
+    },
+    {
+     "item": "ho-51",
+     "cve": "CVE-2026-87886",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3"
+    },
+    {
+     "item": "ho-52",
+     "cve": "CVE-2026-87886",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*"
+    },
+    {
+     "item": "ho-53",
+     "cve": "CVE-2026-76460",
+     "truth": "affected",
+     "said": "not_affected",
+     "kind": "version",
+     "why": "no vulnerable row matched"
+    }
+   ]
+  },
+  "code+keywords": {
+   "by_kind": {
+    "condition": 11,
+    "version": 1
+   },
+   "pairs": [
+    {
+     "item": "ho-13",
+     "cve": "CVE-2026-96951",
+     "truth": "affected",
+     "said": "conditional",
+     "kind": "condition",
+     "why": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807; description condition: 'feature'"
+    },
+    {
+     "item": "ho-18",
+     "cve": "CVE-2026-88779",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41"
+    },
+    {
+     "item": "ho-19",
+     "cve": "CVE-2026-102490",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2"
+    },
+    {
+     "item": "ho-29",
+     "cve": "CVE-2026-88772",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+    },
+    {
+     "item": "ho-30",
+     "cve": "CVE-2026-88772",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+    },
+    {
+     "item": "ho-31",
+     "cve": "CVE-2026-88771",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+    },
+    {
+     "item": "ho-32",
+     "cve": "CVE-2026-88771",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+    },
+    {
+     "item": "ho-49",
+     "cve": "CVE-2026-85102",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+    },
+    {
+     "item": "ho-50",
+     "cve": "CVE-2026-85102",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*"
+    },
+    {
+     "item": "ho-51",
+     "cve": "CVE-2026-87886",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3"
+    },
+    {
+     "item": "ho-52",
+     "cve": "CVE-2026-87886",
+     "truth": "conditional",
+     "said": "affected",
+     "kind": "condition",
+     "why": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*"
+    },
+    {
+     "item": "ho-53",
+     "cve": "CVE-2026-76460",
+     "truth": "affected",
+     "said": "not_affected",
+     "kind": "version",
+     "why": "no vulnerable row matched"
+    }
+   ]
+  }
+ }
+}
