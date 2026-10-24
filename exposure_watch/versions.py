@@ -9,7 +9,8 @@ Comparison is token by token: numbers numerically, letters alphabetically.
 When a number meets a letter at the same position the letter sorts first,
 which is pre-release order ("2.0-beta9" before "2.0.1"). When one version is
 a prefix of the other, the shorter sorts first, which is rebuild order
-("17.9.4" before "17.9.4a"). Both rules are stated because each is wrong for
+("17.9.4" before "17.9.4a"), unless the rest is only zeros ("2.4" equals
+"2.4.0"). Both rules are stated because each is wrong for
 some vendor; the answer key in eval/ records which pairs exercise them.
 """
 from __future__ import annotations
@@ -37,6 +38,10 @@ def compare(a: str, b: str) -> int:
             return -1 if x < y else 1
         return -1 if isinstance(x, str) else 1
     if len(ta) == len(tb):
+        return 0
+    # "2.4" and "2.4.0" are the same release. NVD starts the Log4Shell range at
+    # 2.4.0, so without this an inventory's "2.4" fell outside it as not_affected.
+    if all(t == 0 for t in (ta[len(tb):] or tb[len(ta):])):
         return 0
     return -1 if len(ta) < len(tb) else 1
 
@@ -72,4 +77,11 @@ def split_update(vendor: str, product: str, written: str) -> Tuple[str, str]:
         m = re.fullmatch(r"(\d+\.\d+)R(\d+(?:\.\d+)*)", s, re.I)
         if m:
             return m.group(1), f"r{m.group(2)}"
+    # Log4j: 2.0-beta9, also written 2.0.beta9 or 2.0beta9. NVD lists it as
+    # log4j:2.0:beta9, so left whole it never equals a row, and Log4Shell's first
+    # vulnerable release came back not_affected.
+    if product.lower() == "log4j":
+        m = re.fullmatch(r"(\d+(?:\.\d+)*)[-.]?((?:alpha|beta|rc)\d+)", s, re.I)
+        if m:
+            return m.group(1), m.group(2).lower()
     return s, "*"

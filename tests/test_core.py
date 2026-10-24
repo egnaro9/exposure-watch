@@ -26,6 +26,9 @@ PAIRS = load_pairs(with_errata=True)
     ("15.1.4", "15.1.5.1", -1),
     ("22.0.9", "22.0.9", 0),
     ("2.0-beta9", "2.0.1", -1),        # pre-release sorts before release
+    ("2.4", "2.4.0", 0),               # trailing zeros name the same release
+    ("17.9.4", "17.9.4.0", 0),
+    ("2.4", "2.4.1", -1),              # ...but any other tail still sorts after
 ])
 def test_compare(a, b, want):
     assert compare(a, b) == want
@@ -43,6 +46,10 @@ def test_end_excluding_is_exclusive():
     ("Palo Alto Networks", "PAN-OS", "10.2.9", ("10.2.9", "-")),
     ("Ivanti", "Connect Secure", "22.6R2", ("22.6", "r2")),
     ("Apache", "Log4j", "2.14.1", ("2.14.1", "*")),
+    ("Apache", "Log4j", "2.0-beta9", ("2.0", "beta9")),
+    ("Apache", "Log4j", "2.0-rc2", ("2.0", "rc2")),
+    ("Apache", "Log4j", "2.0.beta9", ("2.0", "beta9")),
+    ("Apache", "Log4j", "2.0beta9", ("2.0", "beta9")),
 ])
 def test_split_update(vendor, product, written, want):
     assert split_update(vendor, product, written) == want
@@ -57,6 +64,23 @@ def test_baseline_misses_exactly_what_a_cpe_row_cannot_say():
     wrong = {(p["item"], p["cve"]) for p in PAIRS if judge(INV[p["item"]], p["cve"])[0] != p["truth"]}
     inexpressible = {(p["item"], p["cve"]) for p in PAIRS if p["truth"] in ("conditional", "unknown")}
     assert wrong == inexpressible and len(wrong) >= 2
+
+
+@pytest.mark.parametrize("version,want", [
+    ("2.0-beta9", "affected"),
+    ("2.0-rc2", "affected"),
+    ("2.0.beta9", "affected"),
+    ("2.0beta9", "affected"),
+    ("2.4", "affected"),        # NVD's range starts at 2.4.0
+    ("2.14.1", "affected"),
+    ("2.17.1", "not_affected"),
+])
+def test_log4j_prereleases_are_judged_against_their_own_rows(version, want):
+    """2.0-beta9 is the first release Log4Shell hits, and NVD lists it as
+    log4j:2.0:beta9. The inventory only held 2.14.1 and 2.17.1, so nothing caught
+    the pre-releases coming back not_affected: the miss the README calls expensive."""
+    from exposure_watch.data import Item
+    assert judge(Item("l-1", "Apache", "Log4j", version, "h"), "CVE-2021-44228")[0] == want
 
 
 # --- verifier -----------------------------------------------------------------

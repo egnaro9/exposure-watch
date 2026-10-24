@@ -4,7 +4,7 @@ Does an AI agent beat plain code at deciding whether a piece of installed softwa
 
 **Short answer, on this set: no.** A plain matcher plus one keyword rule scored as well as the best agent pipeline, at zero cost. What the agents did do was find one clear error in my answer key and flag a second label that turned out to be contested. That result is the more useful one, and it is written up below with the evidence.
 
-**Then a held-out set: on correct answers, still a tie; on wrong answers, not.** The keyword rule was written after reading the first 12 descriptions, so I pre-registered a second set of 30 vulnerabilities and pushed its answer key before anything ran on it. On those 57 pairs the agent pipeline with a skeptic was the only approach that was never wrong: 47 correct and 10 sent to a person, against the code's 45 correct and 12 wrong, one of them a missed exposure. The keyword rule caught 2 of the 12 pairs it exists for. [Details below](#held-out-set-run-2026-10-19).
+**Then a held-out set: on correct answers, still a tie; on wrong answers, not.** The keyword rule was written after reading the first 12 descriptions, so I pre-registered a second set of 30 vulnerabilities and pushed its answer key before anything ran on it. On those 57 pairs the agent pipeline with a skeptic was the only approach that was never wrong: 47 correct and 10 sent to a person, against code + keywords' 45 correct and 12 wrong, one of them a missed exposure. The keyword rule caught 2 of the 12 pairs it exists for. [Details below](#held-out-set-run-2026-10-19).
 
 ## Results (run 2026-10-16)
 
@@ -38,7 +38,7 @@ What the columns mean, in terms of what each mistake costs whoever acts on it:
 - **Over-called**: said "affected" where exposure depends on a feature the inventory does not record. Safe, and it creates extra work.
 - **Under-called**: said "conditional" where the key says plainly affected. A person still looks.
 - **Over-confident**: gave a firm verdict where the documents do not settle the question.
-- **Missed**: said "not affected" for an exposed item. This is the expensive one, and **no approach did it on any pair.**
+- **Missed**: said "not affected" for an exposed item. This is the expensive one. No approach did it on these 22 pairs; on the held-out set below, four of the five did.
 
 ## What the agents found
 
