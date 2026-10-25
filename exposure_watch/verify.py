@@ -10,6 +10,9 @@ This catches fabricated and misattributed evidence. It cannot catch a verdict
 that is wrong but cites real text: a correct quote attached to the wrong
 conclusion passes every check here. That gap is the skeptic's job, and the
 planted-error suite in eval/ measures both halves separately.
+
+The skeptic quotes one passage too, and that quote goes through the same check:
+agreement that rests on a quote the verifier cannot find lets nothing through.
 """
 from __future__ import annotations
 
@@ -36,6 +39,12 @@ class Checked:
     def supported(self) -> bool:
         return self.verdict == "unknown" or bool(self.kept)
 
+    @property
+    def passed(self) -> bool:
+        """Supported, and nothing else flagged (a wrong CVE, a verdict outside the
+        four). Only an answer that passes may go on without a person."""
+        return self.supported and not self.problems
+
 
 def check(answer: dict, cve: str, sources: Dict[str, str]) -> Checked:
     verdict = answer.get("verdict")
@@ -61,3 +70,20 @@ def check(answer: dict, cve: str, sources: Dict[str, str]) -> Checked:
     if not out.supported:
         out.problems.append("no claim survived, so the verdict is unsupported")
     return out
+
+
+def check_review(review: dict, cve: str, sources: Dict[str, str]) -> Checked:
+    """A skeptic's review, checked like an answer whose one claim is the passage it
+    quotes. Only the quote and its source are checked: the reason is free prose,
+    and skeptics name related CVEs in it that the documents need not mention."""
+    return check({"cve": cve, "verdict": review.get("verdict"), "claims": [
+        {"text": "", "source": review.get("source"), "quote": review.get("quote") or ""}]},
+        cve, sources)
+
+
+def accepts(review: dict, verdict: str, cve: str, sources: Dict[str, str]) -> bool:
+    """Whether a review lets a verdict through: it agrees, reaches the same
+    verdict, and its quote survives the verifier. The pipeline and the
+    planted-error suite both decide acceptance here, so they cannot drift apart."""
+    return bool(review["agree"] and review["verdict"] == verdict
+                and check_review(review, cve, sources).kept)

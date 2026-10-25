@@ -55,7 +55,7 @@ The original key is untouched in [`eval/ground_truth.json`](eval/ground_truth.js
 
 ## The checks, measured with planted errors
 
-Each check was tested by breaking correct answers on purpose and counting what it caught (`python -m exposure_watch planted`).
+Each check was tested by breaking correct answers on purpose and counting what it caught (`python -m exposure_watch planted`; add `--skeptic --run runs/2026-10-16` for the skeptic column).
 
 | Planted defect | Planted | Verifier caught | Skeptic caught |
 |---|---:|---:|---:|
@@ -67,6 +67,8 @@ Each check was tested by breaking correct answers on purpose and counting what i
 | Correct answer, as a control (lower is better) | 22 | | 2 rejected |
 
 The verifier is deterministic and checks evidence, not conclusions: a wrong verdict that quotes real text passes it every time, by design. That gap is the skeptic's job. The control row is what keeps the skeptic honest, because a skeptic that rejects everything would catch every flip.
+
+Until 2026-10-24 one row of the verifier column claimed more than the pipeline did: an answer about a different CVE counted as caught because the verifier flagged it, yet agent + verify passed its verdict on when the quote was real, and with the skeptic it reached a person only if the skeptic disagreed. The skeptic's agreement was also taken without checking the passage it quoted. Now a flagged answer goes straight to a person, and the skeptic's agreement counts only if it reaches the same verdict and its quote survives the same check as the triage agent's. No recorded answer in either run triggers either change, so both score exactly as before; the tests and `tests/mutants.py` are what exercise the new checks.
 
 The skeptic rejected two correct answers. On IOS XE it holds that the web UI sentence names the vulnerable component rather than stating a configuration condition, and it reached the same verdict in the live run. On MOVEit it argued against whichever answer it was shown: in the live run it rejected "affected" because of the document conflict, and here it rejected "unknown" by treating the configuration row as authoritative. That pair is contested, and the skeptic behaves like it. The skeptic side cost $5.58 for 44 calls.
 
@@ -139,7 +141,7 @@ pip install -e ".[dev]" && pytest
 python tests/mutants.py
 ```
 
-The tests cover version comparison, the matcher, the verifier, scoring, the answer cache, the errata loader and the replay path. `tests/mutants.py` breaks the code in 19 specific ways, one at a time, and confirms that a test fails each time; it refuses to count a change that only stops the code from loading.
+The tests cover version comparison, the matcher, the verifier, scoring, the answer cache, the errata loader and the replay path. `tests/mutants.py` breaks the code in 35 specific ways, one at a time, and confirms that a test fails each time; it refuses to count a change that only stops the code from loading.
 
 ## Data
 

@@ -26,7 +26,7 @@ from . import agents
 from .baseline import CONDITION, judge, nearest_row
 from .data import Item, current, load_inventory, sources_for, nvd_description
 from .pipeline import _each
-from .verify import check
+from .verify import accepts, check
 
 FLIP = {"affected": "not_affected", "not_affected": "affected", "conditional": "not_affected",
         "unknown": "affected"}
@@ -115,10 +115,11 @@ def mutants(ans: dict) -> Dict[str, dict]:
 
 def verifier_catches(mutant: dict, cve: str, src: Dict[str, str]) -> bool:
     """Caught means the verifier did something about the defect: dropped the bad
-    claim, flagged a problem, or refused the verdict. An "unknown" verdict needs
-    no evidence, so for it a dropped claim is the only possible catch."""
+    claim, flagged a problem, or refused the verdict. The pipeline sends anything
+    that does not pass to a person. An "unknown" verdict needs no evidence, so it
+    is never refused: for it only a dropped claim or a flagged problem counts."""
     c = check(mutant, cve, src)
-    return (not c.supported) or bool(c.problems) or bool(c.dropped)
+    return (not c.passed) or bool(c.dropped)
 
 
 def run_verifier_side(pairs: List[dict], inventory: Dict[str, Item],
@@ -150,7 +151,9 @@ def run_skeptic_side(pairs: List[dict], inventory: Dict[str, Item], run_dir: Pat
     A flip the skeptic does not accept is caught. A correct answer it does not
     accept is a false rejection, which in the pipeline sends a right answer to a
     person for nothing. Both rates matter; a skeptic that rejects everything
-    catches every flip.
+    catches every flip. Accepting means what it means in the pipeline
+    (verify.accepts): agreeing, reaching the same verdict, and quoting a passage
+    the verifier finds.
     """
     d = run_dir / "planted_skeptic"
     jobs = []
@@ -170,6 +173,6 @@ def run_skeptic_side(pairs: List[dict], inventory: Dict[str, Item], run_dir: Pat
         s = r["answer"]
         t = tally[j[1]]
         t["shown"] += 1
-        t["not_accepted"] += not (s["agree"] and s["verdict"] == j[5]["verdict"])
+        t["not_accepted"] += not accepts(s, j[5]["verdict"], j[3], j[4])
         t["cost_usd"] = round(t["cost_usd"] + (r["cost_usd"] or 0.0), 4)
     return tally

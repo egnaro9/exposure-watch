@@ -152,6 +152,54 @@ def test_pipeline_replays_recorded_answers(tmp_path):
     assert summarize(rs)["agent+verify+skeptic"]["cost_usd"] == pytest.approx(0.03)
 
 
+def _replay_one(tmp_path, answer, review):
+    """Record one triage answer and one skeptic review for inv-19, replay, return results by shape."""
+    item, cve = INV["inv-19"], "CVE-2023-27350"
+    k = f"{item.id}__{cve}"
+    agents.save(tmp_path / "triage", k, {"answer": answer, "cost_usd": 0.01, "latency_s": 2.0, "model": "fake"})
+    agents.save(tmp_path / "skeptic", k, {"answer": review, "cost_usd": 0.02, "latency_s": 3.0, "model": "fake"})
+    return {r.shape: r for r in run([{"item": item.id, "cve": cve, "truth": "affected"}], INV, tmp_path)}
+
+
+REAL_ROW = {"text": "range", "source": "nvd_config", "quote": "versionEndExcluding=22.0.9"}
+
+
+def test_a_flagged_answer_goes_to_a_person_even_if_the_skeptic_agrees(tmp_path):
+    """An answer about the wrong CVE that quotes real text is flagged by the
+    verifier, and a flag sends it to a person: it never reaches the skeptic,
+    whose agreement could otherwise wave it through."""
+    by = _replay_one(tmp_path, {"cve": "CVE-2023-27351", "verdict": "affected", "claims": [REAL_ROW]},
+                     {"agree": True, "verdict": "affected", "reason": "the row covers it",
+                      "source": "nvd_config", "quote": "versionEndExcluding=22.0.9"})
+    assert by["agent"].final == "affected"
+    assert by["agent+verify"].final == "needs_human" and "not CVE-2023-27350" in by["agent+verify"].note
+    assert by["agent+verify+skeptic"].final == "needs_human"
+    assert by["agent+verify+skeptic"].cost_usd == pytest.approx(0.01)   # the skeptic was never asked
+
+
+@pytest.mark.parametrize("agree,verdict,reason,quote,want,note", [
+    # a real passage: agreement counts
+    (True, "affected", "the row covers it", "versionEndExcluding=22.0.9", "affected", "the row covers it"),
+    # the reason is prose and is not screened, so naming a related CVE is fine
+    (True, "affected", "unlike CVE-2099-11111", "versionEndExcluding=22.0.9", "affected", "unlike CVE-2099-11111"),
+    # agreeing with a different verdict is not agreement
+    (True, "not_affected", "the row covers it", "versionEndExcluding=22.0.9", "needs_human", "the row covers it"),
+    # a quote in no document: agreement does not count, and the note says why
+    (True, "affected", "the row covers it", "versionEndExcluding=22.0.10", "needs_human",
+     "the row covers it (skeptic's quote dropped: quote not found in nvd_config)"),
+    (True, "affected", "the row covers it", None, "needs_human", "quote too short to check"),
+    # a disagreement keeps the skeptic's objection in the note, quote or no quote
+    (False, "not_affected", "the fix is installed", "an invented passage", "needs_human", "the fix is installed"),
+])
+def test_skeptic_agreement_needs_the_same_verdict_and_a_real_skeptic_quote(tmp_path, agree, verdict, reason,
+                                                                           quote, want, note):
+    by = _replay_one(tmp_path, {"cve": "CVE-2023-27350", "verdict": "affected", "claims": [REAL_ROW]},
+                     {"agree": agree, "verdict": verdict, "reason": reason, "source": "nvd_config", "quote": quote})
+    assert by["agent+verify"].final == "affected"
+    assert by["agent+verify+skeptic"].final == want
+    assert note in by["agent+verify+skeptic"].note
+
+
 def test_missing_recording_fails_loudly(tmp_path):
     with pytest.raises(FileNotFoundError, match="do not substitute"):
         run([{"item": "inv-19", "cve": "CVE-2023-27350", "truth": "affected"}], INV, tmp_path)
@@ -205,6 +253,49 @@ def test_a_skeptic_that_rejects_everything_shows_up_in_the_control_column(tmp_pa
     t = run_skeptic_side(PAIRS, INV, tmp_path, _Rejects())
     assert t["verdict_flipped"]["not_accepted"] == t["verdict_flipped"]["shown"] > 0
     assert t["control"]["not_accepted"] == t["control"]["shown"]
+
+
+class _AgreesQuoting:
+    """A skeptic that says it agrees with whatever it is shown. It quotes the
+    analyst's own passage, or a sentence no document contains ("invent"), or
+    quotes the real passage but names another verdict ("other_verdict")."""
+    model = "fake"
+
+    def __init__(self, mode):
+        self.mode = mode
+
+    def ask(self, system, prompt, schema):
+        ans = json.loads(prompt.split("ANALYST ANSWER TO REVIEW:\n", 1)[1])
+        claim = ans["claims"][0]
+        quote = "a sentence that appears in no document" if self.mode == "invent" else claim["quote"]
+        verdict = ans["verdict"]
+        if self.mode == "other_verdict":
+            verdict = "unknown" if verdict != "unknown" else "affected"
+        return {"answer": {"agree": True, "verdict": verdict, "reason": "r",
+                           "source": claim["source"], "quote": quote},
+                "cost_usd": 0.0, "latency_s": 0.0, "requested_model": "fake", "model": "fake"}
+
+
+@pytest.mark.parametrize("mode,accepts_all", [("own_quote", True), ("invent", False), ("other_verdict", False)])
+def test_planted_skeptic_rejects_an_invented_quote_or_another_verdict(tmp_path, mode, accepts_all):
+    """Acceptance is decided as in the pipeline: a skeptic that agrees with
+    everything accepts every answer, flips included, unless its quote is not in
+    the documents or it names another verdict, and then it accepts none."""
+    from exposure_watch.planted import run_skeptic_side
+    t = run_skeptic_side(PAIRS, INV, tmp_path, _AgreesQuoting(mode))
+    for kind in ("control", "verdict_flipped"):
+        assert t[kind]["shown"] > 0
+        assert t[kind]["not_accepted"] == (0 if accepts_all else t[kind]["shown"])
+
+
+def test_planted_verifier_table_matches_the_readme():
+    """The verifier column of the README's planted table, pinned. Each evidence
+    defect counts as caught only if the pipeline would act on it."""
+    from exposure_watch.planted import run_verifier_side
+    t = run_verifier_side(PAIRS, INV)
+    assert {k: (v["planted"], v["caught_by_verifier"]) for k, v in t.items()} == {
+        "quote_altered": (19, 19), "wrong_source": (22, 22), "invented_cve": (22, 22),
+        "wrong_cve": (22, 22), "verdict_flipped": (22, 0)}
 
 
 def _errata_file(tmp_path, monkeypatch, entries):
@@ -377,6 +468,7 @@ def test_heldout_reference_answers_rest_on_verbatim_key_quotes():
         tally = run_verifier_side(key.load_pairs(), inv, ev)
         assert "skipped_no_verbatim_key_quote" not in tally
         assert tally["wrong_source"] == {"planted": 57, "caught_by_verifier": 57}
+        assert tally["wrong_cve"] == {"planted": 57, "caught_by_verifier": 57}
         assert tally["verdict_flipped"]["caught_by_verifier"] == 0
     finally:
         data.use("original")

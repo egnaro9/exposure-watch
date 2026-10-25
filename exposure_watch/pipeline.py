@@ -1,11 +1,14 @@
-"""Run the four shapes over the same pairs and score them against the answer key.
+"""Run the five shapes over the same pairs and score them against the answer key.
 
 Shapes, cheapest first:
   code                   the no-agent baseline in baseline.py
   code+keywords          the baseline plus one description-keyword rule (tuned on this set; an upper bound)
   agent                  one triage agent, its verdict taken as given
-  agent+verify           the same answers, kept only if the verifier can find their quotes
-  agent+verify+skeptic   survivors reviewed by a skeptic agent; a disagreement goes to a person
+  agent+verify           the same answers, kept only if at least one quote survives the
+                         verifier (bad claims are dropped) and nothing is flagged (a wrong
+                         CVE, a verdict outside the four)
+  agent+verify+skeptic   survivors reviewed by a skeptic agent; a disagreement, or a skeptic
+                         quote the verifier cannot find, goes to a person
 
 The three agent shapes share one set of triage answers, so they differ only in
 what checks the answers, never in which answers they got.
@@ -34,7 +37,7 @@ from typing import Dict, List, Optional
 from . import agents
 from .baseline import judge, judge_with_keywords
 from .data import Item, sources_for
-from .verify import check
+from .verify import accepts, check, check_review
 
 SHAPES = ("code", "code+keywords", "agent", "agent+verify", "agent+verify+skeptic")
 
@@ -85,8 +88,8 @@ def run(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
         live_skeptic: Optional[agents.ClaudeCLI] = None) -> List[Result]:
     """Score every shape on every pair. With no live backend, replay run_dir.
 
-    Triage runs for every pair first, then the skeptic for the answers the
-    verifier kept. Any failed call stops the run rather than being scored: an
+    Triage runs for every pair first, then the skeptic for the answers that
+    passed the verifier. Any failed call stops the run rather than being scored: an
     outage is not an escalation. Answers already saved are reused, so a rerun
     pays only for what is missing.
     """
@@ -100,7 +103,7 @@ def run(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
                                         agents.triage_prompt(j[1], j[2], j[4]), agents.ANSWER_SCHEMA),
                  jobs, live_triage is not None)
     checks = [check(t["answer"], j[2], j[4]) for j, t in zip(jobs, tris)]
-    to_skeptic = [i for i, c in enumerate(checks) if c.supported and c.verdict != "unknown"]
+    to_skeptic = [i for i, c in enumerate(checks) if c.passed and c.verdict != "unknown"]
     sks = dict(zip(to_skeptic, _each(
         lambda i: agents.fetch(live_skeptic, sk_dir, jobs[i][3], agents.SKEPTIC_SYSTEM,
                                agents.skeptic_prompt(jobs[i][1], jobs[i][2], jobs[i][4],
@@ -120,7 +123,7 @@ def run(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
         results.append(Result(item.id, cve, truth, "agent", ans["verdict"],
                               outcome(ans["verdict"], truth), tri["cost_usd"], tri["latency_s"]))
 
-        v2 = chk.verdict if chk.supported else "needs_human"
+        v2 = chk.verdict if chk.passed else "needs_human"
         results.append(Result(item.id, cve, truth, "agent+verify", v2, outcome(v2, truth),
                               tri["cost_usd"], tri["latency_s"], "; ".join(chk.problems)))
 
@@ -129,9 +132,10 @@ def run(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
         else:
             sk = sks[i]
             s = sk["answer"]
-            v3 = chk.verdict if (s["agree"] and s["verdict"] == chk.verdict) else "needs_human"
+            v3 = chk.verdict if accepts(s, chk.verdict, cve, src) else "needs_human"
             cost, lat = tri["cost_usd"] + sk["cost_usd"], tri["latency_s"] + sk["latency_s"]
-            note = s["reason"][:200]
+            dropped = check_review(s, cve, src).dropped
+            note = s["reason"][:200] + (f" (skeptic's quote dropped: {dropped[0]['reason']})" if dropped else "")
         results.append(Result(item.id, cve, truth, "agent+verify+skeptic", v3,
                               outcome(v3, truth), cost, lat, note))
     return results
