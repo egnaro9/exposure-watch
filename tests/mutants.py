@@ -3,7 +3,12 @@
 A test that passes is only evidence if it would fail when the thing it guards
 is broken. Each mutant below makes one deliberate change to one module, runs
 the tests aimed at it, and expects at least one failure. The source is always
-restored, even if the run is interrupted.
+restored, even if the run is interrupted, and so is the bytecode: a mutant
+can be the same size as the line it replaces and written within the same
+second, and Python then trusts whichever .pyc it finds. On 2026-10-25 CI's
+replay step ran a mutant's leftover bytecode that way, after its source was
+back. So no mutant's bytecode is written, and the module's cache is dropped
+before and after each one.
 
     python tests/mutants.py
 
@@ -11,12 +16,18 @@ Prints KILLED or SURVIVED per mutant and exits non-zero if any survived.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PKG = ROOT / "exposure_watch"
+
+
+def drop_bytecode(path: Path) -> None:
+    for pyc in (path.parent / "__pycache__").glob(f"{path.stem}.*.pyc"):
+        pyc.unlink()
 
 # (name, file, exact text to replace, replacement, pytest -k selector)
 MUTANTS = [
@@ -207,8 +218,9 @@ def run_one(name: str, fname: str, old: str, new: str, selector: str) -> bool:
         raise SystemExit(f"mutant {name!r}: expected text not found exactly once in {fname}; update tests/mutants.py")
     try:
         path.write_text(src.replace(old, new), encoding="utf-8")
-        r = subprocess.run([sys.executable, "-m", "pytest", "-q", "-x", "-p", "no:cacheprovider", "-k", selector],
-                           cwd=ROOT, capture_output=True, text=True)
+        drop_bytecode(path)
+        r = subprocess.run([sys.executable, "-B", "-m", "pytest", "-q", "-x", "-p", "no:cacheprovider", "-k", selector],
+                           cwd=ROOT, capture_output=True, text=True, env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"})
         out = r.stdout + r.stderr
         if "error" in out.lower().split("short test summary")[-1] and " failed" not in out:
             raise SystemExit(f"mutant {name!r} broke collection or import, not behaviour:\n{out[-800:]}")
@@ -217,6 +229,7 @@ def run_one(name: str, fname: str, old: str, new: str, selector: str) -> bool:
         return r.returncode != 0
     finally:
         path.write_text(src, encoding="utf-8")
+        drop_bytecode(path)
 
 
 def main() -> int:
