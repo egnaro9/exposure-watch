@@ -13,6 +13,12 @@ five ways, one defect per mutant:
 The last class is the point. A verifier that only checks evidence passes a
 wrong conclusion that cites real text, and this suite measures that gap
 instead of describing it.
+
+Four more classes are wrong answers whose quotes are real text, still verbatim
+substrings of their documents, so the verifier keeps them by design
+(misleading(), below): a condition or a negation cut out of the quote, a
+different row of the same configuration document, and a row cut before its
+version bounds. Like verdict_flipped, catching them is the skeptic's job.
 """
 from __future__ import annotations
 
@@ -113,6 +119,71 @@ def mutants(ans: dict) -> Dict[str, dict]:
     return out
 
 
+QUALIFIER = re.compile(r"\b(?:when|if|only|unless|provided)\b", re.I)
+NEGATION = re.compile(r"\b(?:not|no|never|without|unless|except|cannot)\b\s+", re.I)
+
+
+def _rows(src: Dict[str, str]) -> List[str]:
+    return [" ".join(r.split()) for r in src["nvd_config"].splitlines() if r.strip()]
+
+
+def misleading(ans: dict, src: Dict[str, str]) -> Dict[str, dict]:
+    """Wrong answers that rest on real text. Each quote is a verbatim substring of
+    its document, so the verifier keeps it by design; catching it is the skeptic's
+    job, as with verdict_flipped. A class is left out where the reference answer
+    gives it nothing to work on.
+
+      condition_dropped  a conditional answer turned affected, its quote cut
+                         before the condition ("...when configured as a Gateway")
+      negation_dropped   the opposite verdict, quoting the words after a negation
+                         without it ("does not adequately validate" quoted as
+                         "adequately validate"), from the NVD description or KEV
+      wrong_row          the same verdict, citing another row of nvd_config:
+                         another row of the same product if there is one, else a
+                         neighbouring product's row
+      truncated_row      a not-affected answer turned affected, its row cut before
+                         the version bounds, so it reads as every version (the
+                         idea of evalmut's truncate_before_answer)
+    """
+    out: Dict[str, dict] = {}
+    claim = ans["claims"][0]
+    q = " ".join(claim["quote"].split())
+    if ans["verdict"] == "conditional":
+        starts = [m.start() for m in (CONDITION.search(q), QUALIFIER.search(q)) if m]
+        head = q[:min(starts)].strip(" ,;:") if starts else ""
+        if len(head) >= 8:
+            v = copy.deepcopy(ans)
+            v["verdict"], v["claims"][0]["quote"] = "affected", head
+            out["condition_dropped"] = v
+    for doc in ("nvd_description", "kev"):
+        text = " ".join(src[doc].split())
+        m = NEGATION.search(text)
+        after = text[m.end():].split(". ")[0].strip(" .") if m else ""
+        if len(after) >= 8:
+            v = copy.deepcopy(ans)
+            v["verdict"] = FLIP[ans["verdict"]]
+            v["claims"] = [{"text": "the documents say so", "source": doc, "quote": after}]
+            out["negation_dropped"] = v
+            break
+    if claim["source"] == "nvd_config":
+        rows = _rows(src)
+        cited = next((r for r in rows if q in r), None)
+        if cited is not None:
+            product = cited.split(":")[3:5]
+            others = [r for r in rows if q not in r]
+            other = next((r for r in others if r.split(":")[3:5] == product), others[0] if others else None)
+            if other is not None:
+                v = copy.deepcopy(ans)
+                v["claims"][0]["quote"] = other
+                out["wrong_row"] = v
+            head = cited.split(" | ")[0]
+            if ans["verdict"] == "not_affected" and head != cited:
+                v = copy.deepcopy(ans)
+                v["verdict"], v["claims"][0]["quote"] = "affected", head
+                out["truncated_row"] = v
+    return out
+
+
 def verifier_catches(mutant: dict, cve: str, src: Dict[str, str]) -> bool:
     """Caught means the verifier did something about the defect: dropped the bad
     claim, flagged a problem, or refused the verdict. The pipeline sends anything
@@ -136,7 +207,7 @@ def run_verifier_side(pairs: List[dict], inventory: Dict[str, Item],
             continue
         src = sources_for(item, cve)
         assert not verifier_catches(base, cve, src), f"reference answer for {p} fails its own check"
-        for name, mut in mutants(base).items():
+        for name, mut in {**mutants(base), **misleading(base, src)}.items():
             t = tally.setdefault(name, {"planted": 0, "caught_by_verifier": 0})
             t["planted"] += 1
             t["caught_by_verifier"] += verifier_catches(mut, cve, src)
@@ -144,7 +215,8 @@ def run_verifier_side(pairs: List[dict], inventory: Dict[str, Item],
 
 
 def run_skeptic_side(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
-                     live_skeptic: Optional[agents.ClaudeCLI] = None) -> Dict[str, dict]:
+                     live_skeptic: Optional[agents.ClaudeCLI] = None,
+                     evidence: Optional[Dict[tuple, dict]] = None) -> Dict[str, dict]:
     """The other half: hand the skeptic each correct reference answer and its
     verdict-flipped twin, both citing the same real passage.
 
@@ -154,12 +226,19 @@ def run_skeptic_side(pairs: List[dict], inventory: Dict[str, Item], run_dir: Pat
     catches every flip. Accepting means what it means in the pipeline
     (verify.accepts): agreeing, reaching the same verdict, and quoting a passage
     the verifier finds.
+
+    For a set whose key has labelers' quotes (key_evidence), the reference
+    answers are built from them, as on the verifier side, so both halves plant
+    into the same answers.
     """
     d = run_dir / "planted_skeptic"
     jobs = []
     for p in pairs:
         item, cve = inventory[p["item"]], p["cve"]
-        base = reference_answer(item, cve, p["truth"])
+        ev = evidence.get((p["item"], cve)) if evidence is not None else None
+        if evidence is not None and ev is None:
+            continue
+        base = reference_answer(item, cve, p["truth"], evidence=ev)
         if base is None:
             continue
         src = sources_for(item, cve)

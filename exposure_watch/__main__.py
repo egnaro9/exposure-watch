@@ -54,12 +54,13 @@ def main(argv=None) -> int:
         print(json.dumps(recall(pairs, inv), indent=1))
         return 0
     if a.cmd == "planted":
-        out = {"verifier": run_verifier_side(pairs, inv, key_evidence())}
+        evidence = key_evidence()
+        out = {"verifier": run_verifier_side(pairs, inv, evidence)}
         if a.skeptic:
             if not a.run:
                 ap.error("planted --skeptic needs --run DIR")
             sk = agents.ClaudeCLI(a.skeptic_model) if a.live else None
-            out["skeptic"] = run_skeptic_side(pairs, inv, a.run, sk)
+            out["skeptic"] = run_skeptic_side(pairs, inv, a.run, sk, evidence)
         print(json.dumps(out, indent=1))
         return 0
     tri = agents.ClaudeCLI(a.triage_model) if a.live else None

@@ -64,9 +64,15 @@ Each check was tested by breaking correct answers on purpose and counting what i
 | Claim cites a CVE no document mentions | 22 | 22 | |
 | Answer is about a different CVE | 22 | 22 | |
 | Opposite verdict, same real quote | 22 | 0 | 22 |
+| Conditional answer turned affected, its quote cut before the condition | 3 | 0 | not run yet |
+| Opposite verdict, quoting the words after a "not" without the "not" | 11 | 0 | not run yet |
+| Same verdict, citing another configuration row | 18 | 0 | not run yet |
+| Not affected turned affected, its row cut before the version bounds | 7 | 0 | not run yet |
 | Correct answer, as a control (lower is better) | 22 | | 2 rejected |
 
 The verifier is deterministic and checks evidence, not conclusions: a wrong verdict that quotes real text passes it every time, by design. That gap is the skeptic's job. The control row is what keeps the skeptic honest, because a skeptic that rejects everything would catch every flip.
+
+The four rows added on 2026-10-25 are wrong answers resting on real text, and the verifier keeps every one by design: it accepts any verbatim piece of a document, including one that drops a condition, a negation or a row's version bounds. A row cut before its bounds, such as `cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*`, reads as every version. Whether the skeptic catches them takes a model run, which has not been done, so their skeptic column is empty.
 
 Until 2026-10-24 one row of the verifier column claimed more than the pipeline did: an answer about a different CVE counted as caught because the verifier flagged it, yet agent + verify passed its verdict on when the quote was real, and with the skeptic it reached a person only if the skeptic disagreed. The skeptic's agreement was also taken without checking the passage it quoted. Now a flagged answer goes straight to a person, and the skeptic's agreement counts only if it reaches the same verdict and its quote survives the same check as the triage agent's. No recorded answer in either run triggers either change, so both score exactly as before; the tests and `tests/mutants.py` are what exercise the new checks.
 
@@ -108,7 +114,7 @@ My predictions, from the pre-registration:
 2. The frozen code makes at least one version-format error. Right: Cisco ISE.
 3. Agent + verify + skeptic misses no exposed item. Right, on both sets.
 
-Checks on this set, no model needed: the verifier caught all 223 planted evidence defects (52 altered quotes, and 57 each of wrong document, invented CVE and wrong CVE) and none of the 57 flipped verdicts, as designed. Reference answers here quote the passage the labelers cited, because round 1's way of building them leans on the keyword rule. Retrieval: all 1,396 NVD rows that describe the items reach the agent, along with 594 rows about neighbouring products.
+Checks on this set, no model needed: the verifier caught all 223 planted evidence defects (52 altered quotes, and 57 each of wrong document, invented CVE and wrong CVE) and none of the 57 flipped verdicts, as designed. It also kept all 83 wrong answers resting on real text (2 conditions cut, 18 negations cut, 42 other rows, 21 rows cut before their bounds), as designed; the skeptic has not yet been run on this set's planted errors. Reference answers here quote the passage the labelers cited, because round 1's way of building them leans on the keyword rule. Retrieval: all 1,396 NVD rows that describe the items reach the agent, along with 594 rows about neighbouring products.
 
 ## Read this before quoting a number
 
@@ -145,7 +151,7 @@ pip install -e ".[dev]" && pytest
 python tests/mutants.py
 ```
 
-The tests cover version comparison, the matcher, the verifier, scoring, the answer cache, the errata loader and the replay path, and they run every version row and range bound of every product the alias tables know, in all 130 NVD records of both sets, through the matcher and back, in the build rule's spelling and in the vendor's own. `tests/mutants.py` breaks the code in 71 specific ways, one at a time, and confirms that a test fails each time; it refuses to count a change that only stops the code from loading.
+The tests cover version comparison, the matcher, the verifier, scoring, the answer cache, the errata loader and the replay path, and they run every version row and range bound of every product the alias tables know, in all 130 NVD records of both sets, through the matcher and back, in the build rule's spelling and in the vendor's own. A spelling test then writes every inventory item and every one of those rows each equivalent way (a trailing `.0` more or less, either case, each Log4j separator) and requires the same verdict every time; on the code before the trailing-zero fix it flags Log4j `2.4` against `2.4.0`, and on 2026-10-25 it found Cisco IOS XE `17.9.4.0` placed after `17.9.4a`, a latent ordering bug no inventory item hit. `tests/mutants.py` breaks the code in 80 specific ways, one at a time, and confirms that a test fails each time; it refuses to count a change that only stops the code from loading.
 
 ## Data
 

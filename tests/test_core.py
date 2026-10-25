@@ -1,5 +1,6 @@
 """Tests for the parts that involve no model: versions, baseline, verifier, scoring."""
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -37,6 +38,8 @@ PAIRS = load_pairs(with_errata=True)
     ("2.0-beta8", "2.0-beta9", -1),
     ("2.0-rc1", "2.0-patch1", -1),     # a pre-release tag sorts before other letters, so the order
     ("2.0-rc1", "2.0a", -1),           # stays total: 2.0-rc1 < 2.0 < 2.0-patch1
+    ("17.9.4.0", "17.9.4a", -1),       # 17.9.4.0 is 17.9.4, which comes before its rebuild 17.9.4a
+    ("2.0.0-rc1", "2.0-rc1", 0),       # zeros before a tag change nothing
 ])
 def test_compare(a, b, want):
     assert compare(a, b) == want
@@ -356,7 +359,90 @@ def test_planted_verifier_table_matches_the_readme():
     t = run_verifier_side(PAIRS, INV)
     assert {k: (v["planted"], v["caught_by_verifier"]) for k, v in t.items()} == {
         "quote_altered": (19, 19), "wrong_source": (22, 22), "invented_cve": (22, 22),
-        "wrong_cve": (22, 22), "verdict_flipped": (22, 0)}
+        "wrong_cve": (22, 22), "verdict_flipped": (22, 0),
+        # real text, misleading: the verifier keeps every one by design
+        "condition_dropped": (3, 0), "negation_dropped": (11, 0), "wrong_row": (18, 0), "truncated_row": (7, 0)}
+
+
+def _misleading_mutants():
+    """(set, item, reference answer, class, mutant, documents) for every misleading mutant in both sets."""
+    from exposure_watch import data, key
+    from exposure_watch.planted import key_evidence, misleading, reference_answer
+    out = []
+    for name in ("original", "heldout"):
+        with data.using(name) as ds:
+            inv = {i.id: i for i in load_inventory(ds.inventory)}
+            ev = key_evidence()
+            for p in key.load_pairs():
+                e = ev.get((p["item"], p["cve"])) if ev is not None else None
+                if ev is not None and e is None:
+                    continue
+                base = reference_answer(inv[p["item"]], p["cve"], p["truth"], e)
+                if base is None:
+                    continue
+                src = sources_for(inv[p["item"]], p["cve"])
+                out += [(name, p["item"], base, k, m, src) for k, m in misleading(base, src).items()]
+    return out
+
+
+def test_misleading_mutants_are_wrong_answers_on_real_text():
+    """Each class does what its name says, and each quote is a verbatim
+    substring of its document, so the verifier keeps it."""
+    from exposure_watch.planted import NEGATION, QUALIFIER, _rows
+    from exposure_watch.baseline import CONDITION
+    ms = _misleading_mutants()
+    assert {k for *_, k, _, _ in ms} == {"condition_dropped", "negation_dropped", "wrong_row", "truncated_row"}
+    for name, item, base, k, m, src in ms:
+        q = m["claims"][0]["quote"]
+        assert " ".join(q.split()) in " ".join(src[m["claims"][0]["source"]].split()), (item, k)
+        cited = " ".join(base["claims"][0]["quote"].split())
+        if k == "condition_dropped":
+            assert m["verdict"] == "affected" and base["verdict"] == "conditional"
+            assert not CONDITION.search(q) and not QUALIFIER.search(q) and cited.startswith(q), (item, q)
+        if k == "negation_dropped":
+            assert m["verdict"] != base["verdict"] and not NEGATION.match(q + " "), (item, q)
+        if k == "wrong_row":
+            assert m["verdict"] == base["verdict"] and cited not in q and q in _rows(src), (item, q)
+        if k == "truncated_row":
+            assert (base["verdict"], m["verdict"]) == ("not_affected", "affected")
+            assert " | " not in q and any(r.startswith(q + " | ") and cited in r for r in _rows(src)), (item, q)
+
+
+def test_heldout_misleading_classes_are_counted_and_all_pass_the_verifier():
+    from exposure_watch import data, key
+    from exposure_watch.planted import key_evidence, run_verifier_side
+    with data.using("heldout") as ds:
+        t = run_verifier_side(key.load_pairs(), {i.id: i for i in load_inventory(ds.inventory)}, key_evidence())
+    assert {k: (t[k]["planted"], t[k]["caught_by_verifier"]) for k in
+            ("condition_dropped", "negation_dropped", "wrong_row", "truncated_row")} == {
+        "condition_dropped": (2, 0), "negation_dropped": (18, 0), "wrong_row": (42, 0), "truncated_row": (21, 0)}
+
+
+class _Remembers:
+    """A skeptic that rejects everything and keeps every analyst answer it was shown."""
+    model = "fake"
+
+    def __init__(self):
+        self.shown = []
+
+    def ask(self, system, prompt, schema):
+        self.shown.append(json.loads(prompt.split("ANALYST ANSWER TO REVIEW:\n", 1)[1]))
+        return {"answer": {"agree": False, "verdict": "unknown", "reason": "r", "source": "kev", "quote": "q"},
+                "cost_usd": 0.0, "latency_s": 0.0, "requested_model": "fake", "model": "fake"}
+
+
+def test_heldout_skeptic_side_plants_into_the_labelers_quotes(tmp_path):
+    """Both halves of the held-out measurement must plant into the same answers:
+    the ones built from the labelers' quotes, not the matcher's rows."""
+    from exposure_watch import data, key
+    from exposure_watch.planted import key_evidence, run_skeptic_side
+    with data.using("heldout") as ds:
+        ev = key_evidence()
+        sk = _Remembers()
+        run_skeptic_side(key.load_pairs(), {i.id: i for i in load_inventory(ds.inventory)}, tmp_path, sk, ev)
+    quotes = {" ".join(a["claims"][0]["quote"].split()) for a in sk.shown}
+    assert len(sk.shown) == 2 * len(ev)
+    assert quotes == {" ".join(e["quote"].split()) for e in ev.values()}
 
 
 def _errata_file(tmp_path, monkeypatch, entries):
@@ -605,6 +691,82 @@ def test_every_fixture_row_round_trips_through_the_matcher():
 
 def test_ise_patch_is_split_into_nvds_two_fields():
     assert split_update("Cisco", "Identity Services Engine", "3.5.0 patch3") == ("3.5.0", "patch3")
+
+
+_PRE = re.compile(r"^(\d+(?:\.\d+)*)[-.]?((?:alpha|beta|rc)\d+)$", re.I)
+_NUM = re.compile(r"^\d+(?:\.\d+)+$")
+
+
+def _zero_forms(base):
+    """A dotted numeric version with one trailing .0 added, and with one removed.
+    A bare number is left alone: Exchange's 2019 is a product year, not 2019.0."""
+    out = {base}
+    if _NUM.match(base):
+        out.add(base + ".0")
+        if base.endswith(".0") and "." in base[:-2]:
+            out.add(base[:-2])
+    return out
+
+
+def _spellings(written):
+    """Ways an administrator might write the same version: either case, a
+    trailing .0 more or less on the version part, and each Log4j separator."""
+    out = {written, written.upper(), written.lower()}
+    m = _PRE.match(written)
+    if m:
+        for b in _zero_forms(m.group(1)):
+            out |= {f"{b}-{m.group(2)}", f"{b}.{m.group(2)}", f"{b}{m.group(2)}"}
+    else:
+        head, sep, tail = written.partition(" ")
+        for b in _zero_forms(head):
+            out.add(b + sep + tail)
+    return sorted(out)
+
+
+def _spelling_failures():
+    """Every inventory item, and every exact row and range bound of an aliased
+    product in every NVD record, written each equivalent way: the verdict must
+    not change. Deterministic; the property the trailing-zero bug broke."""
+    from exposure_watch import baseline, data
+    from exposure_watch.data import Item, vulnerable_rows
+    cases = []
+    for name in ("original", "heldout"):
+        with data.using(name) as ds:
+            inv = {i.id: i for i in load_inventory(ds.inventory)}
+            cases += [(name, inv[p["item"]], p["cve"])
+                      for p in json.loads(ds.key.read_text(encoding="utf-8"))["pairs"]]
+            by_nvd = {}
+            for (vendor, product), names in baseline.aliases().items():
+                for n in names:
+                    by_nvd.setdefault(n, (vendor, product))
+            for f in sorted((ds.fixtures / "nvd").glob("*.json")):
+                for row in vulnerable_rows(f.stem):
+                    c = row["criteria"].split(":")
+                    if f"{c[3]}:{c[4]}" not in by_nvd:
+                        continue
+                    vendor, product = by_nvd[f"{c[3]}:{c[4]}"]
+                    ws = [row[k] for k in baseline._RANGE_KEYS if row.get(k)]
+                    if not ws and c[5] not in ("*", "-"):
+                        ws = [c[5] if c[6] in ("*", "-") else
+                              _vendor_spelling(vendor, product, c[5], c[6]) or f"{c[5]} {c[6]}"]
+                    cases += [(name, Item("sp", vendor, product, w, "h"), f.stem) for w in ws]
+    fails = []
+    for name, item, cve in cases:
+        with data.using(name):
+            got = {w: judge(Item(item.id, item.vendor, item.product, w, item.where), cve)[0]
+                   for w in _spellings(item.version)}
+        if len(set(got.values())) > 1:
+            fails.append(f"{name} {item.vendor} {item.product} {cve}: {got}")
+    return len(cases), fails
+
+
+def test_every_spelling_of_a_version_gets_the_same_verdict():
+    """2.4 and 2.4.0, 17.9.4 and 17.9.4.0, 2.0-beta9 and 2.0.beta9, R81.20 and
+    r81.20 are each one version. On the code before 8bb5bcf this flagged Log4j
+    2.4 against 2.4.0, the trailing-zero bug, and 63 fixture rows besides."""
+    checked, fails = _spelling_failures()
+    assert checked > 1300
+    assert not fails, f"{len(fails)} of {checked} change verdict with spelling, e.g. {fails[:3]}"
 
 
 def _toy_run(tmp_path, verdicts=None):
