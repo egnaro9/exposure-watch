@@ -1,0 +1,227 @@
+{
+ "commit": "5c7c733",
+ "sha256": "a404eec3c22206dd05b70ef479e0398a821f164d17d796ea29fbcddabc46eb27",
+ "recorded": "2026-10-24, from the code-shape results this run published in report.json (as committed at 2d38744). The run itself, on 2026-10-16, predates the repository, so no record of the code on that day exists: 5c7c733 is the first commit, and its matcher reproduces all 22 verdicts, as has every commit since.",
+ "verdicts": {
+  "inv-01__CVE-2021-44228": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:* | versionStartIncluding=2.13.0 | versionEndExcluding=2.15.0"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:* | versionStartIncluding=2.13.0 | versionEndExcluding=2.15.0"
+   ]
+  },
+  "inv-02__CVE-2021-44228": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-03__CVE-2023-34362": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:progress:moveit_transfer:*:*:*:*:*:*:*:* | versionStartIncluding=2023.0.0 | versionEndExcluding=2023.0.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:progress:moveit_transfer:*:*:*:*:*:*:*:* | versionStartIncluding=2023.0.0 | versionEndExcluding=2023.0.2"
+   ]
+  },
+  "inv-04__CVE-2023-34362": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-05__CVE-2023-4966": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=13.1 | versionEndExcluding=13.1-49.15"
+   ],
+   "code+keywords": [
+    "conditional",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=13.1 | versionEndExcluding=13.1-49.15; description condition: 'when configured'"
+   ]
+  },
+  "inv-06__CVE-2023-4966": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-07__CVE-2022-26134": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:atlassian:confluence_server:*:*:*:*:*:*:*:* | versionStartIncluding=7.13.0 | versionEndExcluding=7.13.7"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:atlassian:confluence_server:*:*:*:*:*:*:*:* | versionStartIncluding=7.13.0 | versionEndExcluding=7.13.7"
+   ]
+  },
+  "inv-07__CVE-2023-22515": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-08__CVE-2023-22515": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:atlassian:confluence_data_center:*:*:*:*:*:*:*:* | versionStartIncluding=8.5.0 | versionEndExcluding=8.5.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:atlassian:confluence_data_center:*:*:*:*:*:*:*:* | versionStartIncluding=8.5.0 | versionEndExcluding=8.5.2"
+   ]
+  },
+  "inv-08__CVE-2022-26134": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-09__CVE-2021-26855": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:microsoft:exchange_server:2019:cumulative_update_8:*:*:*:*:*:*"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:microsoft:exchange_server:2019:cumulative_update_8:*:*:*:*:*:*"
+   ]
+  },
+  "inv-10__CVE-2021-26855": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-11__CVE-2024-3400": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:paloaltonetworks:pan-os:10.2.9:-:*:*:*:*:*:*"
+   ],
+   "code+keywords": [
+    "conditional",
+    "cpe:2.3:o:paloaltonetworks:pan-os:10.2.9:-:*:*:*:*:*:*; description condition: 'feature'"
+   ]
+  },
+  "inv-12__CVE-2024-3400": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-13__CVE-2023-20198": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:cisco:ios_xe:*:*:*:*:*:*:*:* | versionStartIncluding=17.9 | versionEndExcluding=17.9.4a"
+   ],
+   "code+keywords": [
+    "conditional",
+    "cpe:2.3:o:cisco:ios_xe:*:*:*:*:*:*:*:* | versionStartIncluding=17.9 | versionEndExcluding=17.9.4a; description condition: 'feature'"
+   ]
+  },
+  "inv-14__CVE-2023-20198": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-15__CVE-2022-1388": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:f5:big-ip_local_traffic_manager:*:*:*:*:*:*:*:* | versionStartIncluding=15.1.0 | versionEndExcluding=15.1.5.1"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:f5:big-ip_local_traffic_manager:*:*:*:*:*:*:*:* | versionStartIncluding=15.1.0 | versionEndExcluding=15.1.5.1"
+   ]
+  },
+  "inv-16__CVE-2022-1388": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "inv-17__CVE-2021-22205": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=13.10.0 | versionEndExcluding=13.10.3"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=13.10.0 | versionEndExcluding=13.10.3"
+   ]
+  },
+  "inv-18__CVE-2024-21887": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:ivanti:connect_secure:22.6:r2:*:*:*:*:*:*"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:ivanti:connect_secure:22.6:r2:*:*:*:*:*:*"
+   ]
+  },
+  "inv-19__CVE-2023-27350": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:papercut:papercut_ng:*:*:*:*:*:*:*:* | versionStartIncluding=22.0.0 | versionEndExcluding=22.0.9"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:papercut:papercut_ng:*:*:*:*:*:*:*:* | versionStartIncluding=22.0.0 | versionEndExcluding=22.0.9"
+   ]
+  },
+  "inv-20__CVE-2023-27350": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  }
+ }
+}

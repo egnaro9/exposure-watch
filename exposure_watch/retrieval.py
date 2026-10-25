@@ -14,16 +14,15 @@ from __future__ import annotations
 
 from typing import Dict, List
 
-from .baseline import aliases
+from .baseline import names_for
 from .data import Item, nvd_config_text, vulnerable_rows
 
 
 def recall(pairs: List[dict], inventory: Dict[str, Item]) -> dict:
     per, relevant_total, kept_total, shown_total = [], 0, 0, 0
-    table = aliases()
     for p in pairs:
         item, cve = inventory[p["item"]], p["cve"]
-        names = table[(item.vendor, item.product)]
+        names = names_for(item.vendor, item.product)
         relevant = [m["criteria"] for m in vulnerable_rows(cve)
                     if ":".join(m["criteria"].split(":")[3:5]) in names]
         shown = [l.split(" | ")[0] for l in nvd_config_text(cve, item).splitlines() if l]

@@ -29,6 +29,14 @@ PAIRS = load_pairs(with_errata=True)
     ("2.4", "2.4.0", 0),               # trailing zeros name the same release
     ("17.9.4", "17.9.4.0", 0),
     ("2.4", "2.4.1", -1),              # ...but any other tail still sorts after
+    ("2.0-beta9", "2.0", -1),          # a pre-release comes before its release
+    ("2.0-rc2", "2.0", -1),
+    ("2.0-alpha1", "2.0", -1),
+    ("2.0.0-rc1", "2.0", -1),          # zeros before the tag do not change that
+    ("2.0-alpha1", "2.0-beta1", -1),
+    ("2.0-beta8", "2.0-beta9", -1),
+    ("2.0-rc1", "2.0-patch1", -1),     # a pre-release tag sorts before other letters, so the order
+    ("2.0-rc1", "2.0a", -1),           # stays total: 2.0-rc1 < 2.0 < 2.0-patch1
 ])
 def test_compare(a, b, want):
     assert compare(a, b) == want
@@ -50,6 +58,8 @@ def test_end_excluding_is_exclusive():
     ("Apache", "Log4j", "2.0-rc2", ("2.0", "rc2")),
     ("Apache", "Log4j", "2.0.beta9", ("2.0", "beta9")),
     ("Apache", "Log4j", "2.0beta9", ("2.0", "beta9")),
+    ("Apache", "Log4j", "2.0-RC2", ("2.0", "rc2")),
+    ("Apache", "Log4j", "2.0-alpha1", ("2.0", "alpha1")),
 ])
 def test_split_update(vendor, product, written, want):
     assert split_update(vendor, product, written) == want
@@ -81,6 +91,54 @@ def test_log4j_prereleases_are_judged_against_their_own_rows(version, want):
     the pre-releases coming back not_affected: the miss the README calls expensive."""
     from exposure_watch.data import Item
     assert judge(Item("l-1", "Apache", "Log4j", version, "h"), "CVE-2021-44228")[0] == want
+
+
+PRE_ROW = {"vulnerable": True, "criteria": "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*",
+           "versionStartIncluding": "2.0-beta9", "versionEndExcluding": "2.15.0"}
+
+
+@pytest.mark.parametrize("version,want", [
+    ("2.0-beta8", "not_affected"), ("2.0beta8", "not_affected"),
+    ("2.0-beta9", "affected"), ("2.0-rc1", "affected"), ("2.0", "affected"),
+    ("2.14.1", "affected"), ("2.15.0", "not_affected"),
+])
+def test_a_range_that_starts_at_a_prerelease(monkeypatch, version, want):
+    """No fixture has such a range, so this one is made up: a bound written as a
+    pre-release is compared with the item's full version, not its bare base."""
+    from exposure_watch import baseline
+    from exposure_watch.data import Item
+    monkeypatch.setattr(baseline, "vulnerable_rows", lambda cve: [PRE_ROW])
+    assert judge(Item("l-1", "Apache", "Log4j", version, "h"), "CVE-2099-0002")[0] == want
+
+
+@pytest.mark.parametrize("version,want", [
+    ("14.1 8.50", "not_affected"),     # the first fixed 14.1 build, written with a space
+    ("13.1 49.15", "not_affected"),
+    ("13.1 49.13", "affected"),
+])
+def test_a_build_written_after_a_space_stays_part_of_the_version(version, want):
+    """NetScaler bounds carry the build (versionEndExcluding=14.1-8.50). Read
+    with a space, the build must still count, or a fixed box reads as exposed."""
+    from exposure_watch.data import Item
+    assert judge(Item("c-1", "Citrix", "NetScaler ADC", version, "h"), "CVE-2023-4966")[0] == want
+
+
+def test_nearest_row_for_a_prerelease_below_every_exact_row():
+    """Log4j 2.0-beta8 sits below every 2.0 row Log4Shell lists, so the nearest
+    row is the range that starts lowest, never an exact 2.0 row above it."""
+    from exposure_watch import baseline
+    from exposure_watch.data import Item
+    row = baseline.nearest_row(Item("l-1", "Apache", "Log4j", "2.0-beta8", "h"), "CVE-2021-44228")
+    assert "versionStartIncluding=2.0.1" in row and ":2.0:" not in row
+
+
+def test_nearest_row_for_a_range_that_starts_at_a_prerelease(monkeypatch):
+    """An item just below a pre-release start bound: the closest row is that range."""
+    from exposure_watch import baseline
+    from exposure_watch.data import Item, config_line
+    monkeypatch.setattr(baseline, "vulnerable_rows", lambda cve: [PRE_ROW])
+    item = Item("l-1", "Apache", "Log4j", "2.0-beta8", "h")
+    assert baseline.nearest_row(item, "CVE-2099-0002") == config_line(PRE_ROW)
 
 
 # --- verifier -----------------------------------------------------------------
@@ -156,8 +214,10 @@ def _replay_one(tmp_path, answer, review):
     """Record one triage answer and one skeptic review for inv-19, replay, return results by shape."""
     item, cve = INV["inv-19"], "CVE-2023-27350"
     k = f"{item.id}__{cve}"
-    agents.save(tmp_path / "triage", k, {"answer": answer, "cost_usd": 0.01, "latency_s": 2.0, "model": "fake"})
-    agents.save(tmp_path / "skeptic", k, {"answer": review, "cost_usd": 0.02, "latency_s": 3.0, "model": "fake"})
+    agents.save(tmp_path / "triage", k, {"answer": answer, "cost_usd": 0.01, "latency_s": 2.0,
+                                         "model": "fake-triage"})
+    agents.save(tmp_path / "skeptic", k, {"answer": review, "cost_usd": 0.02, "latency_s": 3.0,
+                                          "model": "fake-skeptic"})
     return {r.shape: r for r in run([{"item": item.id, "cve": cve, "truth": "affected"}], INV, tmp_path)}
 
 
@@ -175,6 +235,7 @@ def test_a_flagged_answer_goes_to_a_person_even_if_the_skeptic_agrees(tmp_path):
     assert by["agent+verify"].final == "needs_human" and "not CVE-2023-27350" in by["agent+verify"].note
     assert by["agent+verify+skeptic"].final == "needs_human"
     assert by["agent+verify+skeptic"].cost_usd == pytest.approx(0.01)   # the skeptic was never asked
+    assert by["agent+verify+skeptic"].skeptic_model == ""               # so no skeptic model answered
 
 
 @pytest.mark.parametrize("agree,verdict,reason,quote,want,note", [
@@ -442,17 +503,14 @@ def test_the_heldout_key_is_the_one_frozen_before_the_run():
 
 def test_every_heldout_pair_has_its_item_and_documents():
     from exposure_watch import data, key
-    try:
-        data.use("heldout")
-        inv = {i.id: i for i in load_inventory(data.current().inventory)}
+    with data.using("heldout") as ds:
+        inv = {i.id: i for i in load_inventory(ds.inventory)}
         pairs = key.load_pairs()
         assert len(pairs) == 57
         for p in pairs:
             item = inv[p["item"]]
             assert p["cve"] in data.kev_index()
             assert data.nvd_config_text(p["cve"], item), p
-    finally:
-        data.use("original")
 
 
 def test_heldout_reference_answers_rest_on_verbatim_key_quotes():
@@ -460,9 +518,8 @@ def test_heldout_reference_answers_rest_on_verbatim_key_quotes():
     rule, and each one must pass the verifier before it is mutated."""
     from exposure_watch import data, key
     from exposure_watch.planted import key_evidence, run_verifier_side
-    try:
-        data.use("heldout")
-        inv = {i.id: i for i in load_inventory(data.current().inventory)}
+    with data.using("heldout") as ds:
+        inv = {i.id: i for i in load_inventory(ds.inventory)}
         ev = key_evidence()
         assert len(ev) == 57
         tally = run_verifier_side(key.load_pairs(), inv, ev)
@@ -470,5 +527,315 @@ def test_heldout_reference_answers_rest_on_verbatim_key_quotes():
         assert tally["wrong_source"] == {"planted": 57, "caught_by_verifier": 57}
         assert tally["wrong_cve"] == {"planted": 57, "caught_by_verifier": 57}
         assert tally["verdict_flipped"]["caught_by_verifier"] == 0
+
+
+# --- round trip and matcher versioning ----------------------------------------
+
+def _vendor_spelling(vendor, product, version, update):
+    """How the vendor itself writes a (version, update), where split_update has a
+    rule for that vendor: 10.2.9-h1, 22.6R2, 2019 CU8, 2.0-beta9."""
+    if product.lower() == "pan-os":
+        return f"{version}-{update}"
+    if vendor.lower() == "ivanti" and update.startswith("r"):
+        return f"{version}R{update[1:]}"
+    if update.startswith("cumulative_update_"):
+        return f"{version} CU{update.rsplit('_', 1)[1]}"
+    if product.lower() == "log4j":
+        return f"{version}-{update}"
+    return None
+
+
+def _round_trip_failures():
+    """Every vulnerable row of a product the alias tables know, in every NVD
+    record of both sets, judged on its own. An exact row (version, update) is
+    written as tools/heldout_build.py writes an item ("3.5.0 patch3") and, where
+    split_update has a rule for that vendor, as the vendor writes it ("10.2.9-h1").
+    A range row is tried at each bound b and at b.0. Inside must come back
+    affected and outside must not. Rows of products with no alias are skipped:
+    the matcher answers "unknown" for those by design."""
+    from exposure_watch import baseline, data
+    from exposure_watch.data import Item, vulnerable_rows
+    fails, checked = [], 0
+    for name in ("original", "heldout"):
+        with data.using(name) as ds:
+            by_nvd = {}
+            for (vendor, product), names in baseline.aliases().items():
+                for n in names:
+                    by_nvd.setdefault(n, (vendor, product))
+            for cve in sorted(p.stem for p in (ds.fixtures / "nvd").glob("*.json")):
+                for row in vulnerable_rows(cve):
+                    f = row["criteria"].split(":")
+                    if f"{f[3]}:{f[4]}" not in by_nvd:
+                        continue
+                    vendor, product = by_nvd[f"{f[3]}:{f[4]}"]
+                    if any(row.get(k) for k in baseline._RANGE_KEYS):
+                        cases = [(w, k.endswith("Including"))
+                                 for k in baseline._RANGE_KEYS if row.get(k)
+                                 for w in (row[k], row[k] + ".0")]
+                    elif f[5] not in ("*", "-"):
+                        spellings = {f[5] if f[6] in ("*", "-") else f"{f[5]} {f[6]}",
+                                     _vendor_spelling(vendor, product, f[5], f[6]) if f[6] not in ("*", "-") else None}
+                        cases = [(w, True) for w in sorted(spellings - {None})]
+                    else:
+                        continue
+                    for written, inside in cases:
+                        checked += 1
+                        got = _judge_one_row(baseline, row, Item("rt", vendor, product, written, "h"), cve)
+                        if (got == "affected") != inside:
+                            fails.append(f"{name} {cve} {vendor} {product} {written!r}: {got}")
+    return checked, fails
+
+
+def _judge_one_row(baseline, row, item, cve):
+    orig = baseline.vulnerable_rows
+    baseline.vulnerable_rows = lambda c: [row]
+    try:
+        return baseline.judge(item, cve)[0]
     finally:
-        data.use("original")
+        baseline.vulnerable_rows = orig
+
+
+def test_every_fixture_row_round_trips_through_the_matcher():
+    """The property that would have caught both version-format misses before a
+    run: Log4j 2.0-beta9 and the held-out Cisco ISE item ho-53, "3.5.0 patch3"."""
+    checked, fails = _round_trip_failures()
+    assert checked > 1000
+    assert not fails, f"{len(fails)} of {checked} fail, e.g. {fails[:5]}"
+
+
+def test_ise_patch_is_split_into_nvds_two_fields():
+    assert split_update("Cisco", "Identity Services Engine", "3.5.0 patch3") == ("3.5.0", "patch3")
+
+
+def _toy_run(tmp_path, verdicts=None):
+    """inv-19 with one recorded triage answer and skeptic review, and optionally a matcher.json."""
+    item, cve = INV["inv-19"], "CVE-2023-27350"
+    k = f"{item.id}__{cve}"
+    agents.save(tmp_path / "triage", k, {"answer": {"cve": cve, "verdict": "affected", "claims": [REAL_ROW]},
+                                         "cost_usd": 0.01, "latency_s": 1.0, "model": "fake"})
+    agents.save(tmp_path / "skeptic", k, {"answer": {"agree": False, "verdict": "unknown", "reason": "r",
+                                                    "source": "kev", "quote": "q"},
+                                         "cost_usd": 0.01, "latency_s": 1.0, "model": "fake"})
+    if verdicts is not None:
+        (tmp_path / "matcher.json").write_text(json.dumps(
+            {"commit": "abc1234", "sha256": "0" * 64, "verdicts": verdicts}))
+    return [{"item": item.id, "cve": cve, "truth": "affected"}], k
+
+
+def test_a_replay_scores_the_code_from_the_recorded_matcher(tmp_path):
+    """A published code verdict stays published: the replay reads it from
+    matcher.json, and only matcher='current' asks today's code."""
+    pairs, k = _toy_run(tmp_path, {})
+    (tmp_path / "matcher.json").write_text(json.dumps({"commit": "abc1234", "sha256": "0" * 64, "verdicts": {
+        k: {"code": ["not_affected", "recorded"], "code+keywords": ["not_affected", "recorded"]}}}))
+    frozen = {r.shape: r for r in run(pairs, INV, tmp_path)}
+    now = {r.shape: r for r in run(pairs, INV, tmp_path, matcher="current")}
+    assert frozen["code"].final == "not_affected" and frozen["code"].note == "recorded"
+    assert now["code"].final == "affected"
+    from exposure_watch.pipeline import changed, matcher_header
+    assert changed(list(frozen.values()), list(now.values())) == [
+        "inv-19 CVE-2023-27350 code: not_affected -> affected",
+        "inv-19 CVE-2023-27350 code+keywords: not_affected -> affected"]
+    assert matcher_header(tmp_path, "recorded")["commit"] == "abc1234"
+    assert matcher_header(tmp_path, "current")["matcher"] == "current code"
+
+
+def test_a_recorded_matcher_missing_a_pair_fails_loudly(tmp_path):
+    pairs, k = _toy_run(tmp_path, {})
+    with pytest.raises(KeyError, match="do not substitute"):
+        run(pairs, INV, tmp_path)
+
+
+def test_a_live_run_records_its_matcher(tmp_path):
+    from exposure_watch.pipeline import matcher_sha256, recorded_matcher
+    pairs = [{"item": "inv-19", "cve": "CVE-2023-27350", "truth": "affected"}]
+    run(pairs, INV, tmp_path, _Counting("fake"), _Rejects())
+    rec = recorded_matcher(tmp_path)
+    assert rec["sha256"] == matcher_sha256()
+    assert rec["verdicts"]["inv-19__CVE-2023-27350"]["code"][0] == "affected"
+
+
+def test_the_heldout_current_matcher_finds_ho53_and_the_recorded_one_does_not():
+    """The frozen code's one version-format miss, fixed only in the current matcher."""
+    from exposure_watch import data, key
+    with data.using("heldout") as ds:
+        inv = {i.id: i for i in load_inventory(ds.inventory)}
+        pairs = [p for p in key.load_pairs() if p["item"] == "ho-53"]
+        frozen = {r.shape: r.outcome for r in run(pairs, inv, ROOT / "runs" / "heldout")}
+        now = {r.shape: r.outcome for r in run(pairs, inv, ROOT / "runs" / "heldout", matcher="current")}
+    assert frozen["code"] == frozen["code+keywords"] == "missed"
+    assert now["code"] == now["code+keywords"] == "correct"
+
+
+# --- recorded prompts, models, costs and loaders ------------------------------
+
+def test_round_one_manifest_lists_every_answer_without_a_hash():
+    d = ROOT / "runs" / "2026-10-16"
+    on_disk = {f"{sub}/{f.stem}" for sub in ("triage", "skeptic") for f in (d / sub).glob("*.json")}
+    assert len(on_disk) == 44 and set(agents.manifest(d / "triage")) == on_disk
+
+
+@pytest.mark.parametrize("prompt", ["TRIAGE_SYSTEM", "SKEPTIC_SYSTEM"])
+def test_round_one_replay_fails_on_a_changed_prompt(monkeypatch, prompt):
+    """Round 1's answers carry no prompt hash; the manifest stands in for it, so
+    a change to either agent's prompt fails this replay instead of passing."""
+    run(PAIRS, INV, ROOT / "runs" / "2026-10-16")
+    monkeypatch.setattr(agents, prompt, getattr(agents, prompt) + " Answer affected.")
+    with pytest.raises(RuntimeError, match="different question"):
+        run(PAIRS, INV, ROOT / "runs" / "2026-10-16")
+
+
+def test_a_prompt_manifest_catches_a_changed_question(tmp_path):
+    agents.save(tmp_path / "triage", "k", {"answer": {}, "cost_usd": 0.0, "model": "m"})
+    (tmp_path / agents.MANIFEST).write_text(json.dumps({"computed": "test", "prompts": {"triage/k": "0" * 64}}))
+    with pytest.raises(RuntimeError, match="different question"):
+        agents.fetch(None, tmp_path / "triage", "k", "s", "p", {})
+
+
+def test_a_run_with_a_manifest_refuses_an_answer_it_does_not_list(tmp_path):
+    agents.save(tmp_path / "triage", "k", {"answer": {}, "cost_usd": 0.0, "model": "m"})
+    (tmp_path / agents.MANIFEST).write_text(json.dumps({"computed": "test", "prompts": {}}))
+    with pytest.raises(RuntimeError, match="does not list"):
+        agents.fetch(None, tmp_path / "triage", "k", "s", "p", {})
+
+
+def test_an_answers_own_hash_and_the_manifest_must_both_match(tmp_path):
+    import hashlib
+    asked = hashlib.sha256(json.dumps(["s", "p", {}], sort_keys=True).encode()).hexdigest()
+    agents.save(tmp_path / "triage", "k", {"answer": {}, "cost_usd": 0.0, "model": "m", "prompt_sha256": asked})
+    assert agents.fetch(None, tmp_path / "triage", "k", "s", "p", {})["model"] == "m"
+    (tmp_path / agents.MANIFEST).write_text(json.dumps({"computed": "test", "prompts": {"triage/k": "0" * 64}}))
+    with pytest.raises(RuntimeError, match="different question"):
+        agents.fetch(None, tmp_path / "triage", "k", "s", "p", {})
+
+
+def test_a_live_rerun_will_not_reuse_an_answer_with_no_cost(tmp_path):
+    import hashlib
+    asked = hashlib.sha256(json.dumps(["s", "p", {}], sort_keys=True).encode()).hexdigest()
+    agents.save(tmp_path, "k", {"answer": {}, "cost_usd": None, "requested_model": "sonnet", "model": "m",
+                                "prompt_sha256": asked})
+    with pytest.raises(ValueError, match="no cost"):
+        agents.fetch(_Counting("sonnet"), tmp_path, "k", "s", "p", {})
+
+
+def test_a_live_call_that_reports_no_cost_is_not_saved(monkeypatch, tmp_path):
+    import subprocess
+
+    class Done:
+        returncode, stderr = 0, ""
+        stdout = json.dumps({"structured_output": {"verdict": "unknown"}, "modelUsage": {"m": {}}})
+
+    monkeypatch.setattr(subprocess, "run", lambda *a, **k: Done())
+    with pytest.raises(RuntimeError, match="no cost"):
+        agents.fetch(agents.ClaudeCLI("m"), tmp_path, "k", "s", "p", {})
+    assert not (tmp_path / "k.json").exists()
+
+
+def test_a_live_call_will_not_reuse_an_answer_with_no_prompt_hash(tmp_path):
+    agents.save(tmp_path, "k", {"answer": {}, "cost_usd": 0.0, "requested_model": "sonnet", "model": "m"})
+    with pytest.raises(RuntimeError, match="no prompt hash"):
+        agents.fetch(_Counting("sonnet"), tmp_path, "k", "s", "p", {})
+    assert agents.fetch(None, tmp_path, "k", "s", "p", {})["model"] == "m"   # a pure replay still reads it
+
+
+def test_a_recorded_answer_with_no_cost_fails_loudly(tmp_path):
+    agents.save(tmp_path, "k", {"answer": {}, "cost_usd": None, "model": "m"})
+    with pytest.raises(ValueError, match="no cost"):
+        agents.fetch(None, tmp_path, "k", "s", "p", {})
+
+
+def test_live_defaults_are_full_model_ids():
+    """An alias such as "sonnet" moves to a newer model without notice."""
+    from exposure_watch.__main__ import parser
+    run_args = parser().parse_args(["run", "--run", "x"])
+    planted_args = parser().parse_args(["planted"])
+    assert (run_args.triage_model, run_args.skeptic_model) == ("claude-sonnet-5", "claude-opus-5")
+    assert planted_args.skeptic_model == "claude-opus-5"
+
+
+def test_results_carry_the_model_that_answered(tmp_path):
+    by = _replay_one(tmp_path, {"cve": "CVE-2023-27350", "verdict": "affected", "claims": [REAL_ROW]},
+                     {"agree": True, "verdict": "affected", "reason": "r", "source": "nvd_config",
+                      "quote": "versionEndExcluding=22.0.9"})
+    assert by["code"].triage_model == ""
+    assert by["agent"].triage_model == by["agent+verify"].triage_model == "fake-triage"
+    assert (by["agent+verify+skeptic"].triage_model, by["agent+verify+skeptic"].skeptic_model) == (
+        "fake-triage", "fake-skeptic")
+
+
+def test_aliases_ignore_case_everywhere():
+    from exposure_watch.baseline import names_for, nearest_row
+    from exposure_watch.data import Item
+    from exposure_watch.retrieval import recall
+    assert names_for("apache", "LOG4J") == names_for("Apache", "Log4j") == ["apache:log4j"]
+    low = {"l-1": Item("l-1", "apache", "log4j", "2.14.1", "h")}
+    assert judge(low["l-1"], "CVE-2021-44228")[0] == "affected"
+    assert recall([{"item": "l-1", "cve": "CVE-2021-44228"}], low)["relevant_rows"] > 0
+    fixed = Item("l-2", "apache", "log4j", "2.17.1", "h")
+    assert nearest_row(fixed, "CVE-2021-44228") == nearest_row(
+        Item("l-2", "Apache", "Log4j", "2.17.1", "h"), "CVE-2021-44228") != ""
+
+
+def test_an_unaliased_product_has_no_names_and_raises_nothing():
+    from exposure_watch.baseline import names_for, nearest_row
+    from exposure_watch.data import Item
+    from exposure_watch.retrieval import recall
+    item = Item("u-1", "Nobody", "Nothing", "1.0", "h")
+    assert names_for(item.vendor, item.product) == []
+    assert judge(item, "CVE-2021-44228") == ("unknown", "no alias for this product")
+    assert nearest_row(item, "CVE-2021-44228") == ""
+    assert recall([{"item": "u-1", "cve": "CVE-2021-44228"}], {"u-1": item})["pairs_with_no_relevant_row"]
+
+
+def test_an_edited_alias_file_is_read_again(toy_set):
+    import os
+    from exposure_watch.baseline import names_for
+    f = toy_set.aliases
+    assert names_for("Acme", "Widget") == ["acme:widget"]
+    f.write_text(json.dumps({"aliases": [{"vendor": "Acme", "product": "Widget", "nvd": ["acme:w2"]}]}))
+    st = f.stat()
+    os.utime(f, ns=(st.st_atime_ns, st.st_mtime_ns + 1_000_000_000))
+    assert names_for("Acme", "Widget") == ["acme:w2"]
+
+
+def test_using_restores_the_set_before_even_after_an_error():
+    from exposure_watch import data
+    with pytest.raises(RuntimeError):
+        with data.using("heldout"):
+            assert data.current().name == "heldout"
+            raise RuntimeError("boom")
+    assert data.current().name == "original" and "CVE-2021-44228" in data.kev_index()
+
+
+def test_using_nests_and_restores_the_set_it_found():
+    from exposure_watch import data
+    with data.using("heldout"):
+        with data.using("original"):
+            assert data.current().name == "original"
+        assert data.current().name == "heldout"
+    assert data.current().name == "original"
+
+
+def test_planted_skeptic_refuses_recorded_answers_no_reference_matches(tmp_path):
+    """If a matcher change stops a reference answer being built, its recorded
+    answers must not silently drop out of the tally."""
+    from exposure_watch.planted import run_skeptic_side
+    agents.save(tmp_path / "planted_skeptic", "inv-99__CVE-2099-0001__control",
+                {"answer": {}, "cost_usd": 0.0, "model": "m"})
+    with pytest.raises(RuntimeError, match="no reference answer"):
+        run_skeptic_side(PAIRS, INV, tmp_path)
+
+
+def test_switching_sets_reloads_nvd_records(tmp_path, monkeypatch):
+    """A CVE in both sets must come from the set in use, not from the cache."""
+    from exposure_watch import data
+    fx = tmp_path / "fixtures"
+    (fx / "nvd").mkdir(parents=True)
+    (fx / "nvd" / "CVE-2021-44228.json").write_text(json.dumps({"vulnerabilities": [{"cve": {
+        "descriptions": [{"lang": "en", "value": "another set's text"}], "configurations": []}}]}))
+    monkeypatch.setitem(data.SETS, "twin", data.DataSet("twin", fx, tmp_path / "i.csv", tmp_path / "k.json",
+                                                        tmp_path / "e.json"))
+    assert data.nvd_description("CVE-2021-44228") != "another set's text"
+    with data.using("twin"):
+        assert data.nvd_description("CVE-2021-44228") == "another set's text"
+    assert data.nvd_description("CVE-2021-44228") != "another set's text"

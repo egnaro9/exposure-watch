@@ -4,7 +4,7 @@ Does an AI agent beat plain code at deciding whether a piece of installed softwa
 
 **Short answer, on this set: no.** A plain matcher plus one keyword rule scored as well as the best agent pipeline, at zero cost. What the agents did do was find one clear error in my answer key and flag a second label that turned out to be contested. That result is the more useful one, and it is written up below with the evidence.
 
-**Then a held-out set: on correct answers, still a tie; on wrong answers, not.** The keyword rule was written after reading the first 12 descriptions, so I pre-registered a second set of 30 vulnerabilities and pushed its answer key before anything ran on it. On those 57 pairs the agent pipeline with a skeptic was the only approach that was never wrong: 47 correct and 10 sent to a person, against code + keywords' 45 correct and 12 wrong, one of them a missed exposure. The keyword rule caught 2 of the 12 pairs it exists for. [Details below](#held-out-set-run-2026-10-19).
+**Then a held-out set: on correct answers, still a tie; on wrong answers, not.** The keyword rule was written after reading the first 12 descriptions, so I pre-registered a second set of 30 vulnerabilities and pushed its answer key before anything ran on it. On those 57 pairs the agent pipeline with a skeptic was the only approach that was never wrong: 47 correct and 10 sent to a person, against code + keywords' 45 correct and 12 wrong, one of them a missed exposure, scored as the code was frozen before the run. The keyword rule caught 2 of the 12 pairs it exists for. [Details below](#held-out-set-run-2026-10-19).
 
 ## Results (run 2026-10-16)
 
@@ -38,7 +38,7 @@ What the columns mean, in terms of what each mistake costs whoever acts on it:
 - **Over-called**: said "affected" where exposure depends on a feature the inventory does not record. Safe, and it creates extra work.
 - **Under-called**: said "conditional" where the key says plainly affected. A person still looks.
 - **Over-confident**: gave a firm verdict where the documents do not settle the question.
-- **Missed**: said "not affected" for an exposed item. This is the expensive one. No approach did it on these 22 pairs; on the held-out set below, four of the five did.
+- **Missed**: said "not affected" for an exposed item. This is the expensive one. No approach did it on these 22 pairs; on the held-out set below, four of the five did, scoring the code as frozen.
 
 ## What the agents found
 
@@ -97,7 +97,7 @@ What it shows:
 - **On correct answers, still a tie.** The pre-registered comparison is code + keywords against agent + verify + skeptic: 45 against 47. They disagree on 6 pairs, 2 one way and 4 the other, and the exact McNemar p is 0.69. Fifty-seven pairs cannot tell those two apart.
 - **The difference is where the errors go.** Code + keywords gave 12 wrong answers, each a firm verdict with nothing to warn whoever reads it, and one of them missed an exposed item. Agent + verify + skeptic gave none: the 10 pairs it was not sure of went to a person. That is what $33.34, about $0.58 a pair, bought on this set. In round 1 the same pipeline cost about $0.22 a pair.
 - **The keyword rule did not carry over.** Twelve pairs depend on something the inventory does not record: an edition (NetScaler FIPS; the Acronis cPanel plugin rather than Plesk or DirectAdmin), a feature that has to be switched on (Cisco's AMP file reputation, an F5 OAuth setup, Check Point site-to-site VPN), or how the software was installed (Zammad's DEB and RPM packages). The rule caught 2 of the 12. It also fired once where the key says plainly affected, because a Windows description says an attacker can "bypass a security feature".
-- **The version handling did not fully carry over either.** The code missed one exposed item: Cisco ISE recorded as `3.5.0 patch3`, which NVD lists as version 3.5.0 with update `patch3`. `split_update` knows only the update formats of round 1's vendors, so it compared the whole string and matched nothing. My build rule wrote that version string, so a real inventory might spell it differently, and a one-line parser change would catch this case. The point is that the frozen code did not.
+- **The version handling did not fully carry over either.** The code missed one exposed item: Cisco ISE recorded as `3.5.0 patch3`, which NVD lists as version 3.5.0 with update `patch3`. `split_update` knows only the update formats of round 1's vendors, so it compared the whole string and matched nothing. My build rule wrote that version string, so a real inventory might spell it differently, and a one-line parser change would catch this case. The point is that the frozen code did not. That change is now made, and it shows only in `runs/heldout/report_current_matcher.json`: the current matcher gets code 45 correct and none missed, and code + keywords 46 and none missed. Those are not held-out measurements. The fix was written after seeing this miss, it reads the build rule's spelling, and Cisco's own spellings such as `3.5.0 Patch 3` would still miss. The table above, and the pre-registered comparison, stay as the frozen code scored them.
 - **The single agent missed three exposed items, and the skeptic caught all three.** All three are NetScaler builds that NVD's standard row places at the fix while its FIPS row still covers them. The agent read the standard row and said not affected, quoting it correctly, so the verifier passed them. The skeptic sent all three to a person. That is round 1's division of labour again: the verifier catches invented evidence, the skeptic catches real evidence attached to the wrong verdict.
 - **What the skeptic costs besides money.** It agreed with the triage agent on 47 of its 54 reviews, and it sent one correct answer to a person (Check Point Gaia R80, conditional).
 - **Three of the agent's "send to a person" answers are a build-rule artifact.** They are NetScaler items recorded as a bare `14.1`, which is what the rule writes when a range starts at `14.1`; a real NetScaler reports a build number. The key calls them affected or conditional, and the agent said the version alone does not settle it. That reading is defensible, and the key does not reward it.
@@ -130,7 +130,11 @@ Python 3.10 or later. Nothing outside the standard library is needed to score.
 python -m exposure_watch run --run runs/2026-10-16
 ```
 
-That replays the recorded answers in `runs/2026-10-16/` and rescores every approach against both keys, with no model and no key needed. To run the agents yourself, sign in to the Claude Code CLI and add `--live` with a fresh `--run` directory. A rerun pays only for answers that directory does not already hold.
+That replays the recorded answers in `runs/2026-10-16/` and rescores every approach against both keys, with no model and no key needed. To run the agents yourself, sign in to the Claude Code CLI and add `--live` with a fresh `--run` directory. A rerun pays only for answers that directory does not already hold. A live run asks for full model IDs by default (`claude-sonnet-5`, `claude-opus-5`); round 1 asked for the aliases `sonnet` and `opus`, which the CLI resolved to those two. Every result records the model that answered.
+
+The matcher is versioned like the key. Each run's `matcher.json` holds the verdicts its two code approaches published and the commit of the matcher behind them: `bfbab91` for the held-out run, as the pre-registration names it, and for round 1, which ran before the repository existed, the first commit, `5c7c733`, which reproduces all 22. A replay scores those approaches from that file, so a later fix to the matcher cannot rewrite a published score table. The same command writes `report_current_matcher.json`: today's matcher on the same pairs, with every verdict it changes listed. That report carries a hash of the matcher's source, so CI fails on any edit to `baseline.py` or `versions.py` until it is regenerated, and every matcher change shows up in review. The planted-error suite still builds its reference answers with today's matcher, and it refuses to replay if a recorded answer no longer has one.
+
+Round 1's answers were saved before answers carried the hash of their prompt, so `runs/2026-10-16/prompt_manifest.json` holds those hashes. They were computed from the code at commit `2d38744`, not recorded at call time, and they reproduce at every commit back to `5c7c733`. A changed prompt fails either kind of replay, and a test fails if the manifest goes missing or stops listing an answer. `tools/record_matcher.py` and `tools/prompt_manifest.py` rebuild and check both files.
 
 ```
 python -m exposure_watch planted
@@ -141,7 +145,7 @@ pip install -e ".[dev]" && pytest
 python tests/mutants.py
 ```
 
-The tests cover version comparison, the matcher, the verifier, scoring, the answer cache, the errata loader and the replay path. `tests/mutants.py` breaks the code in 35 specific ways, one at a time, and confirms that a test fails each time; it refuses to count a change that only stops the code from loading.
+The tests cover version comparison, the matcher, the verifier, scoring, the answer cache, the errata loader and the replay path, and they run every version row and range bound of every product the alias tables know, in all 130 NVD records of both sets, through the matcher and back, in the build rule's spelling and in the vendor's own. `tests/mutants.py` breaks the code in 71 specific ways, one at a time, and confirms that a test fails each time; it refuses to count a change that only stops the code from loading.
 
 ## Data
 
@@ -167,7 +171,7 @@ exposure_watch/retrieval.py  checks that the deciding rows reach the agent
 exposure_watch/key.py        the frozen key and its errata
 eval/key_audit/              the blind relabel: packet, labels, rulings, script
 eval/heldout/                the held-out set: pre-registration, selection, inventory, key
-tools/                       builds the held-out set, freezes its key, runs its analysis
+tools/                       builds the held-out set, freezes its key, runs its analysis, records the matcher and prompts
 runs/2026-10-16/             every recorded answer, replayable without a model
 runs/heldout/                the held-out run, replayable the same way
 tests/mutants.py             deliberate bugs the tests must catch

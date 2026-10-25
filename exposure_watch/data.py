@@ -9,10 +9,11 @@ from __future__ import annotations
 import csv
 import json
 import re
+from contextlib import contextmanager
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Iterator, List, Optional
 
 ROOT = Path(__file__).resolve().parent.parent
 FIXTURES = ROOT / "fixtures"
@@ -52,6 +53,18 @@ def use(name: str) -> DataSet:
     kev_index.cache_clear()
     nvd_record.cache_clear()
     return _current
+
+
+@contextmanager
+def using(name: str) -> Iterator[DataSet]:
+    """One data set for the length of a with block, then back to the set before,
+    even if the block raises."""
+    before = _current.name
+    try:
+        yield use(name)
+    finally:
+        use(before)
+
 
 KEV_FIELDS = ("cveID", "vendorProject", "product", "vulnerabilityName", "dateAdded",
               "shortDescription", "requiredAction", "dueDate",

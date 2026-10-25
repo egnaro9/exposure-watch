@@ -165,6 +165,13 @@ def run_skeptic_side(pairs: List[dict], inventory: Dict[str, Item], run_dir: Pat
         src = sources_for(item, cve)
         for kind, ans in (("control", base), ("verdict_flipped", mutants(base)["verdict_flipped"])):
             jobs.append((f"{item.id}__{cve}__{kind}", kind, item, cve, src, ans))
+    # Reference answers come from today's matcher. If a matcher change stops one
+    # being built, its recorded answers would silently drop out of the tally.
+    if live_skeptic is None and d.exists():
+        unused = sorted({f.stem for f in d.glob("*.json")} - {j[0] for j in jobs})
+        if unused:
+            raise RuntimeError(f"{len(unused)} recorded answers in {d} match no reference answer built now, "
+                               f"e.g. {unused[:2]}: the matcher changed what this suite plants")
     recs = _each(lambda j: agents.fetch(live_skeptic, d, j[0], agents.SKEPTIC_SYSTEM,
                                         agents.skeptic_prompt(j[2], j[3], j[4], j[5]), agents.SKEPTIC_SCHEMA),
                  jobs, live_skeptic is not None)
@@ -174,5 +181,5 @@ def run_skeptic_side(pairs: List[dict], inventory: Dict[str, Item], run_dir: Pat
         t = tally[j[1]]
         t["shown"] += 1
         t["not_accepted"] += not accepts(s, j[5]["verdict"], j[3], j[4])
-        t["cost_usd"] = round(t["cost_usd"] + (r["cost_usd"] or 0.0), 4)
+        t["cost_usd"] = round(t["cost_usd"] + r["cost_usd"], 4)     # a cost is never missing: see agents
     return tally

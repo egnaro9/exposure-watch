@@ -1,0 +1,577 @@
+{
+ "commit": "bfbab91",
+ "sha256": "774a221f41e20985d9096205dedff32e154ee9412c90e689217751f2e8d91db5",
+ "recorded": "2026-10-24, from the code-shape results this run published in report.json (as committed at 2d38744). eval/heldout/PREREG.md names the code at freeze as bfbab91, with exposure_watch/ unchanged since fd3841f; the run was ecb632b, whose matcher is the same, and every commit up to 2d38744 replayed these 57 verdicts byte for byte.",
+ "verdicts": {
+  "ho-01__CVE-2026-102764": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3"
+   ]
+  },
+  "ho-02__CVE-2026-102764": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-03__CVE-2026-21589": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4"
+   ]
+  },
+  "ho-04__CVE-2026-21589": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-05__CVE-2026-76519": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780"
+   ],
+   "code+keywords": [
+    "conditional",
+    "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780; description condition: 'feature'"
+   ]
+  },
+  "ho-06__CVE-2026-76519": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-07__CVE-2026-105134": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   ]
+  },
+  "ho-08__CVE-2026-105134": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-09__CVE-2026-105133": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   ]
+  },
+  "ho-10__CVE-2026-105133": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-11__CVE-2026-0322": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4"
+   ]
+  },
+  "ho-12__CVE-2026-0322": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-13__CVE-2026-96951": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807"
+   ],
+   "code+keywords": [
+    "conditional",
+    "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807; description condition: 'feature'"
+   ]
+  },
+  "ho-14__CVE-2026-96951": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-15__CVE-2026-104935": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0"
+   ]
+  },
+  "ho-16__CVE-2026-104935": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-17__CVE-2026-88779": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41"
+   ]
+  },
+  "ho-18__CVE-2026-88779": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41"
+   ]
+  },
+  "ho-19__CVE-2026-102490": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2"
+   ]
+  },
+  "ho-20__CVE-2026-102490": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-21__CVE-2026-102489": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4"
+   ]
+  },
+  "ho-22__CVE-2026-102489": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-23__CVE-2026-104286": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1"
+   ]
+  },
+  "ho-24__CVE-2026-104286": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-25__CVE-2026-76504": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1"
+   ]
+  },
+  "ho-26__CVE-2026-76504": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-27__CVE-2026-86950": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1"
+   ]
+  },
+  "ho-28__CVE-2026-86950": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-29__CVE-2026-88772": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   ]
+  },
+  "ho-30__CVE-2026-88772": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   ]
+  },
+  "ho-31__CVE-2026-88771": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   ]
+  },
+  "ho-32__CVE-2026-88771": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   ]
+  },
+  "ho-33__CVE-2026-87902": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2"
+   ]
+  },
+  "ho-34__CVE-2026-87902": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-35__CVE-2026-67279": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2"
+   ]
+  },
+  "ho-36__CVE-2026-67279": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-37__CVE-2026-65660": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522"
+   ]
+  },
+  "ho-38__CVE-2026-65660": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-39__CVE-2026-71362": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4"
+   ]
+  },
+  "ho-40__CVE-2026-71362": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*"
+   ]
+  },
+  "ho-41__CVE-2026-5430": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21"
+   ]
+  },
+  "ho-42__CVE-2026-5430": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-43__CVE-2026-94127": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1"
+   ],
+   "code+keywords": [
+    "conditional",
+    "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1; description condition: 'configured as'"
+   ]
+  },
+  "ho-44__CVE-2026-94127": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-45__CVE-2026-93952": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2"
+   ]
+  },
+  "ho-46__CVE-2026-93952": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-47__CVE-2026-93616": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   ]
+  },
+  "ho-48__CVE-2026-93616": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*"
+   ]
+  },
+  "ho-49__CVE-2026-85102": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   ]
+  },
+  "ho-50__CVE-2026-85102": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*"
+   ]
+  },
+  "ho-51__CVE-2026-87886": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3"
+   ]
+  },
+  "ho-52__CVE-2026-87886": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*"
+   ]
+  },
+  "ho-53__CVE-2026-76460": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-54__CVE-2026-76461": {
+   "code": [
+    "affected",
+    "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780"
+   ]
+  },
+  "ho-55__CVE-2026-76461": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  },
+  "ho-56__CVE-2026-85706": {
+   "code": [
+    "affected",
+    "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2"
+   ],
+   "code+keywords": [
+    "affected",
+    "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2"
+   ]
+  },
+  "ho-57__CVE-2026-85706": {
+   "code": [
+    "not_affected",
+    "no vulnerable row matched"
+   ],
+   "code+keywords": [
+    "not_affected",
+    "no vulnerable row matched"
+   ]
+  }
+ }
+}

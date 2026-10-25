@@ -1,4 +1,9 @@
 {
+ "matcher": {
+  "matcher": "recorded in matcher.json",
+  "commit": "bfbab91",
+  "sha256": "774a221f41e20985d9096205dedff32e154ee9412c90e689217751f2e8d91db5"
+ },
  "summary": {
   "code": {
    "pairs": 57,
@@ -71,7 +76,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3"
+   "note": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-01",
@@ -82,7 +89,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3"
+   "note": "cpe:2.3:a:beyondtrust:remote_support:*:*:*:*:*:*:*:* | versionEndIncluding=26.2.3",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-01",
@@ -93,7 +102,9 @@
    "outcome": "correct",
    "cost_usd": 0.203838,
    "latency_s": 6.43,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-01",
@@ -104,7 +115,9 @@
    "outcome": "correct",
    "cost_usd": 0.203838,
    "latency_s": 6.43,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-01",
@@ -115,7 +128,9 @@
    "outcome": "correct",
    "cost_usd": 0.557968,
    "latency_s": 24.94,
-   "note": "The deployed version 26.2.3 matches the inclusive upper bound of the vulnerable CPE range (versionEndIncluding=26.2.3), so the installed version is the last affected version, not the fixed one. Vendor"
+   "note": "The deployed version 26.2.3 matches the inclusive upper bound of the vulnerable CPE range (versionEndIncluding=26.2.3), so the installed version is the last affected version, not the fixed one. Vendor",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-02",
@@ -126,7 +141,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-02",
@@ -137,7 +154,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-02",
@@ -148,7 +167,9 @@
    "outcome": "correct",
    "cost_usd": 0.21988860000000002,
    "latency_s": 10.48,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-02",
@@ -159,7 +180,9 @@
    "outcome": "correct",
    "cost_usd": 0.21988860000000002,
    "latency_s": 10.48,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-02",
@@ -170,7 +193,9 @@
    "outcome": "correct",
    "cost_usd": 0.5780536000000001,
    "latency_s": 30.01,
-   "note": "The NVD configuration bounds the affected range at 26.2.3 inclusive; the deployed version 26.2.4 is above that ceiling, and neither the KEV entry nor the NVD description names any version or condition"
+   "note": "The NVD configuration bounds the affected range at 26.2.3 inclusive; the deployed version 26.2.4 is above that ceiling, and neither the KEV entry nor the NVD description names any version or condition",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-03",
@@ -181,7 +206,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4"
+   "note": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-03",
@@ -192,7 +219,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4"
+   "note": "cpe:2.3:a:atlassian:crowd:*:*:*:*:*:*:*:* | versionStartIncluding=7.2.0 | versionEndExcluding=7.2.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-03",
@@ -203,7 +232,9 @@
    "outcome": "correct",
    "cost_usd": 0.221868,
    "latency_s": 9.15,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-03",
@@ -214,7 +245,9 @@
    "outcome": "correct",
    "cost_usd": 0.221868,
    "latency_s": 9.15,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-03",
@@ -225,7 +258,9 @@
    "outcome": "correct",
    "cost_usd": 0.597783,
    "latency_s": 25.009999999999998,
-   "note": "Recorded version 7.2.0 falls inside the Crowd CPE range with versionStartIncluding=7.2.0 and versionEndExcluding=7.2.4 \u2014 the lower bound is inclusive, so 7.2.0 is squarely vulnerable and not a boundar"
+   "note": "Recorded version 7.2.0 falls inside the Crowd CPE range with versionStartIncluding=7.2.0 and versionEndExcluding=7.2.4 \u2014 the lower bound is inclusive, so 7.2.0 is squarely vulnerable and not a boundar",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-04",
@@ -236,7 +271,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-04",
@@ -247,7 +284,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-04",
@@ -258,7 +297,9 @@
    "outcome": "correct",
    "cost_usd": 0.2373036,
    "latency_s": 12.68,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-04",
@@ -269,7 +310,9 @@
    "outcome": "correct",
    "cost_usd": 0.2373036,
    "latency_s": 12.68,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-04",
@@ -280,7 +323,9 @@
    "outcome": "correct",
    "cost_usd": 0.6069036,
    "latency_s": 27.14,
-   "note": "Crowd 7.2.4 is the fix version for the 7.2.x branch. The only Crowd 7.2.x CPE range is 7.2.0 up to but *excluding* 7.2.4, so the deployed version falls outside every affected range (the lower ranges e"
+   "note": "Crowd 7.2.4 is the fix version for the 7.2.x branch. The only Crowd 7.2.x CPE range is 7.2.0 up to but *excluding* 7.2.4, so the deployed version falls outside every affected range (the lower ranges e",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-05",
@@ -291,7 +336,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780"
+   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-05",
@@ -302,7 +349,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780; description condition: 'feature'"
+   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.0 | versionEndExcluding=16.5.0-780; description condition: 'feature'",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-05",
@@ -313,7 +362,9 @@
    "outcome": "correct",
    "cost_usd": 0.22824329999999998,
    "latency_s": 13.72,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-05",
@@ -324,7 +375,9 @@
    "outcome": "correct",
    "cost_usd": 0.22824329999999998,
    "latency_s": 13.72,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-05",
@@ -335,7 +388,9 @@
    "outcome": "correct",
    "cost_usd": 0.5970193,
    "latency_s": 42.11,
-   "note": "Version containment is not in doubt: nvd_config's second range uses versionStartIncluding=16.0, so the recorded 16.0 is inside [16.0, 16.5.0-780). What remains unresolved is the one precondition the p"
+   "note": "Version containment is not in doubt: nvd_config's second range uses versionStartIncluding=16.0, so the recorded 16.0 is inside [16.0, 16.5.0-780). What remains unresolved is the one precondition the p",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-06",
@@ -346,7 +401,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-06",
@@ -357,7 +414,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-06",
@@ -368,7 +427,9 @@
    "outcome": "correct",
    "cost_usd": 0.22663350000000002,
    "latency_s": 13.5,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-06",
@@ -379,7 +440,9 @@
    "outcome": "correct",
    "cost_usd": 0.22663350000000002,
    "latency_s": 13.5,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-06",
@@ -390,7 +453,9 @@
    "outcome": "correct",
    "cost_usd": 0.5831995,
    "latency_s": 34.68,
-   "note": "The installed AsyncOS build 16.5.0-780 is exactly the upper bound of the 16.x vulnerable range, and versionEndExcluding is exclusive, so the host runs the fixed build. The only other range (15.0 to <1"
+   "note": "The installed AsyncOS build 16.5.0-780 is exactly the upper bound of the 16.x vulnerable range, and versionEndExcluding is exclusive, so the host runs the fixed build. The only other range (15.0 to <1",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-07",
@@ -401,7 +466,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-07",
@@ -412,7 +479,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-07",
@@ -423,7 +492,9 @@
    "outcome": "correct",
    "cost_usd": 0.2241405,
    "latency_s": 10.31,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-07",
@@ -434,7 +505,9 @@
    "outcome": "correct",
    "cost_usd": 0.2241405,
    "latency_s": 10.31,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-07",
@@ -445,7 +518,9 @@
    "outcome": "correct",
    "cost_usd": 0.5690365,
    "latency_s": 25.09,
-   "note": "Installed 10.3.3 falls below the fixed version. The NVD CPE configuration covers all versions before 10.3.4, which includes 10.3.3, and the NVD description independently confirms 10.3.4 as the remedia"
+   "note": "Installed 10.3.3 falls below the fixed version. The NVD CPE configuration covers all versions before 10.3.4, which includes 10.3.3, and the NVD description independently confirms 10.3.4 as the remedia",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-08",
@@ -456,7 +531,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-08",
@@ -467,7 +544,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-08",
@@ -478,7 +557,9 @@
    "outcome": "correct",
    "cost_usd": 0.22385249999999998,
    "latency_s": 9.95,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-08",
@@ -489,7 +570,9 @@
    "outcome": "correct",
    "cost_usd": 0.22385249999999998,
    "latency_s": 9.95,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-08",
@@ -500,7 +583,9 @@
    "outcome": "correct",
    "cost_usd": 0.5680785,
    "latency_s": 23.27,
-   "note": "The deployed version 10.3.4 falls outside the affected range, which the NVD configuration bounds exclusively at 10.3.4 (versionEndExcluding), and the NVD description independently names 10.3.4 as the "
+   "note": "The deployed version 10.3.4 falls outside the affected range, which the NVD configuration bounds exclusively at 10.3.4 (versionEndExcluding), and the NVD description independently names 10.3.4 as the ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-09",
@@ -511,7 +596,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-09",
@@ -522,7 +609,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4"
+   "note": "cpe:2.3:a:ahsay:cloud_backup_suite:*:*:*:*:*:*:*:* | versionEndExcluding=10.3.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-09",
@@ -533,7 +622,9 @@
    "outcome": "correct",
    "cost_usd": 0.22824930000000004,
    "latency_s": 16.2,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-09",
@@ -544,7 +635,9 @@
    "outcome": "correct",
    "cost_usd": 0.22824930000000004,
    "latency_s": 16.2,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-09",
@@ -555,7 +648,9 @@
    "outcome": "correct",
    "cost_usd": 0.5876303,
    "latency_s": 42.75,
-   "note": "Installed 10.3.3 falls inside the NVD CPE range for ahsay:cloud_backup_suite (all versions before 10.3.4), so the host is affected. The only competing reading is the description's \"up to 10.3.2\", whic"
+   "note": "Installed 10.3.3 falls inside the NVD CPE range for ahsay:cloud_backup_suite (all versions before 10.3.4), so the host is affected. The only competing reading is the description's \"up to 10.3.2\", whic",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-10",
@@ -566,7 +661,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-10",
@@ -577,7 +674,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-10",
@@ -588,7 +687,9 @@
    "outcome": "correct",
    "cost_usd": 0.22478430000000002,
    "latency_s": 11.91,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-10",
@@ -599,7 +700,9 @@
    "outcome": "correct",
    "cost_usd": 0.22478430000000002,
    "latency_s": 11.91,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-10",
@@ -610,7 +713,9 @@
    "outcome": "correct",
    "cost_usd": 0.5713453000000001,
    "latency_s": 28.56,
-   "note": "The NVD configuration bounds the vulnerable range at versionEndExcluding=10.3.4, so 10.3.4 is explicitly outside it. The description independently confirms 10.3.4 is the remediated build (\"Upgrading t"
+   "note": "The NVD configuration bounds the vulnerable range at versionEndExcluding=10.3.4, so 10.3.4 is explicitly outside it. The description independently confirms 10.3.4 is the remediated build (\"Upgrading t",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-11",
@@ -621,7 +726,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4"
+   "note": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-11",
@@ -632,7 +739,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4"
+   "note": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:* | versionStartIncluding=12.2.0 | versionEndExcluding=12.2.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-11",
@@ -643,7 +752,9 @@
    "outcome": "correct",
    "cost_usd": 0.2989083,
    "latency_s": 13.99,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-11",
@@ -654,7 +765,9 @@
    "outcome": "correct",
    "cost_usd": 0.2989083,
    "latency_s": 13.99,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-11",
@@ -665,7 +778,9 @@
    "outcome": "correct",
    "cost_usd": 0.7604143000000001,
    "latency_s": 29.35,
-   "note": "Host-11 runs PAN-OS 12.2.0, which falls inside the NVD configuration's affected range versionStartIncluding=12.2.0 to versionEndExcluding=12.2.4 \u2014 the installed version is exactly the inclusive lower "
+   "note": "Host-11 runs PAN-OS 12.2.0, which falls inside the NVD configuration's affected range versionStartIncluding=12.2.0 to versionEndExcluding=12.2.4 \u2014 the installed version is exactly the inclusive lower ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-12",
@@ -676,7 +791,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-12",
@@ -687,7 +804,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-12",
@@ -698,7 +817,9 @@
    "outcome": "correct",
    "cost_usd": 0.29543430000000004,
    "latency_s": 9.09,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-12",
@@ -709,7 +830,9 @@
    "outcome": "correct",
    "cost_usd": 0.29543430000000004,
    "latency_s": 9.09,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-12",
@@ -720,7 +843,9 @@
    "outcome": "correct",
    "cost_usd": 0.7562652999999999,
    "latency_s": 25.08,
-   "note": "The only 12.2.x entry in the NVD configuration covers 12.2.0 up to but excluding 12.2.4, making 12.2.4 the first fixed build rather than an affected one. No other CPE row re-adds 12.2.4 (the wildcard "
+   "note": "The only 12.2.x entry in the NVD configuration covers 12.2.0 up to but excluding 12.2.4, making 12.2.4 the first fixed build rather than an affected one. No other CPE row re-adds 12.2.4 (the wildcard ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-13",
@@ -731,7 +856,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807"
+   "note": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-13",
@@ -742,7 +869,9 @@
    "outcome": "undercalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807; description condition: 'feature'"
+   "note": "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:* | versionEndExcluding=10.0.19044.7807; description condition: 'feature'",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-13",
@@ -753,7 +882,9 @@
    "outcome": "correct",
    "cost_usd": 0.23501670000000002,
    "latency_s": 12.78,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-13",
@@ -764,7 +895,9 @@
    "outcome": "correct",
    "cost_usd": 0.23501670000000002,
    "latency_s": 12.78,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-13",
@@ -775,7 +908,9 @@
    "outcome": "correct",
    "cost_usd": 0.6008927,
    "latency_s": 30.299999999999997,
-   "note": "Build 10.0.19044 is Windows 10 21H2 (22H2 is 19045), and the recorded revision .7806 is below the configuration's open upper bound of 10.0.19044.7807, placing host-13 squarely inside the vulnerable ra"
+   "note": "Build 10.0.19044 is Windows 10 21H2 (22H2 is 19045), and the recorded revision .7806 is below the configuration's open upper bound of 10.0.19044.7807, placing host-13 squarely inside the vulnerable ra",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-14",
@@ -786,7 +921,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-14",
@@ -797,7 +934,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-14",
@@ -808,7 +947,9 @@
    "outcome": "correct",
    "cost_usd": 0.23453070000000004,
    "latency_s": 9.95,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-14",
@@ -819,7 +960,9 @@
    "outcome": "correct",
    "cost_usd": 0.23453070000000004,
    "latency_s": 9.95,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-14",
@@ -830,7 +973,9 @@
    "outcome": "correct",
    "cost_usd": 0.5936467000000001,
    "latency_s": 24.96,
-   "note": "Host build 10.0.19044.7807 is Windows 10 21H2. The only 21H2 rows are bounded by versionEndExcluding=10.0.19044.7807, which is exclusive, so a build exactly equal to that value is the first fixed buil"
+   "note": "Host build 10.0.19044.7807 is Windows 10 21H2. The only 21H2 rows are bounded by versionEndExcluding=10.0.19044.7807, which is exclusive, so a build exactly equal to that value is the first fixed buil",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-15",
@@ -841,7 +986,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0"
+   "note": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-15",
@@ -852,7 +999,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0"
+   "note": "cpe:2.3:a:ivanti:connect_secure:*:*:*:*:*:*:*:* | versionStartIncluding=25.1.2.0 | versionEndExcluding=25.1.3.0",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-15",
@@ -863,7 +1012,9 @@
    "outcome": "correct",
    "cost_usd": 0.22207980000000002,
    "latency_s": 9.28,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-15",
@@ -874,7 +1025,9 @@
    "outcome": "correct",
    "cost_usd": 0.22207980000000002,
    "latency_s": 9.28,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-15",
@@ -885,7 +1038,9 @@
    "outcome": "correct",
    "cost_usd": 0.5673608,
    "latency_s": 25.53,
-   "note": "Host ho-15 runs 25.1.2.0, which is the inclusive lower bound of the CPE range 25.1.2.0 <= v < 25.1.3.0, so it is squarely in an affected configuration. The NVD description independently agrees (\"befor"
+   "note": "Host ho-15 runs 25.1.2.0, which is the inclusive lower bound of the CPE range 25.1.2.0 <= v < 25.1.3.0, so it is squarely in an affected configuration. The NVD description independently agrees (\"befor",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-16",
@@ -896,7 +1051,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-16",
@@ -907,7 +1064,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-16",
@@ -918,7 +1077,9 @@
    "outcome": "correct",
    "cost_usd": 0.22973280000000004,
    "latency_s": 14.44,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-16",
@@ -929,7 +1090,9 @@
    "outcome": "correct",
    "cost_usd": 0.22973280000000004,
    "latency_s": 14.44,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-16",
@@ -940,7 +1103,9 @@
    "outcome": "correct",
    "cost_usd": 0.5873888,
    "latency_s": 35.839999999999996,
-   "note": "The installed version 25.1.3.0 is the fix level. NVD's description bounds the vulnerability at \"before version 25.1.3.0\", and every nvd_config entry excludes it: the ranged CPEs end at versionEndExclu"
+   "note": "The installed version 25.1.3.0 is the fix level. NVD's description bounds the vulnerability at \"before version 25.1.3.0\", and every nvd_config entry excludes it: the ranged CPEs end at versionEndExclu",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-17",
@@ -951,7 +1116,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-17",
@@ -962,7 +1129,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.41",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-17",
@@ -973,7 +1142,9 @@
    "outcome": "escalated",
    "cost_usd": 0.21319800000000003,
    "latency_s": 11.51,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-17",
@@ -984,7 +1155,9 @@
    "outcome": "escalated",
    "cost_usd": 0.21319800000000003,
    "latency_s": 11.51,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-17",
@@ -995,7 +1168,9 @@
    "outcome": "escalated",
    "cost_usd": 0.21319800000000003,
    "latency_s": 11.51,
-   "note": "not sent to skeptic"
+   "note": "not sent to skeptic",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-18",
@@ -1006,7 +1181,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-18",
@@ -1017,7 +1194,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.41",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-18",
@@ -1028,7 +1207,9 @@
    "outcome": "missed",
    "cost_usd": 0.23108879999999998,
    "latency_s": 11.92,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-18",
@@ -1039,7 +1220,9 @@
    "outcome": "missed",
    "cost_usd": 0.23108879999999998,
    "latency_s": 11.92,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-18",
@@ -1050,7 +1233,9 @@
    "outcome": "escalated",
    "cost_usd": 0.5872698000000001,
    "latency_s": 27.72,
-   "note": "The analyst applied only the non-FIPS ADC row (versionEndExcluding=14.1-73.41) and concluded the exact installed version falls outside the range. But the NVD configuration contains a separate FIPS ADC"
+   "note": "The analyst applied only the non-FIPS ADC row (versionEndExcluding=14.1-73.41) and concluded the exact installed version falls outside the range. But the NVD configuration contains a separate FIPS ADC",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-19",
@@ -1061,7 +1246,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2"
+   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-19",
@@ -1072,7 +1259,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2"
+   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionEndExcluding=7.2.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-19",
@@ -1083,7 +1272,9 @@
    "outcome": "correct",
    "cost_usd": 0.206118,
    "latency_s": 6.0,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-19",
@@ -1094,7 +1285,9 @@
    "outcome": "correct",
    "cost_usd": 0.206118,
    "latency_s": 6.0,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-19",
@@ -1105,7 +1298,9 @@
    "outcome": "correct",
    "cost_usd": 0.5553239999999999,
    "latency_s": 28.33,
-   "note": "Version 7.2.1 is within the CPE range (versionEndExcluding=7.2.2), so the version check alone would say affected. But the NVD description adds an install-method condition the CPE grammar cannot expres"
+   "note": "Version 7.2.1 is within the CPE range (versionEndExcluding=7.2.2), so the version check alone would say affected. But the NVD description adds an install-method condition the CPE grammar cannot expres",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-20",
@@ -1116,7 +1311,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-20",
@@ -1127,7 +1324,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-20",
@@ -1138,7 +1337,9 @@
    "outcome": "correct",
    "cost_usd": 0.22202309999999997,
    "latency_s": 9.01,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-20",
@@ -1149,7 +1350,9 @@
    "outcome": "correct",
    "cost_usd": 0.22202309999999997,
    "latency_s": 9.01,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-20",
@@ -1160,7 +1363,9 @@
    "outcome": "correct",
    "cost_usd": 0.6060391,
    "latency_s": 45.239999999999995,
-   "note": "The NVD configuration bounds the affected set as strictly below 7.2.2, and the recorded version is exactly 7.2.2, which an exclusive upper bound places outside the range. The strongest contrary readin"
+   "note": "The NVD configuration bounds the affected set as strictly below 7.2.2, and the recorded version is exactly 7.2.2, which an exclusive upper bound places outside the range. The strongest contrary readin",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-21",
@@ -1171,7 +1376,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4"
+   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-21",
@@ -1182,7 +1389,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4"
+   "note": "cpe:2.3:a:zammad:zammad:*:*:*:*:*:*:*:* | versionStartIncluding=6.3.0 | versionEndIncluding=6.5.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-21",
@@ -1193,7 +1402,9 @@
    "outcome": "correct",
    "cost_usd": 0.22098479999999998,
    "latency_s": 8.4,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-21",
@@ -1204,7 +1415,9 @@
    "outcome": "correct",
    "cost_usd": 0.22098479999999998,
    "latency_s": 8.4,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-21",
@@ -1215,7 +1428,9 @@
    "outcome": "correct",
    "cost_usd": 0.5622758,
    "latency_s": 20.47,
-   "note": "The recorded version 6.3.0 is the inclusive lower bound of the vulnerable range (versionStartIncluding=6.3.0, versionEndIncluding=6.5.4), so the deployed host falls squarely inside it. The only non-ex"
+   "note": "The recorded version 6.3.0 is the inclusive lower bound of the vulnerable range (versionStartIncluding=6.3.0, versionEndIncluding=6.5.4), so the deployed host falls squarely inside it. The only non-ex",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-22",
@@ -1226,7 +1441,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-22",
@@ -1237,7 +1454,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-22",
@@ -1248,7 +1467,9 @@
    "outcome": "correct",
    "cost_usd": 0.22781579999999996,
    "latency_s": 13.17,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-22",
@@ -1259,7 +1480,9 @@
    "outcome": "correct",
    "cost_usd": 0.22781579999999996,
    "latency_s": 13.17,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-22",
@@ -1270,7 +1493,9 @@
    "outcome": "correct",
    "cost_usd": 0.5710118,
    "latency_s": 25.71,
-   "note": "The NVD configuration bounds the affected range at 6.3.0 through 6.5.4 inclusive. The deployed version 6.5.5 is above that ceiling and below the second code-presence band (7.0.0-7.1.2), which the conf"
+   "note": "The NVD configuration bounds the affected range at 6.3.0 through 6.5.4 inclusive. The deployed version 6.5.5 is above that ceiling and below the second code-presence band (7.0.0-7.1.2), which the conf",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-23",
@@ -1281,7 +1506,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1"
+   "note": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-23",
@@ -1292,7 +1519,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1"
+   "note": "cpe:2.3:a:fortinet:fortimail:*:*:*:*:*:*:*:* | versionStartIncluding=8.0.0 | versionEndIncluding=8.0.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-23",
@@ -1303,7 +1532,9 @@
    "outcome": "correct",
    "cost_usd": 0.207078,
    "latency_s": 6.88,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-23",
@@ -1314,7 +1545,9 @@
    "outcome": "correct",
    "cost_usd": 0.207078,
    "latency_s": 6.88,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-23",
@@ -1325,7 +1558,9 @@
    "outcome": "correct",
    "cost_usd": 0.5583389999999999,
    "latency_s": 23.8,
-   "note": "Host ho-23 runs FortiMail 8.0.0, which is the inclusive lower bound of the affected range 8.0.0 through 8.0.1 stated in the NVD description and mirrored by the CPE row (versionStartIncluding=8.0.0, ve"
+   "note": "Host ho-23 runs FortiMail 8.0.0, which is the inclusive lower bound of the affected range 8.0.0 through 8.0.1 stated in the NVD description and mirrored by the CPE row (versionStartIncluding=8.0.0, ve",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-24",
@@ -1336,7 +1571,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-24",
@@ -1347,7 +1584,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-24",
@@ -1358,7 +1597,9 @@
    "outcome": "correct",
    "cost_usd": 0.205803,
    "latency_s": 6.07,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-24",
@@ -1369,7 +1610,9 @@
    "outcome": "correct",
    "cost_usd": 0.205803,
    "latency_s": 6.07,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-24",
@@ -1380,7 +1623,9 @@
    "outcome": "correct",
    "cost_usd": 0.5515140000000001,
    "latency_s": 20.48,
-   "note": "The recorded version 8.0.2 falls outside every affected range in the NVD configuration. The 8.0 branch is bounded at 8.0.1 inclusive, and the other ranges end at 7.6.6 and 7.4.8, all below 8.0.2. The "
+   "note": "The recorded version 8.0.2 falls outside every affected range in the NVD configuration. The 8.0 branch is bounded at 8.0.1 inclusive, and the other ranges end at 7.6.6 and 7.4.8, all below 8.0.2. The ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-25",
@@ -1391,7 +1636,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1"
+   "note": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-25",
@@ -1402,7 +1649,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1"
+   "note": "cpe:2.3:a:cisco:catalyst_sd-wan_manager:*:*:*:*:*:*:*:* | versionStartIncluding=26.1 | versionEndExcluding=26.1.2.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-25",
@@ -1413,7 +1662,9 @@
    "outcome": "correct",
    "cost_usd": 0.2261778,
    "latency_s": 12.15,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-25",
@@ -1424,7 +1675,9 @@
    "outcome": "correct",
    "cost_usd": 0.2261778,
    "latency_s": 12.15,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-25",
@@ -1435,7 +1688,9 @@
    "outcome": "correct",
    "cost_usd": 0.5741138,
    "latency_s": 27.58,
-   "note": "The recorded version 26.1 matches the CPE range with versionStartIncluding=26.1 and versionEndExcluding=26.1.2.1. Because the start bound is inclusive, the bare string 26.1 is the lowest affected vers"
+   "note": "The recorded version 26.1 matches the CPE range with versionStartIncluding=26.1 and versionEndExcluding=26.1.2.1. Because the start bound is inclusive, the bare string 26.1 is the lowest affected vers",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-26",
@@ -1446,7 +1701,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-26",
@@ -1457,7 +1714,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-26",
@@ -1468,7 +1727,9 @@
    "outcome": "correct",
    "cost_usd": 0.22580999999999998,
    "latency_s": 10.22,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-26",
@@ -1479,7 +1740,9 @@
    "outcome": "correct",
    "cost_usd": 0.22580999999999998,
    "latency_s": 10.22,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-26",
@@ -1490,7 +1753,9 @@
    "outcome": "correct",
    "cost_usd": 0.577051,
    "latency_s": 25.58,
-   "note": "The installed version 26.1.2.1 is exactly the versionEndExcluding boundary of the 26.1 train row, meaning it is the fixed build and outside the vulnerable interval. No other CPE row captures it: the f"
+   "note": "The installed version 26.1.2.1 is exactly the versionEndExcluding boundary of the 26.1 train row, meaning it is the fixed build and outside the vulnerable interval. No other CPE row captures it: the f",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-27",
@@ -1501,7 +1766,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1"
+   "note": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-27",
@@ -1512,7 +1779,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1"
+   "note": "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* | versionStartIncluding=26.0 | versionEndExcluding=26.7.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-27",
@@ -1523,7 +1792,9 @@
    "outcome": "correct",
    "cost_usd": 0.2299551,
    "latency_s": 12.08,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-27",
@@ -1534,7 +1805,9 @@
    "outcome": "correct",
    "cost_usd": 0.2299551,
    "latency_s": 12.08,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-27",
@@ -1545,7 +1818,9 @@
    "outcome": "correct",
    "cost_usd": 0.5767211,
    "latency_s": 25.740000000000002,
-   "note": "Recorded version macOS 26.0 lands inside the second macOS CPE range, whose lower bound is inclusive (versionStartIncluding=26.0) and whose upper bound (26.7.1) is well above it. The first macOS row (e"
+   "note": "Recorded version macOS 26.0 lands inside the second macOS CPE range, whose lower bound is inclusive (versionStartIncluding=26.0) and whose upper bound (26.7.1) is well above it. The first macOS row (e",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-28",
@@ -1556,7 +1831,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-28",
@@ -1567,7 +1844,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-28",
@@ -1578,7 +1857,9 @@
    "outcome": "correct",
    "cost_usd": 0.2269077,
    "latency_s": 12.41,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-28",
@@ -1589,7 +1870,9 @@
    "outcome": "correct",
    "cost_usd": 0.2269077,
    "latency_s": 12.41,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-28",
@@ -1600,7 +1883,9 @@
    "outcome": "correct",
    "cost_usd": 0.5882737,
    "latency_s": 35.33,
-   "note": "Host runs macOS 26.7.1. The only NVD configuration row covering the macOS 26.x train is bounded versionStartIncluding=26.0 / versionEndExcluding=26.7.1, so 26.7.1 is excluded. The second macOS row (ve"
+   "note": "Host runs macOS 26.7.1. The only NVD configuration row covering the macOS 26.x train is bounded versionStartIncluding=26.0 / versionEndExcluding=26.7.1, so 26.7.1 is excluded. The second macOS row (ve",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-29",
@@ -1611,7 +1896,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-29",
@@ -1622,7 +1909,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-29",
@@ -1633,7 +1922,9 @@
    "outcome": "escalated",
    "cost_usd": 0.23419500000000001,
    "latency_s": 16.04,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-29",
@@ -1644,7 +1935,9 @@
    "outcome": "escalated",
    "cost_usd": 0.23419500000000001,
    "latency_s": 16.04,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-29",
@@ -1655,7 +1948,9 @@
    "outcome": "escalated",
    "cost_usd": 0.23419500000000001,
    "latency_s": 16.04,
-   "note": "not sent to skeptic"
+   "note": "not sent to skeptic",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-30",
@@ -1666,7 +1961,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-30",
@@ -1677,7 +1974,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-30",
@@ -1688,7 +1987,9 @@
    "outcome": "missed",
    "cost_usd": 0.2353092,
    "latency_s": 14.72,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-30",
@@ -1699,7 +2000,9 @@
    "outcome": "missed",
    "cost_usd": 0.2353092,
    "latency_s": 14.72,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-30",
@@ -1710,7 +2013,9 @@
    "outcome": "escalated",
    "cost_usd": 0.5968051999999999,
    "latency_s": 33.19,
-   "note": "The analyst only read the three 14.1 ADC/Gateway rows that use versionEndExcluding=14.1-73.37 and concluded the installed version sits exactly on the fixed boundary. It overlooked the FIPS row, which "
+   "note": "The analyst only read the three 14.1 ADC/Gateway rows that use versionEndExcluding=14.1-73.37 and concluded the installed version sits exactly on the fixed boundary. It overlooked the FIPS row, which ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-31",
@@ -1721,7 +2026,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-31",
@@ -1732,7 +2039,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:-:*:*:* | versionStartIncluding=14.1 | versionEndExcluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-31",
@@ -1743,7 +2052,9 @@
    "outcome": "escalated",
    "cost_usd": 0.24397139999999998,
    "latency_s": 17.07,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-31",
@@ -1754,7 +2065,9 @@
    "outcome": "escalated",
    "cost_usd": 0.24397139999999998,
    "latency_s": 17.07,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-31",
@@ -1765,7 +2078,9 @@
    "outcome": "escalated",
    "cost_usd": 0.24397139999999998,
    "latency_s": 17.07,
-   "note": "not sent to skeptic"
+   "note": "not sent to skeptic",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-32",
@@ -1776,7 +2091,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-32",
@@ -1787,7 +2104,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37"
+   "note": "cpe:2.3:a:citrix:netscaler_application_delivery_controller:*:*:*:*:fips:*:*:* | versionStartIncluding=14.1-66.68 | versionEndIncluding=14.1-73.37",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-32",
@@ -1798,7 +2117,9 @@
    "outcome": "missed",
    "cost_usd": 0.211428,
    "latency_s": 9.38,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-32",
@@ -1809,7 +2130,9 @@
    "outcome": "missed",
    "cost_usd": 0.211428,
    "latency_s": 9.38,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-32",
@@ -1820,7 +2143,9 @@
    "outcome": "escalated",
    "cost_usd": 0.574979,
    "latency_s": 27.119999999999997,
-   "note": "The analyst matched only the non-FIPS 14.1 CPE row (versionEndExcluding=14.1-73.37), which does exclude the installed build. But the FIPS 14.1 row is versionStartIncluding=14.1-66.68 | versionEndInclu"
+   "note": "The analyst matched only the non-FIPS 14.1 CPE row (versionEndExcluding=14.1-73.37), which does exclude the installed build. But the FIPS 14.1 row is versionStartIncluding=14.1-66.68 | versionEndInclu",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-33",
@@ -1831,7 +2156,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2"
+   "note": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-33",
@@ -1842,7 +2169,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2"
+   "note": "cpe:2.3:a:wordpress:wordpress:*:*:*:*:*:*:*:* | versionStartIncluding=7.1 | versionEndExcluding=7.1.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-33",
@@ -1853,7 +2182,9 @@
    "outcome": "undercalled",
    "cost_usd": 0.2856516,
    "latency_s": 31.42,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-33",
@@ -1864,7 +2195,9 @@
    "outcome": "undercalled",
    "cost_usd": 0.2856516,
    "latency_s": 31.42,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-33",
@@ -1875,7 +2208,9 @@
    "outcome": "escalated",
    "cost_usd": 0.6477526,
    "latency_s": 47.78,
-   "note": "The NVD configuration places 7.1 squarely inside an affected range (>=7.1, <7.1.2), which resolves applicability with no qualifier attached to the CPE itself. The analyst's downgrade to 'conditional' "
+   "note": "The NVD configuration places 7.1 squarely inside an affected range (>=7.1, <7.1.2), which resolves applicability with no qualifier attached to the CPE itself. The analyst's downgrade to 'conditional' ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-34",
@@ -1886,7 +2221,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-34",
@@ -1897,7 +2234,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-34",
@@ -1908,7 +2247,9 @@
    "outcome": "correct",
    "cost_usd": 0.2311029,
    "latency_s": 9.43,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-34",
@@ -1919,7 +2260,9 @@
    "outcome": "correct",
    "cost_usd": 0.2311029,
    "latency_s": 9.43,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-34",
@@ -1930,7 +2273,9 @@
    "outcome": "correct",
    "cost_usd": 0.5945438999999999,
    "latency_s": 28.24,
-   "note": "The installed version 7.1.2 sits exactly on the exclusive upper bound of the only CPE row covering the 7.1 branch (versionStartIncluding=7.1, versionEndExcluding=7.1.2), so 7.1.2 is the fixed release "
+   "note": "The installed version 7.1.2 sits exactly on the exclusive upper bound of the only CPE row covering the 7.1 branch (versionStartIncluding=7.1, versionEndExcluding=7.1.2), so 7.1.2 is the fixed release ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-35",
@@ -1941,7 +2286,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2"
+   "note": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-35",
@@ -1952,7 +2299,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2"
+   "note": "cpe:2.3:o:mikrotik:routeros:*:*:*:*:*:*:*:* | versionStartIncluding=7.24 | versionEndExcluding=7.24.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-35",
@@ -1963,7 +2312,9 @@
    "outcome": "correct",
    "cost_usd": 0.22286519999999999,
    "latency_s": 8.82,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-35",
@@ -1974,7 +2325,9 @@
    "outcome": "correct",
    "cost_usd": 0.22286519999999999,
    "latency_s": 8.82,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-35",
@@ -1985,7 +2338,9 @@
    "outcome": "correct",
    "cost_usd": 0.5691062,
    "latency_s": 26.13,
-   "note": "The recorded version 7.24 falls directly inside the third NVD CPE range, which is inclusive of 7.24 and exclusive of 7.24.2. No configuration or feature precondition is stated that would make the verd"
+   "note": "The recorded version 7.24 falls directly inside the third NVD CPE range, which is inclusive of 7.24 and exclusive of 7.24.2. No configuration or feature precondition is stated that would make the verd",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-36",
@@ -1996,7 +2351,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-36",
@@ -2007,7 +2364,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-36",
@@ -2018,7 +2377,9 @@
    "outcome": "correct",
    "cost_usd": 0.2240928,
    "latency_s": 9.31,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-36",
@@ -2029,7 +2390,9 @@
    "outcome": "correct",
    "cost_usd": 0.2240928,
    "latency_s": 9.31,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-36",
@@ -2040,7 +2403,9 @@
    "outcome": "correct",
    "cost_usd": 0.5803988,
    "latency_s": 30.410000000000004,
-   "note": "Host runs 7.24.2. The only 7.24-branch CPE range ends exclusive of 7.24.2, and the other two ranges (6.0-<6.49.21, 7.0-<7.23.4) do not cover it, so no configured range matches the installed build. The"
+   "note": "Host runs 7.24.2. The only 7.24-branch CPE range ends exclusive of 7.24.2, and the other two ranges (6.0-<6.49.21, 7.0-<7.23.4) do not cover it, so no configured range matches the installed build. The",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-37",
@@ -2051,7 +2416,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522"
+   "note": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-37",
@@ -2062,7 +2429,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522"
+   "note": "cpe:2.3:a:microsoft:sharepoint_server:*:*:*:*:subscription:*:*:* | versionEndExcluding=16.0.19725.20522",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-37",
@@ -2073,7 +2442,9 @@
    "outcome": "correct",
    "cost_usd": 0.23256329999999997,
    "latency_s": 16.09,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-37",
@@ -2084,7 +2455,9 @@
    "outcome": "correct",
    "cost_usd": 0.23256329999999997,
    "latency_s": 16.09,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-37",
@@ -2095,7 +2468,9 @@
    "outcome": "correct",
    "cost_usd": 0.5878893,
    "latency_s": 35.269999999999996,
-   "note": "The installed build 16.0.19725.20521 falls below the NVD fix bound versionEndExcluding=16.0.19725.20522 on the subscription-edition SharePoint Server CPE, placing the host squarely in the vulnerable r"
+   "note": "The installed build 16.0.19725.20521 falls below the NVD fix bound versionEndExcluding=16.0.19725.20522 on the subscription-edition SharePoint Server CPE, placing the host squarely in the vulnerable r",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-38",
@@ -2106,7 +2481,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-38",
@@ -2117,7 +2494,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-38",
@@ -2128,7 +2507,9 @@
    "outcome": "correct",
    "cost_usd": 0.2259753,
    "latency_s": 12.63,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-38",
@@ -2139,7 +2520,9 @@
    "outcome": "correct",
    "cost_usd": 0.2259753,
    "latency_s": 12.63,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-38",
@@ -2150,7 +2533,9 @@
    "outcome": "correct",
    "cost_usd": 0.5957813000000001,
    "latency_s": 39.78,
-   "note": "The only version-bounded CPE row ends *excluding* 16.0.19725.20522, and the host runs exactly 16.0.19725.20522, so it falls outside the half-open vulnerable interval \u2014 this is the fixed build. The str"
+   "note": "The only version-bounded CPE row ends *excluding* 16.0.19725.20522, and the host runs exactly 16.0.19725.20522, so it falls outside the half-open vulnerable interval \u2014 this is the fixed build. The str",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-39",
@@ -2161,7 +2546,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4"
+   "note": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-39",
@@ -2172,7 +2559,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4"
+   "note": "cpe:2.3:a:adobe:commerce:*:*:*:*:*:*:*:* | versionEndExcluding=2.4.4",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-39",
@@ -2183,7 +2572,9 @@
    "outcome": "correct",
    "cost_usd": 0.2622264,
    "latency_s": 11.68,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-39",
@@ -2194,7 +2585,9 @@
    "outcome": "correct",
    "cost_usd": 0.2622264,
    "latency_s": 11.68,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-39",
@@ -2205,7 +2598,9 @@
    "outcome": "correct",
    "cost_usd": 0.6672924,
    "latency_s": 24.14,
-   "note": "The recorded version 2.4.3 falls under the Adobe Commerce wildcard CPE with versionEndExcluding=2.4.4, and is independently covered by the Magento open_source row with versionEndIncluding=2.4.6. No CP"
+   "note": "The recorded version 2.4.3 falls under the Adobe Commerce wildcard CPE with versionEndExcluding=2.4.4, and is independently covered by the Magento open_source row with versionEndIncluding=2.4.6. No CP",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-40",
@@ -2216,7 +2611,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*"
+   "note": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-40",
@@ -2227,7 +2624,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*"
+   "note": "cpe:2.3:a:adobe:commerce:2.4.4:-:*:*:*:*:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-40",
@@ -2238,7 +2637,9 @@
    "outcome": "correct",
    "cost_usd": 0.2734014,
    "latency_s": 15.31,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-40",
@@ -2249,7 +2650,9 @@
    "outcome": "correct",
    "cost_usd": 0.2734014,
    "latency_s": 15.31,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-40",
@@ -2260,7 +2663,9 @@
    "outcome": "correct",
    "cost_usd": 0.6826074,
    "latency_s": 29.07,
-   "note": "The recorded version is exactly 2.4.4 with no patch level, which matches the enumerated affected CPE for the 2.4.4 base release (update field '-' = no patch). Every patch level p1-p18 of 2.4.4 is also"
+   "note": "The recorded version is exactly 2.4.4 with no patch level, which matches the enumerated affected CPE for the 2.4.4 base release (update field '-' = no patch). Every patch level p1-p18 of 2.4.4 is also",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-41",
@@ -2271,7 +2676,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21"
+   "note": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-41",
@@ -2282,7 +2689,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21"
+   "note": "cpe:2.3:a:wso2:api_manager:*:*:*:*:*:*:*:* | versionStartIncluding=4.6.0 | versionEndExcluding=4.6.0.21",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-41",
@@ -2293,7 +2702,9 @@
    "outcome": "correct",
    "cost_usd": 0.2328759,
    "latency_s": 13.92,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-41",
@@ -2304,7 +2715,9 @@
    "outcome": "correct",
    "cost_usd": 0.2328759,
    "latency_s": 13.92,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-41",
@@ -2315,7 +2728,9 @@
    "outcome": "correct",
    "cost_usd": 0.6036269,
    "latency_s": 38.8,
-   "note": "The recorded version 4.6.0 falls inside the vulnerable api_manager range, because versionStartIncluding=4.6.0 makes the exact floor value in-range and 4.6.0 is below the 4.6.0.21 fix level. No other v"
+   "note": "The recorded version 4.6.0 falls inside the vulnerable api_manager range, because versionStartIncluding=4.6.0 makes the exact floor value in-range and 4.6.0 is below the 4.6.0.21 fix level. No other v",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-42",
@@ -2326,7 +2741,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-42",
@@ -2337,7 +2754,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-42",
@@ -2348,7 +2767,9 @@
    "outcome": "correct",
    "cost_usd": 0.2316645,
    "latency_s": 13.46,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-42",
@@ -2359,7 +2780,9 @@
    "outcome": "correct",
    "cost_usd": 0.2316645,
    "latency_s": 13.46,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-42",
@@ -2370,7 +2793,9 @@
    "outcome": "correct",
    "cost_usd": 0.5907605,
    "latency_s": 32.510000000000005,
-   "note": "The inventory item is WSO2 API Manager 4.6.0.21. The only nvd_config row covering api_manager's 4.6.0 line is versionStartIncluding=4.6.0, versionEndExcluding=4.6.0.21 \u2014 a half-open interval that excl"
+   "note": "The inventory item is WSO2 API Manager 4.6.0.21. The only nvd_config row covering api_manager's 4.6.0 line is versionStartIncluding=4.6.0, versionEndExcluding=4.6.0.21 \u2014 a half-open interval that excl",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-43",
@@ -2381,7 +2806,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1"
+   "note": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-43",
@@ -2392,7 +2819,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1; description condition: 'configured as'"
+   "note": "cpe:2.3:a:f5:big-ip_access_policy_manager:*:*:*:*:*:*:*:* | versionStartIncluding=17.5.0 | versionEndIncluding=17.5.1; description condition: 'configured as'",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-43",
@@ -2403,7 +2832,9 @@
    "outcome": "correct",
    "cost_usd": 0.2300109,
    "latency_s": 13.29,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-43",
@@ -2414,7 +2845,9 @@
    "outcome": "correct",
    "cost_usd": 0.2300109,
    "latency_s": 13.29,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-43",
@@ -2425,7 +2858,9 @@
    "outcome": "correct",
    "cost_usd": 0.5806769,
    "latency_s": 29.31,
-   "note": "Version 17.5.0 is inside an affected CPE range (versionStartIncluding is inclusive), so the version does not clear the host. But NVD's description makes exposure contingent on a deployment property no"
+   "note": "Version 17.5.0 is inside an affected CPE range (versionStartIncluding is inclusive), so the version does not clear the host. But NVD's description makes exposure contingent on a deployment property no",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-44",
@@ -2436,7 +2871,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-44",
@@ -2447,7 +2884,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-44",
@@ -2458,7 +2897,9 @@
    "outcome": "correct",
    "cost_usd": 0.2303979,
    "latency_s": 13.07,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-44",
@@ -2469,7 +2910,9 @@
    "outcome": "correct",
    "cost_usd": 0.2303979,
    "latency_s": 13.07,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-44",
@@ -2480,7 +2923,9 @@
    "outcome": "correct",
    "cost_usd": 0.5783389,
    "latency_s": 28.54,
-   "note": "Installed 17.5.2 is outside every CPE row: above the inclusive upper bound 17.5.1 of the 17.5.x range, above 17.1.3 in the 17.0.0-17.1.3 range, and not the single-version 21.1.0 entry. The nvd_descrip"
+   "note": "Installed 17.5.2 is outside every CPE row: above the inclusive upper bound 17.5.1 of the 17.5.x range, above 17.1.3 in the 17.0.0-17.1.3 range, and not the single-version 21.1.0 entry. The nvd_descrip",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-45",
@@ -2491,7 +2936,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2"
+   "note": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-45",
@@ -2502,7 +2949,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2"
+   "note": "cpe:2.3:a:arista:velocloud_orchestrator:*:*:*:*:*:*:*:* | versionStartIncluding=7.0.0 | versionEndIncluding=7.0.0.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-45",
@@ -2513,7 +2962,9 @@
    "outcome": "correct",
    "cost_usd": 0.2271465,
    "latency_s": 14.24,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-45",
@@ -2524,7 +2975,9 @@
    "outcome": "correct",
    "cost_usd": 0.2271465,
    "latency_s": 14.24,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-45",
@@ -2535,7 +2988,9 @@
    "outcome": "correct",
    "cost_usd": 0.5781425,
    "latency_s": 30.32,
-   "note": "The recorded version 7.0.0 falls inside the CPE range versionStartIncluding=7.0.0 through versionEndIncluding=7.0.0.2, and the host is an on-prem VCO, which KEV identifies as the vulnerable deployment"
+   "note": "The recorded version 7.0.0 falls inside the CPE range versionStartIncluding=7.0.0 through versionEndIncluding=7.0.0.2, and the host is an on-prem VCO, which KEV identifies as the vulnerable deployment",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-46",
@@ -2546,7 +3001,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-46",
@@ -2557,7 +3014,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-46",
@@ -2568,7 +3027,9 @@
    "outcome": "correct",
    "cost_usd": 0.2220681,
    "latency_s": 10.76,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-46",
@@ -2579,7 +3040,9 @@
    "outcome": "correct",
    "cost_usd": 0.2220681,
    "latency_s": 10.76,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-46",
@@ -2590,7 +3053,9 @@
    "outcome": "correct",
    "cost_usd": 0.5720391,
    "latency_s": 26.810000000000002,
-   "note": "The only CPE row covering the 7.0.x branch ends at 7.0.0.2 with an INCLUSIVE upper bound, so 7.0.0.2 is the last affected build and the installed 7.0.0.3 falls outside it. No other configuration row r"
+   "note": "The only CPE row covering the 7.0.x branch ends at 7.0.0.2 with an INCLUSIVE upper bound, so 7.0.0.2 is the last affected build and the installed 7.0.0.3 falls outside it. No other configuration row r",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-47",
@@ -2601,7 +3066,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-47",
@@ -2612,7 +3079,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-47",
@@ -2623,7 +3092,9 @@
    "outcome": "correct",
    "cost_usd": 0.272088,
    "latency_s": 8.82,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-47",
@@ -2634,7 +3105,9 @@
    "outcome": "correct",
    "cost_usd": 0.272088,
    "latency_s": 8.82,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-47",
@@ -2645,7 +3118,9 @@
    "outcome": "correct",
    "cost_usd": 0.735769,
    "latency_s": 27.44,
-   "note": "Host-47 runs Check Point Multi-Domain Security Management at r80, and the NVD configuration lists that exact product with an inclusive start of r80 and an exclusive end of r81.10, so r80 is inside the"
+   "note": "Host-47 runs Check Point Multi-Domain Security Management at r80, and the NVD configuration lists that exact product with an inclusive start of r80 and an exclusive end of r81.10, so r80 is inside the",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-48",
@@ -2656,7 +3131,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*"
+   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-48",
@@ -2667,7 +3144,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*"
+   "note": "cpe:2.3:a:checkpoint:multi-domain_security_management:r81.10:-:*:*:*:*:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-48",
@@ -2678,7 +3157,9 @@
    "outcome": "correct",
    "cost_usd": 0.3022617,
    "latency_s": 14.9,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-48",
@@ -2689,7 +3170,9 @@
    "outcome": "correct",
    "cost_usd": 0.3022617,
    "latency_s": 14.9,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-48",
@@ -2700,7 +3183,9 @@
    "outcome": "correct",
    "cost_usd": 0.7596577,
    "latency_s": 30.509999999999998,
-   "note": "The inventory records multi-domain security management at r81.10 with no take/hotfix. Although the range row (versionStartIncluding=r80, versionEndExcluding=r81.10) excludes r81.10, the config separat"
+   "note": "The inventory records multi-domain security management at r81.10 with no take/hotfix. Although the range row (versionStartIncluding=r80, versionEndExcluding=r81.10) excludes r81.10, the config separat",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-49",
@@ -2711,7 +3196,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   "note": "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-49",
@@ -2722,7 +3209,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10"
+   "note": "cpe:2.3:o:checkpoint:gaia_os:*:*:*:*:*:*:*:* | versionStartIncluding=r80 | versionEndExcluding=r81.10",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-49",
@@ -2733,7 +3222,9 @@
    "outcome": "correct",
    "cost_usd": 0.24463500000000005,
    "latency_s": 7.33,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-49",
@@ -2744,7 +3235,9 @@
    "outcome": "correct",
    "cost_usd": 0.24463500000000005,
    "latency_s": 7.33,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-49",
@@ -2755,7 +3248,9 @@
    "outcome": "escalated",
    "cost_usd": 0.670926,
    "latency_s": 33.71,
-   "note": "The inventory version r80 falls inside the vulnerable gaia_os range [r80, r81.10) on an inclusive lower bound, and that CPE stands alone in nvd_config with no AND-relationship, second CPE, or runningO"
+   "note": "The inventory version r80 falls inside the vulnerable gaia_os range [r80, r81.10) on an inclusive lower bound, and that CPE stands alone in nvd_config with no AND-relationship, second CPE, or runningO",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-50",
@@ -2766,7 +3261,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*"
+   "note": "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-50",
@@ -2777,7 +3274,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*"
+   "note": "cpe:2.3:o:checkpoint:gaia_os:r81.10:-:*:*:*:*:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-50",
@@ -2788,7 +3287,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.245352,
    "latency_s": 8.54,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-50",
@@ -2799,7 +3300,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.245352,
    "latency_s": 8.54,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-50",
@@ -2810,7 +3313,9 @@
    "outcome": "escalated",
    "cost_usd": 0.6871879999999999,
    "latency_s": 42.66,
-   "note": "The CPE match is correct \u2014 gaia_os r81.10 (base and many takes) is explicitly enumerated, so the build is in scope. But the analyst treats a version match as exposure and ignores the stated preconditi"
+   "note": "The CPE match is correct \u2014 gaia_os r81.10 (base and many takes) is explicitly enumerated, so the build is in scope. But the analyst treats a version match as exposure and ignores the stated preconditi",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-51",
@@ -2821,7 +3326,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3"
+   "note": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-51",
@@ -2832,7 +3339,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3"
+   "note": "cpe:2.3:a:acronis:acronis_backup:*:*:*:*:*:cpanel:*:* | versionEndExcluding=1.9.3",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-51",
@@ -2843,7 +3352,9 @@
    "outcome": "correct",
    "cost_usd": 0.2442717,
    "latency_s": 16.94,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-51",
@@ -2854,7 +3365,9 @@
    "outcome": "correct",
    "cost_usd": 0.2442717,
    "latency_s": 16.94,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-51",
@@ -2865,7 +3378,9 @@
    "outcome": "correct",
    "cost_usd": 0.6339477,
    "latency_s": 49.989999999999995,
-   "note": "The advisory covers three separately versioned distributions with different fix thresholds, and the inventory records only \"Acronis Backup 1.9.2\" without naming the control-panel integration. 1.9.2 is"
+   "note": "The advisory covers three separately versioned distributions with different fix thresholds, and the inventory records only \"Acronis Backup 1.9.2\" without naming the control-panel integration. 1.9.2 is",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-52",
@@ -2876,7 +3391,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*"
+   "note": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-52",
@@ -2887,7 +3404,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*"
+   "note": "cpe:2.3:a:acronis:acronis_backup:1.9.3:-:*:*:*:cpanel:*:*",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-52",
@@ -2898,7 +3417,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.223455,
    "latency_s": 17.43,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-52",
@@ -2909,7 +3430,9 @@
    "outcome": "overcalled",
    "cost_usd": 0.223455,
    "latency_s": 17.43,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-52",
@@ -2920,7 +3443,9 @@
    "outcome": "escalated",
    "cost_usd": 0.594726,
    "latency_s": 42.879999999999995,
-   "note": "The documents define three independent, platform-scoped version trees (cPanel <1.9.3 plus explicit 1.9.3/hotfix1/hotfix2; Plesk <1.8.11; DirectAdmin <1.2.3). The inventory records only product \"Acroni"
+   "note": "The documents define three independent, platform-scoped version trees (cPanel <1.9.3 plus explicit 1.9.3/hotfix1/hotfix2; Plesk <1.8.11; DirectAdmin <1.2.3). The inventory records only product \"Acroni",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-53",
@@ -2931,7 +3456,9 @@
    "outcome": "missed",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-53",
@@ -2942,7 +3469,9 @@
    "outcome": "missed",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-53",
@@ -2953,7 +3482,9 @@
    "outcome": "correct",
    "cost_usd": 0.2516499,
    "latency_s": 10.7,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-53",
@@ -2964,7 +3495,9 @@
    "outcome": "correct",
    "cost_usd": 0.2516499,
    "latency_s": 10.7,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-53",
@@ -2975,7 +3508,9 @@
    "outcome": "correct",
    "cost_usd": 0.6396109,
    "latency_s": 25.74,
-   "note": "The recorded version '3.5.0 patch3' for the ISE product matches an enumerated vulnerable CPE exactly, with no version range to interpret and no stated precondition, mitigation, or configuration depend"
+   "note": "The recorded version '3.5.0 patch3' for the ISE product matches an enumerated vulnerable CPE exactly, with no version range to interpret and no stated precondition, mitigation, or configuration depend",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-54",
@@ -2986,7 +3521,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780"
+   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-54",
@@ -2997,7 +3534,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780"
+   "note": "cpe:2.3:o:cisco:asyncos:*:*:*:*:*:*:*:* | versionStartIncluding=16.5 | versionEndExcluding=16.5.0-780",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-54",
@@ -3008,7 +3547,9 @@
    "outcome": "correct",
    "cost_usd": 0.22226639999999998,
    "latency_s": 8.19,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-54",
@@ -3019,7 +3560,9 @@
    "outcome": "correct",
    "cost_usd": 0.22226639999999998,
    "latency_s": 8.19,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-54",
@@ -3030,7 +3573,9 @@
    "outcome": "correct",
    "cost_usd": 0.5703724,
    "latency_s": 24.09,
-   "note": "The recorded version \"16.5\" falls within the inclusive lower bound of the third CPE range (versionStartIncluding=16.5, versionEndExcluding=16.5.0-780). A bare train label \"16.5\" precedes every 16.5.0-"
+   "note": "The recorded version \"16.5\" falls within the inclusive lower bound of the third CPE range (versionStartIncluding=16.5, versionEndExcluding=16.5.0-780). A bare train label \"16.5\" precedes every 16.5.0-",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-55",
@@ -3041,7 +3586,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-55",
@@ -3052,7 +3599,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-55",
@@ -3063,7 +3612,9 @@
    "outcome": "correct",
    "cost_usd": 0.2218686,
    "latency_s": 7.71,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-55",
@@ -3074,7 +3625,9 @@
    "outcome": "correct",
    "cost_usd": 0.2218686,
    "latency_s": 7.71,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-55",
@@ -3085,7 +3638,9 @@
    "outcome": "correct",
    "cost_usd": 0.5695446,
    "latency_s": 22.87,
-   "note": "The only CPE row covering the 16.5 branch bounds the affected set as 16.5 <= v < 16.5.0-780. The installed build equals that exclusive upper bound, which is NVD's encoding of the first fixed version, "
+   "note": "The only CPE row covering the 16.5 branch bounds the affected set as 16.5 <= v < 16.5.0-780. The installed build equals that exclusive upper bound, which is NVD's encoding of the first fixed version, ",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-56",
@@ -3096,7 +3651,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2"
+   "note": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-56",
@@ -3107,7 +3664,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2"
+   "note": "cpe:2.3:a:gitlab:gitlab:*:*:*:*:community:*:*:* | versionStartIncluding=19.3.0 | versionEndExcluding=19.3.2",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-56",
@@ -3118,7 +3677,9 @@
    "outcome": "correct",
    "cost_usd": 0.21101999999999999,
    "latency_s": 7.22,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-56",
@@ -3129,7 +3690,9 @@
    "outcome": "correct",
    "cost_usd": 0.21101999999999999,
    "latency_s": 7.22,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-56",
@@ -3140,7 +3703,9 @@
    "outcome": "correct",
    "cost_usd": 0.571196,
    "latency_s": 25.65,
-   "note": "The recorded version 19.3.0 falls inside the final CPE range, which is inclusive at its lower bound (versionStartIncluding=19.3.0, versionEndExcluding=19.3.2), so the installed build is the first affe"
+   "note": "The recorded version 19.3.0 falls inside the final CPE range, which is inclusive at its lower bound (versionStartIncluding=19.3.0, versionEndExcluding=19.3.2), so the installed build is the first affe",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   },
   {
    "item": "ho-57",
@@ -3151,7 +3716,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-57",
@@ -3162,7 +3729,9 @@
    "outcome": "correct",
    "cost_usd": 0.0,
    "latency_s": 0.0,
-   "note": "no vulnerable row matched"
+   "note": "no vulnerable row matched",
+   "triage_model": "",
+   "skeptic_model": ""
   },
   {
    "item": "ho-57",
@@ -3173,7 +3742,9 @@
    "outcome": "correct",
    "cost_usd": 0.2682579,
    "latency_s": 21.61,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-57",
@@ -3184,7 +3755,9 @@
    "outcome": "correct",
    "cost_usd": 0.2682579,
    "latency_s": 21.61,
-   "note": ""
+   "note": "",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": ""
   },
   {
    "item": "ho-57",
@@ -3195,7 +3768,9 @@
    "outcome": "correct",
    "cost_usd": 0.6231538999999999,
    "latency_s": 37.72,
-   "note": "Installed 19.3.2 sits exactly on the exclusive upper bound of the 19.3.x vulnerable range (versionEndExcluding=19.3.2), so it is outside that range, and it is also above the ceiling of every other lis"
+   "note": "Installed 19.3.2 sits exactly on the exclusive upper bound of the 19.3.x vulnerable range (versionEndExcluding=19.3.2), so it is outside that range, and it is also above the ceiling of every other lis",
+   "triage_model": "claude-sonnet-5",
+   "skeptic_model": "claude-opus-5"
   }
  ]
 }

@@ -10,10 +10,12 @@ from __future__ import annotations
 
 import json
 import re
+from functools import lru_cache
+from pathlib import Path
 from typing import Dict, List, Tuple
 
 from .data import Item, config_line, current, nvd_description, vulnerable_rows
-from .versions import in_range, split_update, compare
+from .versions import in_range, range_version, split_update, compare
 
 # inventory (vendor, product) -> NVD "vendor:product" names that describe it
 ALIASES: Dict[Tuple[str, str], List[str]] = {
@@ -40,8 +42,24 @@ def aliases() -> Dict[Tuple[str, str], List[str]]:
     out = dict(ALIASES)
     f = current().aliases
     if f is not None and f.exists():
-        for a in json.loads(f.read_text(encoding="utf-8"))["aliases"]:
-            out[(a["vendor"], a["product"])] = a["nvd"]
+        out.update(_alias_file(f, f.stat().st_mtime_ns))
+    return out
+
+
+def names_for(vendor: str, product: str) -> List[str]:
+    """The NVD names for an inventory product. Case is ignored: an administrator
+    who writes "log4j" means the same product as "Log4j". Every lookup goes
+    through here, so the matcher, the planted suite and retrieval agree."""
+    folded = {(v.casefold(), p.casefold()): n for (v, p), n in aliases().items()}
+    return folded.get((vendor.casefold(), product.casefold()), [])
+
+
+@lru_cache(maxsize=None)
+def _alias_file(f: Path, mtime_ns: int) -> Dict[Tuple[str, str], List[str]]:
+    """One alias file's entries, read once per path and modification time."""
+    out = {}
+    for a in json.loads(f.read_text(encoding="utf-8"))["aliases"]:
+        out[(a["vendor"], a["product"])] = a["nvd"]
     return out
 
 
@@ -53,16 +71,17 @@ def judge(item: Item, cve: str) -> Tuple[str, str]:
     """('affected' | 'not_affected' | 'unknown', the row or reason that decided it).
 
     An affected verdict returns the deciding row exactly as the agent sees it."""
-    names = aliases().get((item.vendor, item.product))
+    names = names_for(item.vendor, item.product)
     if not names:
         return "unknown", "no alias for this product"
     version, update = split_update(item.vendor, item.product, item.version)
+    ranged = range_version(version, update)
     for m in vulnerable_rows(cve):
         f = m["criteria"].split(":")
         if f"{f[3]}:{f[4]}" not in names:
             continue
         if any(m.get(k) for k in _RANGE_KEYS):
-            if in_range(version,
+            if in_range(ranged,
                         start=m.get("versionStartIncluding") or m.get("versionStartExcluding") or "",
                         start_incl=bool(m.get("versionStartIncluding")),
                         end=m.get("versionEndIncluding") or m.get("versionEndExcluding") or "",
@@ -101,8 +120,9 @@ def nearest_row(item: Item, cve: str) -> str:
     (version, update) not above it. If every row is above the item, the range
     that starts lowest. The best single passage for "not affected"; empty when
     the product has no row at all."""
-    names = aliases().get((item.vendor, item.product)) or []
+    names = names_for(item.vendor, item.product)
     version, update = split_update(item.vendor, item.product, item.version)
+    ranged = range_version(version, update)
     best, best_key, above, above_start = "", None, "", None
     for m in vulnerable_rows(cve):
         f = m["criteria"].split(":")
@@ -110,16 +130,17 @@ def nearest_row(item: Item, cve: str) -> str:
             continue
         if any(m.get(k) for k in _RANGE_KEYS):
             start = m.get("versionStartIncluding") or m.get("versionStartExcluding") or ""
-            if start and compare(start, version) > 0 and (above_start is None or compare(start, above_start) < 0):
+            if start and compare(start, ranged) > 0 and (above_start is None or compare(start, above_start) < 0):
                 above, above_start = config_line(m), start
             end = m.get("versionEndIncluding") or m.get("versionEndExcluding") or ""
-            if not end or compare(end, version) > 0:
+            if not end or compare(end, ranged) > 0:
                 continue
             k = (end, "")
         else:
-            if f[5] in ("*", "-") or compare(f[5], version) > 0:
+            row = range_version(f[5], f[6])
+            if f[5] in ("*", "-") or compare(row, ranged) > 0:
                 continue
-            k = (f[5], f[6] if compare(f[5], version) == 0 else "")
+            k = (row, "")
         if best_key is None or compare(k[0], best_key[0]) > 0 or (
                 compare(k[0], best_key[0]) == 0 and compare(k[1], best_key[1]) > 0):
             best, best_key = config_line(m), k

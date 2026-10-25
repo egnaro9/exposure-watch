@@ -24,9 +24,16 @@ Outcomes are scored by what they would cost an operator, not just right or wrong
 
 When the key says "unknown" (the documents conflict or are silent), sending the
 pair to a person is the right answer, so needs_human scores as correct there.
+
+The matcher is versioned like the key. A run directory may hold matcher.json:
+the code shapes' verdicts as that run published them, with the matcher commit
+that produced them. A replay scores the code shapes from it, so a later fix to
+the matcher cannot rewrite a published result; scoring the current matcher on
+the same pairs is a separate report, where the fix shows up as a delta.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -40,6 +47,28 @@ from .data import Item, sources_for
 from .verify import accepts, check, check_review
 
 SHAPES = ("code", "code+keywords", "agent", "agent+verify", "agent+verify+skeptic")
+CODE_SHAPES = ("code", "code+keywords")
+MATCHER_FILE = "matcher.json"
+MATCHER_SOURCES = ("baseline.py", "versions.py")
+
+
+def matcher_sha256() -> str:
+    """The current matcher, identified by the source of the two files that decide the code shapes."""
+    h = hashlib.sha256()
+    for name in MATCHER_SOURCES:
+        h.update((Path(__file__).parent / name).read_bytes())
+    return h.hexdigest()
+
+
+def recorded_matcher(run_dir: Path) -> Optional[dict]:
+    f = run_dir / MATCHER_FILE
+    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
+
+
+def current_verdicts(item: Item, cve: str) -> Dict[str, list]:
+    v, why = judge(item, cve)
+    vk, whyk = judge_with_keywords(item, cve)
+    return {"code": [v, why], "code+keywords": [vk, whyk]}
 
 
 def outcome(final: str, truth: str) -> str:
@@ -69,6 +98,8 @@ class Result:
     cost_usd: float
     latency_s: float
     note: str = ""
+    triage_model: str = ""      # the model that answered, as the CLI resolved it, not as requested
+    skeptic_model: str = ""
 
 
 def key(item: Item, cve: str) -> str:
@@ -83,21 +114,53 @@ def _each(fn, xs, live: bool) -> list:
         return list(pool.map(fn, xs))
 
 
+def record_matcher(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path, commit: str) -> dict:
+    """Save the current matcher's code-shape verdicts for these pairs as run_dir's matcher.json."""
+    rec = {"commit": commit, "sha256": matcher_sha256(), "verdicts": {}}
+    for p in pairs:
+        item = inventory[p["item"]]
+        rec["verdicts"][key(item, p["cve"])] = current_verdicts(item, p["cve"])
+    run_dir.mkdir(parents=True, exist_ok=True)
+    (run_dir / MATCHER_FILE).write_text(json.dumps(rec, indent=1), encoding="utf-8")
+    return rec
+
+
+def matcher_header(run_dir: Path, matcher: str) -> dict:
+    """What a report says about the matcher that scored its code shapes."""
+    rec = recorded_matcher(run_dir) if matcher == "recorded" else None
+    if rec is None:
+        return {"matcher": "current code", "sha256": matcher_sha256()}
+    return {"matcher": f"recorded in {MATCHER_FILE}", "commit": rec["commit"], "sha256": rec["sha256"]}
+
+
 def run(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
         live_triage: Optional[agents.ClaudeCLI] = None,
-        live_skeptic: Optional[agents.ClaudeCLI] = None) -> List[Result]:
+        live_skeptic: Optional[agents.ClaudeCLI] = None,
+        matcher: str = "recorded") -> List[Result]:
     """Score every shape on every pair. With no live backend, replay run_dir.
 
     Triage runs for every pair first, then the skeptic for the answers that
     passed the verifier. Any failed call stops the run rather than being scored: an
     outage is not an escalation. Answers already saved are reused, so a rerun
     pays only for what is missing.
+
+    The code shapes come from run_dir's matcher.json when it has one and
+    matcher is "recorded"; otherwise, or with matcher="current", from the code
+    as it is now. A live run with no matcher.json records one first.
     """
     tri_dir, sk_dir = run_dir / "triage", run_dir / "skeptic"
     jobs = []
     for p in pairs:
         item, cve = inventory[p["item"]], p["cve"]
         jobs.append((p, item, cve, key(item, cve), sources_for(item, cve)))
+    if live_triage is not None and recorded_matcher(run_dir) is None:
+        record_matcher(pairs, inventory, run_dir, commit=_git_head())
+    rec = recorded_matcher(run_dir) if matcher == "recorded" else None
+    if rec is not None:
+        missing = [j[3] for j in jobs if j[3] not in rec["verdicts"]]
+        if missing:
+            raise KeyError(f"{run_dir / MATCHER_FILE} has no verdict for {missing[:3]}: "
+                           f"score these with matcher='current', do not substitute")
 
     tris = _each(lambda j: agents.fetch(live_triage, tri_dir, j[3], agents.TRIAGE_SYSTEM,
                                         agents.triage_prompt(j[1], j[2], j[4]), agents.ANSWER_SCHEMA),
@@ -114,30 +177,30 @@ def run(pairs: List[dict], inventory: Dict[str, Item], run_dir: Path,
     results: List[Result] = []
     for i, ((p, item, cve, k, src), tri, chk) in enumerate(zip(jobs, tris, checks)):
         truth = p["truth"]
-        v, why = judge(item, cve)
-        results.append(Result(item.id, cve, truth, "code", v, outcome(v, truth), 0.0, 0.0, why))
-        vk, whyk = judge_with_keywords(item, cve)
-        results.append(Result(item.id, cve, truth, "code+keywords", vk, outcome(vk, truth), 0.0, 0.0, whyk))
+        verdicts = rec["verdicts"][k] if rec is not None else current_verdicts(item, cve)
+        for shape in CODE_SHAPES:
+            v, why = verdicts[shape]
+            results.append(Result(item.id, cve, truth, shape, v, outcome(v, truth), 0.0, 0.0, why))
 
-        ans = tri["answer"]
+        ans, tm = tri["answer"], tri.get("model", "")
         results.append(Result(item.id, cve, truth, "agent", ans["verdict"],
-                              outcome(ans["verdict"], truth), tri["cost_usd"], tri["latency_s"]))
+                              outcome(ans["verdict"], truth), tri["cost_usd"], tri["latency_s"], "", tm))
 
         v2 = chk.verdict if chk.passed else "needs_human"
         results.append(Result(item.id, cve, truth, "agent+verify", v2, outcome(v2, truth),
-                              tri["cost_usd"], tri["latency_s"], "; ".join(chk.problems)))
+                              tri["cost_usd"], tri["latency_s"], "; ".join(chk.problems), tm))
 
         if i not in sks:
-            v3, cost, lat, note = v2, tri["cost_usd"], tri["latency_s"], "not sent to skeptic"
+            v3, cost, lat, note, sm = v2, tri["cost_usd"], tri["latency_s"], "not sent to skeptic", ""
         else:
             sk = sks[i]
-            s = sk["answer"]
+            s, sm = sk["answer"], sk.get("model", "")
             v3 = chk.verdict if accepts(s, chk.verdict, cve, src) else "needs_human"
             cost, lat = tri["cost_usd"] + sk["cost_usd"], tri["latency_s"] + sk["latency_s"]
             dropped = check_review(s, cve, src).dropped
             note = s["reason"][:200] + (f" (skeptic's quote dropped: {dropped[0]['reason']})" if dropped else "")
         results.append(Result(item.id, cve, truth, "agent+verify+skeptic", v3,
-                              outcome(v3, truth), cost, lat, note))
+                              outcome(v3, truth), cost, lat, note, tm, sm))
     return results
 
 
@@ -156,7 +219,32 @@ def summarize(results: List[Result]) -> Dict[str, dict]:
     return out
 
 
-def write_report(results: List[Result], path: Path) -> None:
+def write_report(results: List[Result], path: Path, header: Optional[dict] = None, **extra) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"summary": summarize(results),
-                                "results": [asdict(r) for r in results]}, indent=1), encoding="utf-8")
+    body = {**({"matcher": header} if header else {}), "summary": summarize(results), **extra,
+            "results": [asdict(r) for r in results]}
+    path.write_text(json.dumps(body, indent=1), encoding="utf-8")
+
+
+def changed(frozen: List[Result], current: List[Result]) -> List[str]:
+    """The code-shape verdicts the current matcher gives differently from the recorded one."""
+    was = {(r.item, r.cve, r.shape): r for r in frozen if r.shape in CODE_SHAPES}
+    return [f"{r.item} {r.cve} {r.shape}: {was[(r.item, r.cve, r.shape)].final} -> {r.final}"
+            for r in current if r.shape in CODE_SHAPES and r.final != was[(r.item, r.cve, r.shape)].final]
+
+
+def _git_head() -> str:
+    """The commit a live run's matcher came from, marked "+uncommitted" when the
+    matcher's files differ from it, since then that commit is not what ran."""
+    import subprocess
+    here = Path(__file__).resolve().parent
+    try:
+        head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=here,
+                              capture_output=True, text=True, timeout=10)
+        dirty = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", *MATCHER_SOURCES], cwd=here,
+                               capture_output=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return "unknown"
+    if head.returncode != 0:
+        return "unknown"
+    return head.stdout.strip() + ("+uncommitted" if dirty.returncode != 0 else "")

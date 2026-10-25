@@ -17,12 +17,13 @@ from pathlib import Path
 from . import agents
 from .data import SETS, current, load_inventory, use
 from .key import errata, load_pairs
-from .pipeline import run, summarize, write_report
+from .pipeline import (CODE_SHAPES, changed, matcher_header, recorded_matcher, run, summarize,
+                       write_report)
 from .planted import key_evidence, run_skeptic_side, run_verifier_side
 from .retrieval import recall
 
 
-def main(argv=None) -> int:
+def parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="exposure_watch", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--set", choices=sorted(SETS), default="original",
@@ -31,14 +32,19 @@ def main(argv=None) -> int:
     r = sub.add_parser("run")
     r.add_argument("--run", type=Path, required=True, help="directory holding recorded answers")
     r.add_argument("--live", action="store_true")
-    r.add_argument("--triage-model", default="sonnet")
-    r.add_argument("--skeptic-model", default="opus")
+    r.add_argument("--triage-model", default=agents.TRIAGE_MODEL)
+    r.add_argument("--skeptic-model", default=agents.SKEPTIC_MODEL)
     pl = sub.add_parser("planted")
     pl.add_argument("--skeptic", action="store_true")
     pl.add_argument("--run", type=Path)
     pl.add_argument("--live", action="store_true")
-    pl.add_argument("--skeptic-model", default="opus")
+    pl.add_argument("--skeptic-model", default=agents.SKEPTIC_MODEL)
     sub.add_parser("retrieval")
+    return ap
+
+
+def main(argv=None) -> int:
+    ap = parser()
     a = ap.parse_args(argv)
 
     use(a.set)
@@ -59,13 +65,20 @@ def main(argv=None) -> int:
     tri = agents.ClaudeCLI(a.triage_model) if a.live else None
     sk = agents.ClaudeCLI(a.skeptic_model) if a.live else None
     results = run(pairs, inv, a.run, tri, sk)
-    write_report(results, a.run / "report.json")
+    header = matcher_header(a.run, "recorded")
+    write_report(results, a.run / "report.json", header)
     out = {"with_errata": summarize(results)}
     if errata():
         frozen = run(load_pairs(with_errata=False), inv, a.run)   # replays the answers just saved
-        write_report(frozen, a.run / "report_frozen_key.json")
+        write_report(frozen, a.run / "report_frozen_key.json", header)
         out["frozen_key"] = summarize(frozen)
         out["errata"] = [f"{e['item']} {e['cve']}: {e['was']} -> {e['now']}" for e in errata()]
+    if recorded_matcher(a.run) is not None:
+        now = [r for r in run(pairs, inv, a.run, matcher="current") if r.shape in CODE_SHAPES]
+        delta = changed(results, now)
+        write_report(now, a.run / "report_current_matcher.json", matcher_header(a.run, "current"),
+                     changed_from_recorded=delta)
+        out["current_matcher"] = {"summary": summarize(now), "changed_from_recorded": delta}
     print(json.dumps(out, indent=1))
     return 0
 

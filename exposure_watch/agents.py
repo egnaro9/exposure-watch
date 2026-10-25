@@ -22,6 +22,11 @@ from typing import Dict, Optional
 
 from .data import Item
 
+# Full model IDs, not aliases: an alias like "sonnet" moves to a newer model
+# without notice, and one run directory could then hold answers from two models.
+TRIAGE_MODEL = "claude-sonnet-5"
+SKEPTIC_MODEL = "claude-opus-5"
+
 ANSWER_SCHEMA = {
     "type": "object",
     "properties": {
@@ -100,6 +105,8 @@ class ClaudeCLI:
             raise RuntimeError(f"claude call failed: {str(meta.get('result'))[:200]}")
         if meta.get("structured_output") is None:
             raise RuntimeError(f"no structured answer returned: {str(meta.get('result'))[:200]}")
+        if meta.get("total_cost_usd") is None:
+            raise RuntimeError("claude reported no cost for this call; an answer is not saved without one")
         return {"answer": meta["structured_output"],
                 "cost_usd": meta.get("total_cost_usd"),
                 "latency_s": round(time.time() - t0, 2),
@@ -120,13 +127,27 @@ class Recorded:
         return json.loads(p.read_text(encoding="utf-8"))
 
 
+MANIFEST = "prompt_manifest.json"
+
+
+def manifest(run_dir: Path) -> Optional[Dict[str, str]]:
+    """For a run recorded before answers carried their prompt's hash: the hashes
+    its prompt_manifest.json gives them, computed later from the code. None when
+    the run has no manifest. Read on every call, so it can never be stale."""
+    f = run_dir.parent / MANIFEST
+    return json.loads(f.read_text(encoding="utf-8"))["prompts"] if f.exists() else None
+
+
 def fetch(backend: Optional[ClaudeCLI], run_dir: Path, key: str,
           system: str, prompt: str, schema: dict) -> dict:
     """A saved answer if this run already has one, else a live call that is saved.
 
     Without a backend this is a pure replay. With one, a rerun after a failure
     pays only for the calls that are missing. A saved answer is never reused
-    for a different model or, when it records one, a different prompt.
+    for a different model or a different prompt: its own hash and, for round 1,
+    the run's prompt manifest must both match the question asked now; a run
+    with a manifest must list every answer that has no hash of its own; and a
+    live call will not reuse an answer that records no hash at all.
     """
     asked = hashlib.sha256(json.dumps([system, prompt, schema], sort_keys=True).encode()).hexdigest()
     if (run_dir / f"{key}.json").exists():
@@ -134,9 +155,18 @@ def fetch(backend: Optional[ClaudeCLI], run_dir: Path, key: str,
         if backend and rec.get("requested_model") != backend.model:
             raise RuntimeError(f"{run_dir}/{key}.json was answered by {rec.get('requested_model')!r}, "
                                f"not {backend.model!r}: use a fresh --run directory")
-        if "prompt_sha256" in rec and rec["prompt_sha256"] != asked:
-            raise RuntimeError(f"{run_dir}/{key}.json answers a different question than the one "
-                               f"asked now: use a fresh --run directory")
+        if backend and "prompt_sha256" not in rec:
+            raise RuntimeError(f"{run_dir}/{key}.json records no prompt hash, so nothing shows it answers "
+                               f"the question asked now: use a fresh --run directory")
+        listed = manifest(run_dir)
+        if listed is not None and "prompt_sha256" not in rec and f"{run_dir.name}/{key}" not in listed:
+            raise RuntimeError(f"{run_dir}/{key}.json has no prompt hash and {MANIFEST} does not list it")
+        for expected in (rec.get("prompt_sha256"), (listed or {}).get(f"{run_dir.name}/{key}")):
+            if expected is not None and expected != asked:
+                raise RuntimeError(f"{run_dir}/{key}.json answers a different question than the one "
+                                   f"asked now: use a fresh --run directory")
+        if rec.get("cost_usd") is None:
+            raise ValueError(f"{run_dir}/{key}.json records no cost; a replay will not count it as free")
         return rec
     if backend is None:
         return Recorded(run_dir).load(key)
