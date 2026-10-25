@@ -7,17 +7,17 @@ writes them: "13.1-49.13", "17.9.4a", "10.2.9-h1", "22.6R2", "2019 CU8".
 
 Comparison is token by token: numbers numerically, letters alphabetically,
 except that a pre-release tag (alpha, beta, rc) sorts before any other letters
-in the same place. Zeros that end a version, or end the numbers before a tag,
-are dropped first: "2.4.0" is "2.4", "17.9.4.0" is "17.9.4", "2.0.0-rc1" is
-"2.0-rc1". When a number meets a letter at the same position the letter sorts
+in the same place. Zeros that end a version, or end the numbers before any
+letters, are dropped first: "2.4.0" is "2.4", "17.9.4.0" is "17.9.4",
+"2.0.0-rc1" is "2.0-rc1", "10.2.0-h1" is "10.2-h1". When a number meets a letter at the same position the letter sorts
 first, which is pre-release order ("2.0-beta9" before "2.0.1"). When one
 version is a prefix of the other, the shorter sorts first, which is rebuild
 order ("17.9.4" before "17.9.4a"), unless the rest starts with a pre-release
 tag ("2.0-beta9" before "2.0"). So 2.0-rc1 < 2.0 < 2.0-patch1. These rules
 are stated because each is wrong for some vendor: the answer key in eval/
 records which pairs exercise the rebuild and zero rules, the tests pin the
-rest, and a spelling test checks that every equivalent way of writing a
-version gets the same verdict.
+rest, and a spelling test checks that a version written in either case, with a
+trailing .0 more or less, or with any Log4j separator, gets the same verdict.
 """
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ def tokens(v: str) -> List[Token]:
 
 
 def canonical(ts: List[Token]) -> List[Token]:
-    """Drop the zeros that end a version or end the numbers before a tag. "2.4"
+    """Drop the zeros that end a version or end the numbers before any letters. "2.4"
     and "2.4.0" are the same release: NVD starts the Log4Shell range at 2.4.0, and
     without this an inventory's "2.4" fell outside it as not_affected. A zero that
     met a rebuild letter also put "17.9.4.0" after "17.9.4a"."""

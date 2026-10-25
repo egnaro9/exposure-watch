@@ -361,11 +361,11 @@ def test_planted_verifier_table_matches_the_readme():
         "quote_altered": (19, 19), "wrong_source": (22, 22), "invented_cve": (22, 22),
         "wrong_cve": (22, 22), "verdict_flipped": (22, 0),
         # real text, misleading: the verifier keeps every one by design
-        "condition_dropped": (3, 0), "negation_dropped": (11, 0), "wrong_row": (18, 0), "truncated_row": (7, 0)}
+        "condition_dropped": (1, 0), "negation_dropped": (3, 0), "wrong_row": (11, 0), "truncated_row": (7, 0)}
 
 
 def _misleading_mutants():
-    """(set, item, reference answer, class, mutant, documents) for every misleading mutant in both sets."""
+    """(set, item, truth, reference answer, class, mutant, documents) for every misleading mutant in both sets."""
     from exposure_watch import data, key
     from exposure_watch.planted import key_evidence, misleading, reference_answer
     out = []
@@ -377,35 +377,128 @@ def _misleading_mutants():
                 e = ev.get((p["item"], p["cve"])) if ev is not None else None
                 if ev is not None and e is None:
                     continue
-                base = reference_answer(inv[p["item"]], p["cve"], p["truth"], e)
+                item = inv[p["item"]]
+                base = reference_answer(item, p["cve"], p["truth"], e)
                 if base is None:
                     continue
-                src = sources_for(inv[p["item"]], p["cve"])
-                out += [(name, p["item"], base, k, m, src) for k, m in misleading(base, src).items()]
+                src = sources_for(item, p["cve"])
+                out += [(name, item, p["cve"], p["truth"], base, k, m, src)
+                        for k, m in misleading(base, src, item, p["cve"]).items()]
     return out
 
 
 def test_misleading_mutants_are_wrong_answers_on_real_text():
-    """Each class does what its name says, and each quote is a verbatim
-    substring of its document, so the verifier keeps it."""
-    from exposure_watch.planted import NEGATION, QUALIFIER, _rows
-    from exposure_watch.baseline import CONDITION
+    """Each mutant gets the verdict wrong, by the pipeline's own scoring, and
+    quotes a verbatim piece of its document that, read alone, points toward the
+    wrong verdict, so the verifier keeps it."""
+    from exposure_watch import baseline, data
+    from exposure_watch.planted import _rows
+    from exposure_watch.versions import split_update
+    # Written out here rather than imported, so weakening the module's own
+    # patterns cannot weaken the check on them.
+    negations = re.compile(r"\b(?:not|no|never|without|unless|except|cannot|only)\b", re.I)
+    conditions = re.compile(r"\b(?:when|if|unless|provided that|configured as)\b", re.I)
     ms = _misleading_mutants()
     assert {k for *_, k, _, _ in ms} == {"condition_dropped", "negation_dropped", "wrong_row", "truncated_row"}
-    for name, item, base, k, m, src in ms:
-        q = m["claims"][0]["quote"]
-        assert " ".join(q.split()) in " ".join(src[m["claims"][0]["source"]].split()), (item, k)
+    for name, item, cve, truth, base, k, m, src in ms:
+        q = " ".join(m["claims"][0]["quote"].split())
+        assert q in " ".join(src[m["claims"][0]["source"]].split()), (item.id, k)
+        assert outcome(m["verdict"], truth) not in ("correct", "escalated"), (item.id, k)
         cited = " ".join(base["claims"][0]["quote"].split())
         if k == "condition_dropped":
-            assert m["verdict"] == "affected" and base["verdict"] == "conditional"
-            assert not CONDITION.search(q) and not QUALIFIER.search(q) and cited.startswith(q), (item, q)
+            assert (base["verdict"], m["verdict"]) == ("conditional", "affected")
+            assert cited.startswith(q) and len(q) >= 20 and not conditions.search(q), (item.id, q)
+            assert not negations.search(q), (item.id, q)
         if k == "negation_dropped":
-            assert m["verdict"] != base["verdict"] and not NEGATION.match(q + " "), (item, q)
+            assert m["verdict"] == "affected" != base["verdict"]
+            assert len(q) >= 20 and not negations.search(q), (item.id, q)
+            assert re.match(r"(?:affected|vulnerable|impacted|exploitable)\b", q), (item.id, q)
+            assert re.search(r"\bnot\s+" + re.escape(q), " ".join(src[m["claims"][0]["source"]].split())), q
         if k == "wrong_row":
-            assert m["verdict"] == base["verdict"] and cited not in q and q in _rows(src), (item, q)
+            assert m["verdict"] == "not_affected" and q in _rows(src), (item.id, q)
+            with data.using(name):
+                row = next(r for r in data.vulnerable_rows(cve) if " ".join(data.config_line(r).split()) == q)
+                assert ":".join(row["criteria"].split(":")[3:5]) in baseline.names_for(item.vendor, item.product)
+            assert not baseline.covers(row, *split_update(item.vendor, item.product, item.version)), (item.id, q)
         if k == "truncated_row":
             assert (base["verdict"], m["verdict"]) == ("not_affected", "affected")
-            assert " | " not in q and any(r.startswith(q + " | ") and cited in r for r in _rows(src)), (item, q)
+            assert " | " not in q and any(r.startswith(q + " | ") and cited in r for r in _rows(src)), (item.id, q)
+
+
+@pytest.mark.parametrize("set_name,item_id,cls,verdict,quote", [
+    ("original", "inv-05", "condition_dropped", "affected",
+     "Sensitive information disclosure in NetScaler ADC and NetScaler Gateway"),
+    ("original", "inv-07", "negation_dropped", "affected", "affected by this vulnerability"),
+    ("original", "inv-01", "wrong_row", "not_affected",
+     "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:* | versionStartIncluding=2.4.0 | versionEndExcluding=2.12.2"),
+    ("original", "inv-02", "truncated_row", "affected", "cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*"),
+    ("heldout", "ho-22", "negation_dropped", "affected", "exploitable due to changes in the underlying framework"),
+    ("heldout", "ho-05", "condition_dropped", "affected",
+     "This vulnerability is due to improper handling of email attachments"),
+    # the row of the same release line nearest the version, not the first one listed
+    ("original", "inv-09", "wrong_row", "not_affected",
+     "cpe:2.3:a:microsoft:exchange_server:2019:cumulative_update_7:*:*:*:*:*:*"),
+    ("original", "inv-18", "wrong_row", "not_affected", "cpe:2.3:a:ivanti:connect_secure:22.6:r1:*:*:*:*:*:*"),
+    ("heldout", "ho-53", "wrong_row", "not_affected",
+     "cpe:2.3:a:cisco:identity_services_engine:3.5.0:patch2:*:*:*:*:*:*"),
+])
+def test_each_misleading_class_plants_the_expected_answer(set_name, item_id, cls, verdict, quote):
+    """Pinned examples, so a change to which text a class picks shows up here."""
+    got = [m for name, item, _, _, _, k, m, _ in _misleading_mutants() if (name, item.id, k) == (set_name, item_id, cls)]
+    assert len(got) == 1
+    assert got[0]["verdict"] == verdict and " ".join(got[0]["claims"][0]["quote"].split()) == quote
+
+
+def _toy_misleading(monkeypatch, verdict, quote, description="", kev="", rows=(), config=""):
+    """misleading() on a made-up answer and documents, for guards no real record exercises."""
+    from exposure_watch import planted
+    from exposure_watch.data import Item
+    monkeypatch.setattr(planted, "vulnerable_rows", lambda cve: list(rows))
+    monkeypatch.setattr(planted, "names_for", lambda vendor, product: ["acme:widget"])
+    ans = {"cve": "CVE-2099-0001", "verdict": verdict, "claims": [{"text": "t", "source": "nvd_description",
+                                                                  "quote": quote}]}
+    src = {"nvd_description": description, "kev": kev, "nvd_config": config}
+    return planted.misleading(ans, src, Item("t", "Acme", "Widget", "2.5", "h"), "CVE-2099-0001")
+
+
+@pytest.mark.parametrize("description,kev,want", [
+    ("Version 3 is not affected by this flaw in any setup.", "", "affected by this flaw in any setup"),
+    ("Version 3 is not affected unless the plugin is enabled.", "", None),     # would quote "unless"
+    ("Version 3 is not affected here.", "", None),                             # too short to say anything
+    ("Builds are not affected by versions 9.1.2 and later. More.", "", "affected by versions 9.1.2 and later"),
+    ("Builds are not affected by this flaw at all.", "Hosts are not vulnerable to anything in this.",
+     "affected by this flaw at all"),                                         # the description comes first
+])
+def test_negation_dropped_guards(monkeypatch, description, kev, want):
+    got = _toy_misleading(monkeypatch, "not_affected", "q" * 10, description, kev).get("negation_dropped")
+    assert (got["claims"][0]["quote"] if got else None) == want
+    if got:
+        assert got["claims"][0]["source"] == "nvd_description" and got["verdict"] == "affected"
+
+
+@pytest.mark.parametrize("quote,want", [
+    ("The service leaks memory when configured as a gateway", "The service leaks memory"),
+    ("This is only present when configured as a gateway", None),        # the cut would still say "only"
+    ("A leak when configured as a gateway", None),                      # too short once cut
+])
+def test_condition_dropped_guards(monkeypatch, quote, want):
+    got = _toy_misleading(monkeypatch, "conditional", quote).get("condition_dropped")
+    assert (got["claims"][0]["quote"] if got else None) == want
+
+
+def test_wrong_row_cites_a_shown_row_nearest_the_version(monkeypatch):
+    """Of the rows that leave 2.5 out, the one ending at 2.0 is nearest from below.
+    A row the agent was never shown cannot be cited, however near."""
+    def row(start, end):
+        return {"vulnerable": True, "criteria": "cpe:2.3:a:acme:widget:*:*:*:*:*:*:*:*",
+                "versionStartIncluding": start, "versionEndExcluding": end}
+    far, near, hidden, above = row("0.1", "1.0"), row("1.0", "2.0"), row("2.0", "2.4"), row("3.0", "4.0")
+    from exposure_watch.data import config_line
+    shown = "\n".join(config_line(r) for r in (far, near, above))
+    got = _toy_misleading(monkeypatch, "affected", "q" * 10, rows=(far, near, hidden, above), config=shown)
+    assert got["wrong_row"]["claims"][0]["quote"] == config_line(near)
+    only_above = _toy_misleading(monkeypatch, "affected", "q" * 10, rows=(above,), config=config_line(above))
+    assert only_above["wrong_row"]["claims"][0]["quote"] == config_line(above)
 
 
 def test_heldout_misleading_classes_are_counted_and_all_pass_the_verifier():
@@ -415,7 +508,18 @@ def test_heldout_misleading_classes_are_counted_and_all_pass_the_verifier():
         t = run_verifier_side(key.load_pairs(), {i.id: i for i in load_inventory(ds.inventory)}, key_evidence())
     assert {k: (t[k]["planted"], t[k]["caught_by_verifier"]) for k in
             ("condition_dropped", "negation_dropped", "wrong_row", "truncated_row")} == {
-        "condition_dropped": (2, 0), "negation_dropped": (18, 0), "wrong_row": (42, 0), "truncated_row": (21, 0)}
+        "condition_dropped": (1, 0), "negation_dropped": (4, 0), "wrong_row": (30, 0), "truncated_row": (21, 0)}
+
+
+def test_the_planted_command_hands_the_skeptic_side_the_key_quotes(monkeypatch, tmp_path):
+    """The CLI must pass the labelers' quotes to both halves on a set that has them."""
+    from exposure_watch import __main__ as cli, data
+    seen = {}
+    monkeypatch.setattr(cli, "run_verifier_side", lambda pairs, inv, ev: seen.setdefault("verifier", ev) and {})
+    monkeypatch.setattr(cli, "run_skeptic_side", lambda pairs, inv, d, sk, ev: seen.setdefault("skeptic", ev) and {})
+    with data.using("original"):          # main() switches sets for the process; put it back
+        cli.main(["--set", "heldout", "planted", "--skeptic", "--run", str(tmp_path)])
+    assert seen["verifier"] is not None and len(seen["verifier"]) == 57 and seen["skeptic"] is seen["verifier"]
 
 
 class _Remembers:
@@ -725,8 +829,10 @@ def _spellings(written):
 
 def _spelling_failures():
     """Every inventory item, and every exact row and range bound of an aliased
-    product in every NVD record, written each equivalent way: the verdict must
-    not change. Deterministic; the property the trailing-zero bug broke."""
+    product in every NVD record, written the other ways _spellings knows (case,
+    one trailing .0 on a dotted version, Log4j separators): the verdict must not
+    change. Deterministic; the property the trailing-zero bug broke. It checks
+    only that the matcher agrees with itself, not that it is right."""
     from exposure_watch import baseline, data
     from exposure_watch.data import Item, vulnerable_rows
     cases = []
@@ -762,8 +868,10 @@ def _spelling_failures():
 
 def test_every_spelling_of_a_version_gets_the_same_verdict():
     """2.4 and 2.4.0, 17.9.4 and 17.9.4.0, 2.0-beta9 and 2.0.beta9, R81.20 and
-    r81.20 are each one version. On the code before 8bb5bcf this flagged Log4j
-    2.4 against 2.4.0, the trailing-zero bug, and 63 fixture rows besides."""
+    r81.20 are each one version. Given the version code from before 8bb5bcf,
+    this harness flags 203 cases across both sets, Log4j 2.4 against 2.4.0 (the
+    trailing-zero bug) among them; it would not have flagged Log4j 2.0-beta9,
+    which that code read wrong in every spelling."""
     checked, fails = _spelling_failures()
     assert checked > 1300
     assert not fails, f"{len(fails)} of {checked} change verdict with spelling, e.g. {fails[:3]}"

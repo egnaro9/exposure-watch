@@ -75,25 +75,28 @@ def judge(item: Item, cve: str) -> Tuple[str, str]:
     if not names:
         return "unknown", "no alias for this product"
     version, update = split_update(item.vendor, item.product, item.version)
-    ranged = range_version(version, update)
     for m in vulnerable_rows(cve):
         f = m["criteria"].split(":")
-        if f"{f[3]}:{f[4]}" not in names:
-            continue
-        if any(m.get(k) for k in _RANGE_KEYS):
-            if in_range(ranged,
+        if f"{f[3]}:{f[4]}" in names and covers(m, version, update):
+            return "affected", config_line(m)
+    return "not_affected", "no vulnerable row matched"
+
+
+def covers(m: dict, version: str, update: str) -> bool:
+    """Whether one vulnerable row describes a (version, update) as split_update
+    gives it: a range that contains it, or an exact version and update equal to
+    it. Whether the row is about the item's product is the caller's question."""
+    if any(m.get(k) for k in _RANGE_KEYS):
+        ranged = range_version(version, update)
+        return in_range(ranged,
                         start=m.get("versionStartIncluding") or m.get("versionStartExcluding") or "",
                         start_incl=bool(m.get("versionStartIncluding")),
                         end=m.get("versionEndIncluding") or m.get("versionEndExcluding") or "",
-                        end_incl=bool(m.get("versionEndIncluding"))):
-                return "affected", config_line(m)
-            continue
-        row_version, row_update = f[5], f[6]
-        if row_version in ("*", "-") or compare(version, row_version) != 0:
-            continue
-        if row_update == "*" or row_update == update or (row_update == "-" and update in ("-", "*")):
-            return "affected", config_line(m)
-    return "not_affected", "no vulnerable row matched"
+                        end_incl=bool(m.get("versionEndIncluding")))
+    row_version, row_update = m["criteria"].split(":")[5:7]
+    if row_version in ("*", "-") or compare(version, row_version) != 0:
+        return False
+    return row_update == "*" or row_update == update or (row_update == "-" and update in ("-", "*"))
 
 
 # A description phrase that makes exposure depend on something the inventory

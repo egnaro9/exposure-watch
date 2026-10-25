@@ -2,7 +2,7 @@
 
 Base answers are reference answers built from the answer key: the right verdict
 plus one claim quoting the NVD row or passage that decides it. Each is mutated
-five ways, one defect per mutant:
+five ways, one defect per mutant, and up to four more ways below:
 
   quote_altered    one digit in the quote changed            (verifier should catch)
   wrong_source     a real quote credited to the wrong document (verifier should catch)
@@ -14,23 +14,27 @@ The last class is the point. A verifier that only checks evidence passes a
 wrong conclusion that cites real text, and this suite measures that gap
 instead of describing it.
 
-Four more classes are wrong answers whose quotes are real text, still verbatim
-substrings of their documents, so the verifier keeps them by design
-(misleading(), below): a condition or a negation cut out of the quote, a
-different row of the same configuration document, and a row cut before its
-version bounds. Like verdict_flipped, catching them is the skeptic's job.
+Four more classes are wrong verdicts whose quotes are real text that points
+toward them, still verbatim substrings of their documents, so the verifier
+keeps them by design (misleading(), below): a condition or a "not" cut out of
+the quote, another row of the product that leaves the version out, and a row
+cut before its version bounds. Like verdict_flipped, they are for the skeptic,
+but the skeptic side does not plant them yet: measuring that needs code that
+hands them to it, and model calls.
 """
 from __future__ import annotations
 
 import copy
 import re
+from functools import cmp_to_key
 from typing import Dict, List, Optional
 
 from pathlib import Path
 
 from . import agents
-from .baseline import CONDITION, judge, nearest_row
-from .data import Item, current, load_inventory, sources_for, nvd_description
+from .baseline import _RANGE_KEYS, CONDITION, covers, judge, names_for, nearest_row
+from .data import Item, config_line, current, load_inventory, sources_for, nvd_description, vulnerable_rows
+from .versions import compare, range_version, split_update
 from .pipeline import _each
 from .verify import accepts, check
 
@@ -119,68 +123,100 @@ def mutants(ans: dict) -> Dict[str, dict]:
     return out
 
 
-QUALIFIER = re.compile(r"\b(?:when|if|only|unless|provided)\b", re.I)
-NEGATION = re.compile(r"\b(?:not|no|never|without|unless|except|cannot)\b\s+", re.I)
+CONDITION_WORD = re.compile(r"\b(?:when|if|unless|provided that|configured as)\b", re.I)
+NOT_AFFECTED = re.compile(r"\bnot\s+(?=(?:affected|vulnerable|impacted|exploitable)\b)", re.I)
+NEGATION = re.compile(r"\b(?:not|no|never|without|unless|except|cannot|only)\b", re.I)
+MIN_QUOTE = 20      # shorter than this, a cut quote says nothing ("This vulnerability is")
 
 
 def _rows(src: Dict[str, str]) -> List[str]:
     return [" ".join(r.split()) for r in src["nvd_config"].splitlines() if r.strip()]
 
 
-def misleading(ans: dict, src: Dict[str, str]) -> Dict[str, dict]:
-    """Wrong answers that rest on real text. Each quote is a verbatim substring of
-    its document, so the verifier keeps it by design; catching it is the skeptic's
-    job, as with verdict_flipped. A class is left out where the reference answer
-    gives it nothing to work on.
+def _closest(outside: List[dict], version: str, update: str) -> dict:
+    """Of rows that leave a version out, the one nearest it, which is the most
+    misleading to cite: the highest below it, else the lowest above it. A range
+    sits below at its end bound and above at its start; an exact row sits at its
+    own (version, update). For Exchange 2019 CU8 that is the 2019 CU7 row."""
+    at = range_version(version, update)
+    below, above = [], []
+    for r in outside:
+        if any(r.get(k) for k in _RANGE_KEYS):
+            end = r.get("versionEndIncluding") or r.get("versionEndExcluding") or ""
+            start = r.get("versionStartIncluding") or r.get("versionStartExcluding") or ""
+            if end and compare(end, at) <= 0:
+                below.append((end, r))
+            else:
+                above.append((start, r))
+        else:
+            f = r["criteria"].split(":")
+            at_row = range_version(f[5], f[6])
+            (below if compare(at_row, at) < 0 else above).append((at_row, r))
+    by_version = cmp_to_key(lambda a, b: compare(a[0], b[0]))
+    return max(below, key=by_version)[1] if below else min(above, key=by_version)[1]
+
+
+def misleading(ans: dict, src: Dict[str, str], item: Item, cve: str) -> Dict[str, dict]:
+    """Wrong answers that rest on real text. Each has the wrong verdict, and each
+    quote is a verbatim substring of its document that, read alone, points toward
+    that verdict, so the verifier keeps it by design. A class is left out where the
+    reference answer gives it nothing honest to work on.
 
       condition_dropped  a conditional answer turned affected, its quote cut
-                         before the condition ("...when configured as a Gateway")
-      negation_dropped   the opposite verdict, quoting the words after a negation
-                         without it ("does not adequately validate" quoted as
-                         "adequately validate"), from the NVD description or KEV
-      wrong_row          the same verdict, citing another row of nvd_config:
-                         another row of the same product if there is one, else a
-                         neighbouring product's row
+                         before the condition word ("...NetScaler Gateway" without
+                         "when configured as a Gateway"); never left saying "only"
+      negation_dropped   a not-affected or conditional answer turned affected,
+                         quoting a document's "not affected" (or not vulnerable,
+                         impacted, exploitable) statement from the word after the
+                         "not", which leaves it naming no subject
+      wrong_row          an affected or conditional answer turned not affected,
+                         citing the real row of the item's own product nearest the
+                         version that leaves it out; the expensive miss
       truncated_row      a not-affected answer turned affected, its row cut before
                          the version bounds, so it reads as every version (the
-                         idea of evalmut's truncate_before_answer)
+                         truncation operator of evalmut, a separate mutation tool)
     """
     out: Dict[str, dict] = {}
     claim = ans["claims"][0]
     q = " ".join(claim["quote"].split())
+    rows = _rows(src)
     if ans["verdict"] == "conditional":
-        starts = [m.start() for m in (CONDITION.search(q), QUALIFIER.search(q)) if m]
-        head = q[:min(starts)].strip(" ,;:") if starts else ""
-        if len(head) >= 8:
+        m = CONDITION_WORD.search(q)
+        head = q[:m.start()].strip(" ,;:") if m else ""
+        if len(head) >= MIN_QUOTE and not NEGATION.search(head):
             v = copy.deepcopy(ans)
             v["verdict"], v["claims"][0]["quote"] = "affected", head
             out["condition_dropped"] = v
-    for doc in ("nvd_description", "kev"):
-        text = " ".join(src[doc].split())
-        m = NEGATION.search(text)
-        after = text[m.end():].split(". ")[0].strip(" .") if m else ""
-        if len(after) >= 8:
+    if ans["verdict"] != "affected":
+        for doc in ("nvd_description", "kev"):
+            text = " ".join(src[doc].split())
+            m = NOT_AFFECTED.search(text)
+            after = text[m.end():].split(". ")[0].strip(" .") if m else ""
+            if len(after) >= MIN_QUOTE and not NEGATION.search(after):
+                v = copy.deepcopy(ans)
+                v["verdict"] = "affected"
+                v["claims"] = [{"text": "the documents say so", "source": doc, "quote": after}]
+                out["negation_dropped"] = v
+                break
+    if ans["verdict"] in ("affected", "conditional"):
+        version, update = split_update(item.vendor, item.product, item.version)
+        names = names_for(item.vendor, item.product)
+        outside = [r for r in vulnerable_rows(cve)
+                   if ":".join(r["criteria"].split(":")[3:5]) in names
+                   and " ".join(config_line(r).split()) in rows and not covers(r, version, update)]
+        if outside:
             v = copy.deepcopy(ans)
-            v["verdict"] = FLIP[ans["verdict"]]
-            v["claims"] = [{"text": "the documents say so", "source": doc, "quote": after}]
-            out["negation_dropped"] = v
-            break
-    if claim["source"] == "nvd_config":
-        rows = _rows(src)
+            v["verdict"] = "not_affected"
+            v["claims"] = [{"text": "the installed version is outside this row", "source": "nvd_config",
+                            "quote": config_line(_closest(outside, version, update))}]
+            out["wrong_row"] = v
+    if claim["source"] == "nvd_config" and ans["verdict"] == "not_affected":
         cited = next((r for r in rows if q in r), None)
-        if cited is not None:
-            product = cited.split(":")[3:5]
-            others = [r for r in rows if q not in r]
-            other = next((r for r in others if r.split(":")[3:5] == product), others[0] if others else None)
-            if other is not None:
-                v = copy.deepcopy(ans)
-                v["claims"][0]["quote"] = other
-                out["wrong_row"] = v
-            head = cited.split(" | ")[0]
-            if ans["verdict"] == "not_affected" and head != cited:
-                v = copy.deepcopy(ans)
-                v["verdict"], v["claims"][0]["quote"] = "affected", head
-                out["truncated_row"] = v
+        head = cited.split(" | ")[0] if cited else ""
+        if cited and head != cited:
+            v = copy.deepcopy(ans)
+            v["verdict"], v["claims"][0]["quote"] = "affected", head
+            out["truncated_row"] = v
     return out
 
 
@@ -207,7 +243,7 @@ def run_verifier_side(pairs: List[dict], inventory: Dict[str, Item],
             continue
         src = sources_for(item, cve)
         assert not verifier_catches(base, cve, src), f"reference answer for {p} fails its own check"
-        for name, mut in {**mutants(base), **misleading(base, src)}.items():
+        for name, mut in {**mutants(base), **misleading(base, src, item, cve)}.items():
             t = tally.setdefault(name, {"planted": 0, "caught_by_verifier": 0})
             t["planted"] += 1
             t["caught_by_verifier"] += verifier_catches(mut, cve, src)
